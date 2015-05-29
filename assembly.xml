@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GBK"?>
+<assembly>
+    <id>tgz</id>
+    <baseDirectory>wyvs-sys.war</baseDirectory>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>target/wyvs-sys.war</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>**/**</include>
+            </includes>
+            <!--<excludes>-->
+                <!--<exclude>WEB-INF/lib/spring-2*.jar</exclude>-->
+            <!--</excludes>-->
+        </fileSet>
+    </fileSets>
+</assembly>

@@ -1,0 +1,246 @@
+body
+{
+  margin: 0;
+}
+.etc-login-wrapper{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	font-family: Arial,sans-serif;
+}
+.etc-login-form{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 999;
+	margin: -207px 0 0 -207px;
+	padding: 100px 75px 0;
+	width: 264px;
+	height: 314px;
+	background: url(../../images/login/form_mask.png) no-repeat;
+}
+.etc-login-footer
+{
+	position: fixed;
+	bottom: 0;
+	padding: 15px 0;
+	width: 100%;
+	background: #1a1a1a;
+}
+.etc-login h1{
+	margin: 0;
+	color: #fff;
+	font-size: 29px;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-align: center;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.etc-login h1.is-china{
+	font-size: 34px;
+}
+.etc-login-error{
+	margin: 5px 0;
+	color: #e74c3c;
+	font-size: 13px;
+	text-align: center;
+	height: 20px;
+}
+.etc-login-error-msg
+{
+	display: none;
+}
+
+.etc-login-input{
+	margin: 3px 0;
+	padding: 8px 14px;
+	width: 232px;
+	font-size: 15px;
+	border: 2px solid #eee;
+}
+.etc-login-input.is-error{
+	border: 2px solid #e74c3c;
+}
+.etc-login-btn{
+	display: inline-block;
+	margin: 12px 0 0;
+	height: 48px;
+	width: 264px;
+	background: #d70582;
+	color: #fff;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 48px;
+	text-transform: uppercase;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+}
+.etc-login-btn.is-small{
+	text-transform: none;
+	font-size: 14px;
+}
+.etc-login-indicator{
+	display: inline-block;
+	margin: 0 0 0 10px;
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 10px solid #fff;
+}
+.etc-login-indicator.is-show{
+	border-bottom: 10px solid #fff;
+	border-top: none;
+}
+.etc-login-copyright{
+	margin: 0;
+	padding: 0 0 0 50px;
+	color: #fff;
+	font-size: 11px;
+	line-height: 15px;
+}
+.etc-login-languageSwitch{
+	float: right;
+	position: relative;
+	margin-right: 35px;
+	color: #fff;
+	font-size: 14px;
+	cursor: pointer;
+}
+.etc-login-language{
+	display: none;
+	position: absolute;
+	bottom: 30px;
+	right: 0;
+	margin: 0;
+	padding: 15px;
+	width: 120px;
+	background: #000;
+	border-radius: 5px;
+	color: #C4C9CC;
+	list-style: none;
+	line-height: 24px;
+}
+.placeholder{
+	color: #999;
+}
+.etc-login-forgot-password{
+	margin: 25px 0 0;
+	color: #fff;
+	font-size: 12px;
+	text-align: center;
+}
+/**** sprite icon ****/
+.etc-login-sprite{
+	display: inline-block;
+	
+}
+.etc-login-icon-lock{
+	margin-right: 5px;
+	width: 10px;
+	height: 16px;
+	background-position: 0 0;
+	vertical-align: middle;
+}
+.etc-login-icon-mail{
+	width: 14px;
+	height: 13px;
+	background-position: 0 -33px;
+}
+.etc-login-icon-shield{
+	width: 14px;
+	height: 16px;
+	background-position: 0 -45px;
+}
+.etc-login-icon-refresh{
+	width: 19px;
+	height: 18px;
+	background-position: 0 -16px;
+}
+.etc-login-icon-slash{
+	width: 13px;
+	height: 54px;
+	background-position: -18px 0;
+}
+
+/**** interception styles ****/
+.etc-login-intercept{
+	padding: 40px;
+	width: 660px;
+	text-align: center;
+	font-size: 14px;
+	color: #1a1a1a;
+	background: #fff;
+	font-family: arial, sans-serif;
+	/*position: absolute;
+	top:0;*/
+}
+.etc-login-intercept-head{
+	border-bottom: 1px solid #e6e4e0;
+	margin: 10px 0 50px;
+	padding-bottom: 35px;
+}
+.etc-login-intercept-title{
+	margin: 0;
+	font-size: 39px;
+	text-transform: uppercase;
+	font-family: 'BebasNeueRegular', Impact, Arial, serif;
+	font-weight: normal;
+}
+.etc-login-intercept-input{
+	padding: 9.5px;
+	height: 15px;
+	width: 355px;
+	border: 1px solid #737373;
+}
+.etc-login-intercept-input.is-short{
+	width: 160px;
+}
+.etc-login-intercept-line{
+	margin: 10px 0; 
+}
+.etc-login-intercept-tip{
+	margin: 29px 0 0;
+	padding: 29px 0 0;
+	border-top: 1px solid #e6e4e0;
+}
+.etc-login-intercept-captcha{
+	margin: 0 0 0 15px;
+	height: 35px;
+	width: 145px;
+	vertical-align: top;
+
+}
+.etc-login-captcha-refresh{
+	display: inline-block;
+	padding: 9px 0 10px;
+	width: 36px;
+	height: 16px;
+	background-color: #3f4043;
+	vertical-align: top;
+	cursor: pointer;
+}
+#forgot-password{
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
+.etc-hidden{
+	display: none;
+}
+.etc-login-intercept-mailto{
+	text-decoration: underline;
+}
+.etc-login-intercept-tip strong{
+	font-size: 1.2em;
+}
+.etc-login-intercept-tip p{
+	margin-bottom: 0; 
+}
+body{
+	overflow-y: hidden\0;
+}
+#fancybox-overlay{
+	position: relative!important;
+}
