@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="wyvs-sys:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="wyvs-sys.war">
-      <element id="artifact" artifact-name="wyvs-sys:war exploded" />
-    </root>
-  </artifact>
-</component>
