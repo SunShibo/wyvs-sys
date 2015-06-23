@@ -1,15 +1,14 @@
 package com.wyvs.wp.entity;
 import java.io.Serializable;
 import java.util.Date;
-public class MemberInfo  implements Serializable {
+public class MemberDo implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	private Integer id; //主键
 	private String name; //会员姓名
-	private String eName; //英文名
+	private String englishName; //英文名
 	private Integer gender; //性别
-	private Integer departmentId; //部门id
-	private String departmentFlag;//部门节点
-	private String departmentName;//部门名称
 	private Integer educationBackground; //学历
 	private Date birthday; //生日
 	private String university; //毕业院校
@@ -28,18 +27,34 @@ public class MemberInfo  implements Serializable {
 	private Date quitTime; //退会时间
 	private Date createTime; //创建时间
 	private Integer delFlag; //删除标记 0未删除 ， 1已删除
-	private Integer stateId; //会员状态  1待面试会员  2实习期会员 3正式会员 4退会会员 5面试不通过会员
-	private String stateName;
+	private Integer state; //会员状态
 	private String remarks;	//备注
 	private String description;	//个人描述
 	private String address;//地址
 	private String password;//密码
 	private Integer roleId;	//角色id
 	private String roleName;//角色名称
-	private Integer enabledState; //打开状态  0为关闭状态、1开启状态
-	
+	private Integer enabledState; //打开状态  0为停用状态、1启用状态 、2待激活
+	private String jobGrade ;//职级
+
 	private Integer sendEmail ; //参数 发送邮件 1代表确认发送
-	
+
+	// 1待面试会员  2试用期会员 3正式会员 4退会会员 5面试不通过
+	enum state_enum {
+
+		WAIT_INTERVIEW (1), PROBATION (2), FORMAL(3), QUIT(4) , BELOW_STANDARD(5);
+
+		// 定义私有变量
+		private int value ;
+
+		private state_enum( int value) {
+			this . value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+	}
 
 	public Integer getSendEmail() {
 		return sendEmail;
@@ -83,23 +98,11 @@ public class MemberInfo  implements Serializable {
 	public String getName(){
 		return name;
 	}
-	public void setEName(String eName){
-		this.eName=eName;
-	}
-	public String getEName(){
-		return eName;
-	}
 	public void setGender(Integer gender){
 		this.gender=gender;
 	}
 	public Integer getGender(){
 		return gender;
-	}
-	public String geteName() {
-		return eName;
-	}
-	public void seteName(String eName) {
-		this.eName = eName;
 	}
 	public Date getBirthday() {
 		return birthday;
@@ -155,14 +158,12 @@ public class MemberInfo  implements Serializable {
 	public String getPhone(){
 		return phone;
 	}
-
 	public String getQq() {
 		return qq;
 	}
 	public void setQq(String qq) {
 		this.qq = qq;
 	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -174,12 +175,6 @@ public class MemberInfo  implements Serializable {
 	}
 	public String getSkype(){
 		return skype;
-	}
-	public void setDepartmentId(Integer departmentId){
-		this.departmentId=departmentId;
-	}
-	public Integer getDepartmentId(){
-		return departmentId;
 	}
 	public void setPhoto(String photo){
 		this.photo=photo;
@@ -217,23 +212,17 @@ public class MemberInfo  implements Serializable {
 	public Integer getDelFlag(){
 		return delFlag;
 	}
-	public void setStateId(Integer stateId){
-		this.stateId=stateId;
+	public Integer getState() {
+		return state;
 	}
-	public Integer getStateId(){
-		return stateId;
+	public void setState(Integer state) {
+		this.state = state;
 	}
 	public void setRemarks(String remarks){
 		this.remarks=remarks;
 	}
 	public String getRemarks(){
 		return remarks;
-	}
-	public String getStateName() {
-		return stateName;
-	}
-	public void setStateName(String stateName) {
-		this.stateName = stateName;
 	}
 	public String getDescription() {
 		return description;
@@ -247,17 +236,21 @@ public class MemberInfo  implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getDepartmentName() {
-		return departmentName;
+
+	public String getJobGrade() {
+		return jobGrade;
 	}
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+
+	public void setJobGrade(String jobGrade) {
+		this.jobGrade = jobGrade;
 	}
-	public String getDepartmentFlag() {
-		return departmentFlag;
+
+	public String getEnglishName() {
+		return englishName;
 	}
-	public void setDepartmentFlag(String departmentFlag) {
-		this.departmentFlag = departmentFlag;
+
+	public void setEnglishName(String englishName) {
+		this.englishName = englishName;
 	}
 }
 

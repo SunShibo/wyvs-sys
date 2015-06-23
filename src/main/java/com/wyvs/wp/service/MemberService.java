@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.wyvs.wp.dao.MemberInfoDao;
-import com.wyvs.wp.entity.MemberInfo;
+import com.wyvs.wp.entity.MemberDo;
 import com.wyvs.wp.util.*;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
@@ -31,7 +31,7 @@ public class MemberService {
 	 * 
 	 * @param memberInfo
 
-	public void addMemberInfoByObj(MemberInfo memberInfo) {
+	public void addMemberInfoByObj(MemberDo memberInfo) {
 		
 		if(memberInfo == null || StringUtils.isEmpty(memberInfo.getEmail())) {
 			logger.error("error>>>>>>>>>>>>>>>>>>>>>注册会员时参数异常");
@@ -39,7 +39,7 @@ public class MemberService {
 		}
 		
 		//查看该邮箱是否被注册
-		MemberInfo result = memberInfoDao.selectMemberByEmail(memberInfo) ;
+		MemberDo result = memberInfoDao.selectMemberByEmail(memberInfo) ;
 		if(result != null){
 			logger.error("error>>>>>>>>>>>>>>>>>>>>>注册新会员时发现相同邮箱");
 			return ;
@@ -59,25 +59,25 @@ public class MemberService {
 	 * @param memberInfo
 	 * @return
 	 */
-	public String addMemberInfoByObj2Public(MemberInfo memberInfo) {
+	public String addMemberInfoByObj2Public(MemberDo memberInfo) {
 
 		memberInfo.setCreateTime(new Date());
 		memberInfo.setDelFlag(0);// 0代表正常 ， 1代表已删除的会员
-		memberInfo.setStateId(1);
+		memberInfo.setState(1);
 		memberInfoDao.insert(memberInfo);// 插入数据
 		return "";
 	}
 
-	public PageObject<MemberInfo> getMemberInfoList(QueryInfo queryInfo) {
+	public PageObject<MemberDo> getMemberInfoList(QueryInfo queryInfo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pageOffset", queryInfo.getPageOffset());
 		map.put("pageSize", queryInfo.getPageSize());
-		PageObjectUtil<MemberInfo> page = new PageObjectUtil<MemberInfo>();
+		PageObjectUtil<MemberDo> page = new PageObjectUtil<MemberDo>();
 		return page.SavePageObject(memberInfoDao.selectAllMemberCount(map),
 				memberInfoDao.selectAllMemberByParam(map), queryInfo);
 	}
 
-	public MemberInfo getMemberInfoById(MemberInfo member) {
+	public MemberDo getMemberInfoById(MemberDo member) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("entity", member);
 		return memberInfoDao.selectMemberInfoById(map);
@@ -88,7 +88,7 @@ public class MemberService {
 	 *
 	 * @return
 	 */
-	public List<MemberInfo> getMemberInfoInfoListByLikeFlagId(
+	public List<MemberDo> getMemberInfoInfoListByLikeFlagId(
 			String departmentFlag) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("departmentFlag", departmentFlag);
@@ -101,7 +101,7 @@ public class MemberService {
 	 * 
 	 * @param member
 	 */
-	public void modifyMemberPhoto(MemberInfo member) {
+	public void modifyMemberPhoto(MemberDo member) {
 		memberInfoDao.updateMemberPhoto(member);
 	}
 
@@ -110,7 +110,7 @@ public class MemberService {
 	 * 
 	 * @param member
 	 */
-	public void modifyMemberInfoByObj(MemberInfo member) {
+	public void modifyMemberInfoByObj(MemberDo member) {
 		memberInfoDao.updateMemberInfoByObj(member);
 	}
 
@@ -120,7 +120,7 @@ public class MemberService {
 	 * @param memberInfo
 	 * @return
 	 */
-	public MemberInfo login(MemberInfo memberInfo) {
+	public MemberDo login(MemberDo memberInfo) {
 		memberInfo.setPassword(MD5Util.digest(memberInfo.getPassword()));// 将密码进行MD5加密
 		return memberInfoDao.login(memberInfo);
 	}
@@ -134,7 +134,7 @@ public class MemberService {
 	 * @param oldPwd
 	 * @param newPwd
 	 */
-	public JSONObject resetPwdSer(MemberInfo loginMember, String oldPwd,
+	public JSONObject resetPwdSer(MemberDo loginMember, String oldPwd,
 			String newPwd) {
 
 		//判断参数是否为空
@@ -176,11 +176,11 @@ public class MemberService {
 	public JSONObject checkMemberemailIsExist(String email) {
 		
 		
-		MemberInfo memberInfo = new MemberInfo() ;
+		MemberDo memberInfo = new MemberDo() ;
 		memberInfo.setEmail(email) ;
 		
 		//通过邮箱查找会员信息
-		MemberInfo findMember = memberInfoDao.selectMemberByEmail(memberInfo) ;
+		MemberDo findMember = memberInfoDao.selectMemberByEmail(memberInfo) ;
 		
 		//返回的json对象
 		JSONObject json = new JSONObject() ;

@@ -3,7 +3,7 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="TestDO" type="com.wyvs.wp.entity.TestDO"/>
-
+        <typeAlias alias="member" type="com.wyvs.wp.entity.MemberDo"/>
     </typeAliases>
     <mappers>
     </mappers>
