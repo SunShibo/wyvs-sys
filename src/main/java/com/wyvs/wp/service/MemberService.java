@@ -121,7 +121,6 @@ public class MemberService {
 	 * @return
 	 */
 	public MemberDo login(MemberDo memberInfo) {
-		memberInfo.setPassword(MD5Util.digest(memberInfo.getPassword()));// 将密码进行MD5加密
 		return memberInfoDao.login(memberInfo);
 	}
 
