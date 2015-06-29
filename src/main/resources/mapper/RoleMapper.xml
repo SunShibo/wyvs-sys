@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyvs.wp.dao.RoleDao">
+
+
+    <insert id="insert" parameterType="RoleDO"
+            useGeneratedKeys="true" keyProperty="id">
+
+        insert into pms_role_info (
+            name,level,description,creator,create_time
+        )
+        values
+        (
+          #{name,jdbcType=VARCHAR},#{level,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},
+          #{creator,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP}
+        )
+
+    </insert>
+
+    <select id="selectRoleById" resultType="RoleDO"
+            parameterType="int">
+
+        select * from pms_role_info where id = #{id}
+    </select>
+
+
+</mapper>

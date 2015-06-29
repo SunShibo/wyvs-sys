@@ -3,7 +3,10 @@ package com.wyvs.wp.web.controller;
 import java.util.List;
 
 import com.wyvs.wp.entity.MemberDo;
+import com.wyvs.wp.entity.PermissionDo;
+import com.wyvs.wp.entity.RoleDo;
 import com.wyvs.wp.service.MemberService;
+import com.wyvs.wp.service.RoleService;
 import com.wyvs.wp.systemConfig.Constants;
 import com.wyvs.wp.util.MD5Util;
 import com.wyvs.wp.web.controller.base.BaseCotroller;
@@ -26,8 +29,9 @@ public class LoginController  {
 //
 	@Autowired
 	private MemberService memberService;
-////	@Autowired
-////	private RoleInfoService roleInfoService;
+
+	@Autowired
+	private RoleService roleService;
 
 
     @RequestMapping( params = "action=initPage")
@@ -70,9 +74,11 @@ public class LoginController  {
 
 		//存入session
 		request.getSession().setAttribute(Constants.LOGIN_MEMBER , memberInfo );
-//		// 查找菜单
-//		List<PermissionInfo> menuList = roleInfoService
-//				.gerMenuListByRoleId(memberInfo);
+
+		//查找角色，和权限列表
+		RoleDo role = roleService.queryRoleDetailById(memberInfo.getRoleId()) ;
+
+		request.getSession().setAttribute( , role);
 //
 //		// 菜单列表
 //		this.sput(LoginConstant.USER_MENU_LIST, menuList);

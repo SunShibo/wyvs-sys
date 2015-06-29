@@ -7,7 +7,7 @@
     <select id="getCount" resultType="int"
             parameterType="int">
 
-    select count(id) from test_table
+      select count(id) from test_table
     </select>
 
 

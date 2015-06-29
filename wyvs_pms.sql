@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2015-06-24 08:57:41
+Date: 2015-06-29 08:39:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -148,10 +148,10 @@ CREATE TABLE `pms_permission` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
-  `parentId` int(10) DEFAULT NULL,
+  `parent_id` int(10) DEFAULT NULL,
   `level` int(2) DEFAULT NULL,
-  `enabledState` int(2) DEFAULT NULL,
-  `isMenu` int(2) DEFAULT NULL,
+  `enabled_state` int(2) DEFAULT NULL,
+  `is_menu` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
@@ -188,15 +188,16 @@ CREATE TABLE `pms_role_info` (
   `name` varchar(255) DEFAULT NULL,
   `level` int(2) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `createUserId` int(11) DEFAULT NULL,
-  `createtime` datetime DEFAULT NULL,
+  `creator` int(11) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `permission_ids` varchar(500) DEFAULT NULL COMMENT '权限id集合，通过","分隔',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_role_info
 -- ----------------------------
-INSERT INTO pms_role_info VALUES ('1', 'Administrator', '1', '系统最高管理员', null, null);
+INSERT INTO pms_role_info VALUES ('1', 'Administrator', '1', '系统最高管理员', null, null, null);
 
 -- ----------------------------
 -- Table structure for `pms_role_permis_link`
@@ -204,8 +205,8 @@ INSERT INTO pms_role_info VALUES ('1', 'Administrator', '1', '系统最高管理
 DROP TABLE IF EXISTS `pms_role_permis_link`;
 CREATE TABLE `pms_role_permis_link` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
-  `roleId` int(9) DEFAULT NULL,
-  `permissionId` int(9) DEFAULT NULL,
+  `role_id` int(9) DEFAULT NULL,
+  `permission_id` int(9) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
