@@ -3,7 +3,9 @@ package com.wyvs.wp.web.controller;
 import java.util.List;
 
 import com.wyvs.wp.entity.MemberDo;
+import com.wyvs.wp.entity.PermissionDo;
 import com.wyvs.wp.service.MemberService;
+import com.wyvs.wp.service.RoleService;
 import com.wyvs.wp.web.controller.base.BaseCotroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +20,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("login")
-public class LoginController extends BaseCotroller {
+public class LoginController extends AbstractController {
 
 //
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private RoleService roleService;
 ////	@Autowired
 ////	private RoleInfoService roleInfoService;
 
@@ -40,25 +45,20 @@ public class LoginController extends BaseCotroller {
             return mav ;
 		}
 
+		//查找登陆
 		MemberDo memberInfo = memberService.login(member);
 		if (memberInfo == null) { // 判断是否找到账户和密码是否正确
-
             ModelAndView mav = new ModelAndView("login") ;
             mav.addObject("information" , "Can't find the matched account") ;
             return mav ;
 		}
 
 		// 查找菜单
-		List<PermissionInfo> menuList = roleInfoService
-				.gerMenuListByRoleId(memberInfo);
+		List<PermissionDo> menuList = roleService
+				.gerMenuListByRoleId(memberInfo.getId());
 
-		// 菜单列表
-		this.sput(LoginConstant.USER_MENU_LIST, menuList);
+		return new ModelAndView("master") ;
 
-		// 登陆用户信息
-		this.sput(LoginConstant.SESSION_LOGIN_MEMBERINFO, memberInfo);// 将用户信息存入session
-
-		return "mainPage";
 	}
 //
 //	/**
