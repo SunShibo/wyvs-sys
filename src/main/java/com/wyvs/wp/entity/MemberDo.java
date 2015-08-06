@@ -5,6 +5,21 @@ public class MemberDo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 锁定状态
+	 */
+	public static final int STATUS_DISABLED = 0 ;
+
+	/**
+	 * 可用状态
+	 */
+	public static final int STATUS_ABLE = 1 ;
+
+	/**
+	 * 未激活状态
+	 */
+	public static final int STATUS_NONACTIVATED = 2 ;
+
 	private Integer id; //主键
 	private String name; //会员姓名
 	private String englishName; //英文名
