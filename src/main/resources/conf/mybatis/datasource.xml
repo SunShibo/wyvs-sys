@@ -10,7 +10,7 @@
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="url">
-            <value><![CDATA[jdbc:mysql://127.0.0.1:3306/wyvs-wp-db?useUnicode=true&characterEncoding=utf8]]></value>
+            <value><![CDATA[jdbc:mysql://127.0.0.1:3306/wyvs-working-platform?useUnicode=true&characterEncoding=utf8]]></value>
         </property>
         <property name="username">
             <value>root</value>
@@ -34,10 +34,20 @@
         <property name="validationQuery" value="select 1 from dual"/>
     </bean>
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations"
-                  value="classpath:mapper/*Mapper.xml" />
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource" />-->
+        <!--<property name="mapperLocations"-->
+                  <!--value="classpath:mapper/*Mapper.xml" />-->
+        <!--<property name="typeAliasesPackage" value="com.wyvs.wp.entity" />-->
+    <!--</bean>-->
+
+    <bean id="sqlSessionFactory" class="com.wyvs.wp.support.WrapAndChangeConfigureSqlSessionFactory">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeHandlers">
+            <bean class="com.wyvs.wp.support.typehandler.IntEnumTypeHandlersFactoryBean"
+                  p:basePackage="com.wyvs.wp.entity"/>
+        </property>
+        <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
         <property name="typeAliasesPackage" value="com.wyvs.wp.entity" />
     </bean>
 

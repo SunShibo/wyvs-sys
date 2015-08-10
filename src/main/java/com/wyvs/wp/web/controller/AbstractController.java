@@ -178,4 +178,14 @@ public class AbstractController {
         }
         return"";
     }
+
+    /**session赋值*/
+    public void putSession (HttpServletRequest request,String key , Object value) {
+        request.getSession().setAttribute(key , value);
+    }
+
+    /**获取session*/
+    public Object getSession (HttpServletRequest request,String key) {
+        return request.getSession().getAttribute(key);
+    }
 }

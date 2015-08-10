@@ -5,9 +5,8 @@
 <mapper namespace="com.wyvs.wp.dao.MemberInfoDao">
 
 
-    <select id="login" resultType="member"
-            parameterType="member">
-
+    <select id="login" resultType="com.wyvs.wp.entity.MemberDo"
+            parameterType="com.wyvs.wp.entity.MemberDo">
         select * from pms_member_info where email = #{email}
     </select>
 

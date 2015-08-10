@@ -10,9 +10,9 @@
     <link rel="stylesheet" type="text/css" href="static/css/mainCss/shared.css" />
     <%--<link rel="stylesheet" type="text/css" href="static/css/mainCss/jquery.fancybox.min.css" />--%>
     <link rel="stylesheet" type="text/css" href="static/css/mainCss/cn.css" />
-    <script type="text/javascript" src="js/mainJs/jquery.min.js"></script>
-    <script type="text/javascript" src="js/mainJs/jquery.placeholder.js"></script>
-    <script type="text/javascript" src="js/mainJs/main.js"></script>
+    <script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/mainJs/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="/static/js/mainJs/main.js"></script>
     
 </head>
 <body>
@@ -23,15 +23,15 @@
             <div class="etc-login-form">
                 <h1>
                     Member Login</h1>
-                <form id="etc-login-form" method="post" action="login!login.action">
+                <form id="etc-login-form" method="post" action="login?action=login">
                     <p class="etc-login-error">
                         <!-- server error -->
-                        <span id="etc-login-error-server" class="etc-login-error-msg"  style="display: inline;">${information }</span>
+                        <span id="etc-login-error-server" class="etc-login-error-msg"  style="display: inline;">${information}</span>
                         <span id="etc-login-error-empty" class="etc-login-error-msg">Please input the username and password</span>
                     </p>
-                    <input class="etc-login-input" tabindex="3" id="username" name="member.email" type="text" placeholder="Email address or username"
+                    <input class="etc-login-input" tabindex="3" id="username" name="email" type="text" placeholder="Email address or username"
                            value="" />
-                    <input class="etc-login-input" tabindex="4" id="password" name="member.password" type="password" placeholder="Password"
+                    <input class="etc-login-input" tabindex="4" id="password" name="password" type="password" placeholder="Password"
                            name="password" />
                     <button class="etc-login-btn" type="submit">
                         Sign In</button>

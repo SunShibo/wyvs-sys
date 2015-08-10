@@ -5,23 +5,19 @@ public class MemberDo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 锁定状态
-	 */
+	/**0锁定状态、1可用状态、2未激活状态*/
 	public static final int STATUS_DISABLED = 0 ;
-
-	/**
-	 * 可用状态
-	 */
 	public static final int STATUS_ABLE = 1 ;
-
-	/**
-	 * 未激活状态
-	 */
 	public static final int STATUS_NONACTIVATED = 2 ;
+
+	/**性别 0女、1男*/
+	public static final int GENDER_MALE = 1 ;
+	public static final int GENDER_FEMALE = 0 ;
+
 
 	private Integer id; //主键
 	private String name; //会员姓名
+	private String employeeId; //员工id
 	private String englishName; //英文名
 	private Integer gender; //性别
 	private Integer educationBackground; //学历
@@ -266,6 +262,14 @@ public class MemberDo implements Serializable {
 
 	public void setEnglishName(String englishName) {
 		this.englishName = englishName;
+	}
+
+	public String getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
 	}
 }
 

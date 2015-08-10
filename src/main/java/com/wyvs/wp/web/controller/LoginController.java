@@ -2,13 +2,11 @@ package com.wyvs.wp.web.controller;
 
 import java.util.List;
 
+import com.wyvs.wp.constants.LoginConstant;
 import com.wyvs.wp.entity.MemberDo;
 import com.wyvs.wp.entity.PermissionDo;
-import com.wyvs.wp.entity.RoleDo;
 import com.wyvs.wp.service.MemberService;
 import com.wyvs.wp.service.RoleService;
-import com.wyvs.wp.systemConfig.Constants;
-import com.wyvs.wp.util.MD5Util;
 import com.wyvs.wp.web.controller.base.BaseCotroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,93 +21,77 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Controller
 @RequestMapping("login")
-//public class LoginController extends BaseCotroller {
-public class LoginController  {
+public class LoginController extends AbstractController {
 
-//
 	@Autowired
 	private MemberService memberService;
 
 	@Autowired
-	private RoleService roleService;
+	private RoleService roleService ;
 
 
-    @RequestMapping( params = "action=initPage")
+    @RequestMapping( params = "action=login")
     public ModelAndView login(HttpServletRequest request
             , HttpServletResponse response , MemberDo member){
-
-		ModelAndView mav = new ModelAndView("login") ;
 
         //校验参数
 		if (member == null || member.getEmail() == null
                 || member.getPassword() == null ) {
 
+            ModelAndView mav = new ModelAndView("login.jsp") ;
             mav.addObject("information" , "非法请求!") ;
             return mav ;
 		}
 
 		MemberDo memberInfo = memberService.login(member);
-		if (memberInfo == null) { // 判断该账户是否注册
-
+		if (memberInfo == null) { // 判断是否找到账户和密码是否正确
+            ModelAndView mav = new ModelAndView("login.jsp") ;
             mav.addObject("information" , "Can't find the matched account") ;
             return mav ;
 		}
 
-		String md5Password = MD5Util.digest(memberInfo.getPassword()) ;
-		if (!memberInfo.getPassword().equals(md5Password)) {
-
-			mav.addObject("information" , "密码与用户名不符！") ;
+		if (memberInfo.getEnabledState() == MemberDo.STATUS_DISABLED) {
+			ModelAndView mav = new ModelAndView("login.jsp") ;
+			mav.addObject("information" , "登陆拒绝") ;
 			return mav ;
 		}
 
-		if (memberInfo.getState() == MemberDo.STATUS_DISABLED) {
-			mav.addObject("information" , "该账户已停用！") ;
+		if (memberInfo.getEnabledState() == MemberDo.STATUS_NONACTIVATED) {
+			ModelAndView mav = new ModelAndView("login.jsp") ;
+			mav.addObject("information" , "该账号未激活，请访问注册邮箱中的激活链接!") ;
 			return mav ;
 		}
 
-		if (memberInfo.getState() == MemberDo.STATUS_NONACTIVATED) {
-			mav.addObject("information" , "您的账户尚未激活，请通过验证激活该账户！") ;
-			return mav ;
-		}
 
-		//存入session
-		request.getSession().setAttribute(Constants.LOGIN_MEMBER , memberInfo );
+		// 查找菜单
+		List<PermissionDo> menuList = roleService
+				.gerMenuListByRoleId(memberInfo.getId());
 
-		//查找角色，和权限列表
-		RoleDo role = roleService.queryRoleDetailById(memberInfo.getRoleId()) ;
+		// 菜单列表
+		super.putSession(request ,LoginConstant.USER_MENU_LIST, menuList);
+		// 登陆用户信息
+		super.putSession(request ,LoginConstant.LOGIN_USER_INFO, memberInfo);
 
-		request.getSession().setAttribute( , role);
-//
-//		// 菜单列表
-//		this.sput(LoginConstant.USER_MENU_LIST, menuList);
-//
-//		// 登陆用户信息
-//		this.sput(LoginConstant.SESSION_LOGIN_MEMBERINFO, memberInfo);// 将用户信息存入session
-
-		return mav ;
+		ModelAndView mav = new ModelAndView("layout/master") ;
+		return mav;
 	}
-//
-//	/**
-//	 * 退出系统
-//	 *
-//	 * @return
-//	 */
-//	public String loginOut() {
-//		this.getRequest().getSession().removeAttribute(
-//				LoginConstant.SESSION_LOGIN_MEMBERINFO);// 清除登陆的用户信息
-//
-//		this.getRequest().getSession().removeAttribute(
-//				LoginConstant.USER_MENU_LIST);// 清除登陆用户的菜单信息
-//
-//		return "login";
-//	}
-//
-//	public MemberDo getMember() {
-//		return member;
-//	}
-//
-//	public void setMember(MemberDo member) {
-//		this.member = member;
-//	}
+
+
+	@RequestMapping( params = "action=initMaster")
+		 public ModelAndView initMaster(HttpServletRequest request
+			, HttpServletResponse response ){
+
+		ModelAndView mav = new ModelAndView("layout/master") ;
+		return mav;
+	}
+
+	@RequestMapping( params = "action=initLogin")
+	public ModelAndView initLogin(HttpServletRequest request
+			, HttpServletResponse response ){
+
+		ModelAndView mav = new ModelAndView("login") ;
+		return mav;
+	}
+
 
 }
