@@ -6,13 +6,17 @@ public class MemberDo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**0锁定状态、1可用状态、2未激活状态*/
-	public static final int STATUS_DISABLED = 0 ;
-	public static final int STATUS_ABLE = 1 ;
-	public static final int STATUS_NONACTIVATED = 2 ;
+	public static final int ENABLEDSTATE_DISABLED = 0 ;
+	public static final int ENABLEDSTATE_ABLE = 1 ;
+	public static final int ENABLEDSTATE_NONACTIVATED = 2 ;
 
 	/**性别 0女、1男*/
 	public static final int GENDER_MALE = 1 ;
 	public static final int GENDER_FEMALE = 0 ;
+
+	/**1正常状态，2退会状态*/
+	public static final int STATE_FORMAL = 1 ;
+	public static final int STATE_QUIT = 2 ;
 
 
 	private Integer id; //主键
@@ -47,25 +51,10 @@ public class MemberDo implements Serializable {
 	private String roleName;//角色名称
 	private Integer enabledState; //打开状态  0为停用状态、1启用状态 、2待激活
 	private String jobGrade ;//职级
+	private String title ;//职务
 
 	private Integer sendEmail ; //参数 发送邮件 1代表确认发送
-
-	// 1待面试会员  2试用期会员 3正式会员 4退会会员 5面试不通过
-	enum state_enum {
-
-		WAIT_INTERVIEW (1), PROBATION (2), FORMAL(3), QUIT(4) , BELOW_STANDARD(5);
-
-		// 定义私有变量
-		private int value ;
-
-		private state_enum( int value) {
-			this . value = value;
-		}
-
-		public int getValue() {
-			return value;
-		}
-	}
+	private String department ;//参数 部门
 
 	public Integer getSendEmail() {
 		return sendEmail;
@@ -270,6 +259,22 @@ public class MemberDo implements Serializable {
 
 	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 }
 

@@ -133,7 +133,7 @@ public class MemberService {
 	 * @param oldPwd
 	 * @param newPwd
 	 */
-	public JSONObject resetPwdSer(MemberDo loginMember, String oldPwd,
+	public JSONObject resetPwd(MemberDo loginMember, String oldPwd,
 			String newPwd) {
 
 		//判断参数是否为空
@@ -172,7 +172,7 @@ public class MemberService {
 	 * @version 2015-1-12 下午04:33:45
 	 * @param email
 	 */
-	public JSONObject checkMemberemailIsExist(String email) {
+	public JSONObject checkEmailIsExist(String email) {
 		
 		
 		MemberDo memberInfo = new MemberDo() ;
@@ -194,6 +194,15 @@ public class MemberService {
 		}
 		
 		return json ;
+	}
+
+	/**
+	 * 查找会员
+	 * @param search
+	 * @return
+	 */
+	public List<MemberDo> findMember(String search){
+		return memberInfoDao.selectMemberBySearch(search) ;
 	}
 
 }

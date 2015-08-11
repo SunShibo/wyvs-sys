@@ -10,5 +10,10 @@
         select * from pms_member_info where email = #{email}
     </select>
 
+    <select id="selectMemberBySearch" resultType="com.wyvs.wp.entity.MemberDo">
+        select id  , english_name , email  from pms_member_info
+        where (email = #{search} or id = #{search} ) and state = 1
+    </select>
+
 
 </mapper>

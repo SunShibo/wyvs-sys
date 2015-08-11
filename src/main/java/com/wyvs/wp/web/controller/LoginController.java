@@ -50,18 +50,17 @@ public class LoginController extends AbstractController {
             return mav ;
 		}
 
-		if (memberInfo.getEnabledState() == MemberDo.STATUS_DISABLED) {
+		if (memberInfo.getEnabledState() == MemberDo.ENABLEDSTATE_DISABLED) {
 			ModelAndView mav = new ModelAndView("login.jsp") ;
 			mav.addObject("information" , "登陆拒绝") ;
 			return mav ;
 		}
 
-		if (memberInfo.getEnabledState() == MemberDo.STATUS_NONACTIVATED) {
+		if (memberInfo.getEnabledState() == MemberDo.ENABLEDSTATE_NONACTIVATED) {
 			ModelAndView mav = new ModelAndView("login.jsp") ;
 			mav.addObject("information" , "该账号未激活，请访问注册邮箱中的激活链接!") ;
 			return mav ;
 		}
-
 
 		// 查找菜单
 		List<PermissionDo> menuList = roleService
@@ -76,22 +75,21 @@ public class LoginController extends AbstractController {
 		return mav;
 	}
 
+	/**
+	 * 退出登录
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping( params = "action=logout")
+	public ModelAndView logout (HttpServletRequest request
+			, HttpServletResponse response ) {
 
-	@RequestMapping( params = "action=initMaster")
-		 public ModelAndView initMaster(HttpServletRequest request
-			, HttpServletResponse response ){
+		super.removeSession(request ,LoginConstant.LOGIN_USER_INFO );
+		super.removeSession(request ,LoginConstant.USER_MENU_LIST );
 
-		ModelAndView mav = new ModelAndView("layout/master") ;
+		ModelAndView mav = new ModelAndView("login.jsp") ;
 		return mav;
 	}
-
-	@RequestMapping( params = "action=initLogin")
-	public ModelAndView initLogin(HttpServletRequest request
-			, HttpServletResponse response ){
-
-		ModelAndView mav = new ModelAndView("login") ;
-		return mav;
-	}
-
 
 }

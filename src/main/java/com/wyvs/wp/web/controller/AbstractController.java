@@ -188,4 +188,9 @@ public class AbstractController {
     public Object getSession (HttpServletRequest request,String key) {
         return request.getSession().getAttribute(key);
     }
+
+    /**移除session*/
+    public void removeSession (HttpServletRequest request,String key) {
+        request.getSession().removeAttribute(key);
+    }
 }

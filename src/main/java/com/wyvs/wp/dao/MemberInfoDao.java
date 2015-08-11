@@ -72,5 +72,13 @@ public interface MemberInfoDao {
  	  * @return
  	  */
  	 public MemberDo selectMemberByEmail(MemberDo memberInfo) ;
+
+
+	/**
+	 * 通过搜索条件查找会员列表
+	 * @param search
+	 * @return
+	 */
+	 public List<MemberDo> selectMemberBySearch(String search) ;
  	 
 }
