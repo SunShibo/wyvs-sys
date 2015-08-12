@@ -27,32 +27,6 @@ public class MemberService {
 	private static final Logger logger = Logger.getLogger(MemberService.class);
 
 	/**
-	 * 添加会员
-	 * 
-	 * @param memberInfo
-
-	public void addMemberInfoByObj(MemberDo memberInfo) {
-		
-		if(memberInfo == null || StringUtils.isEmpty(memberInfo.getEmail())) {
-			logger.error("error>>>>>>>>>>>>>>>>>>>>>注册会员时参数异常");
-			return ;
-		}
-		
-		//查看该邮箱是否被注册
-		MemberDo result = memberInfoDao.selectMemberByEmail(memberInfo) ;
-		if(result != null){
-			logger.error("error>>>>>>>>>>>>>>>>>>>>>注册新会员时发现相同邮箱");
-			return ;
-		}
-		
-//		memberInfo.setPassword(MD5Util.digest(memberInfo.getPassword()));// 将密码进行MD5加密
-		memberInfo.setDelFlag(0);// 0代表正常 ， 1代表已删除的会员
-		memberInfo.setCreateTime(new Date());
-		memberInfoDao.insert(memberInfo);
-		sendEmailService.signInMemberSendMailToMember(memberInfo) ;
-	}*/
-
-	/**
 	 * 
 	 * @author sun
 	 * @version 2014-8-28 上午11:26:27
@@ -68,32 +42,19 @@ public class MemberService {
 		return "";
 	}
 
-	public PageObject<MemberDo> getMemberInfoList(QueryInfo queryInfo) {
+	public PageObject<MemberDo> getMemberList(QueryObject queryInfo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("pageOffset", queryInfo.getPageOffset());
 		map.put("pageSize", queryInfo.getPageSize());
 		PageObjectUtil<MemberDo> page = new PageObjectUtil<MemberDo>();
-		return page.SavePageObject(memberInfoDao.selectAllMemberCount(map),
-				memberInfoDao.selectAllMemberByParam(map), queryInfo);
+		return page.SavePageObject(memberInfoDao.selectMemberCount(map),
+				memberInfoDao.selectMemberList(map), queryInfo);
 	}
 
 	public MemberDo getMemberInfoById(MemberDo member) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("entity", member);
-		return memberInfoDao.selectMemberInfoById(map);
-	}
-
-	/**
-	 * 通过部门节点模糊查找节点一下的用户
-	 *
-	 * @return
-	 */
-	public List<MemberDo> getMemberInfoInfoListByLikeFlagId(
-			String departmentFlag) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("departmentFlag", departmentFlag);
-		return memberInfoDao.selectMemberInfoBydepartmentFlag(map);
-
+		return memberInfoDao.selectMemberById(map);
 	}
 
 	/**
@@ -110,8 +71,8 @@ public class MemberService {
 	 * 
 	 * @param member
 	 */
-	public void modifyMemberInfoByObj(MemberDo member) {
-		memberInfoDao.updateMemberInfoByObj(member);
+	public void modifyMember(MemberDo member) {
+		memberInfoDao.updateMember(member);
 	}
 
 	/**
@@ -155,7 +116,7 @@ public class MemberService {
 		loginMember.setPassword(MD5Util.digest(newPwd)) ;
 		
 		//修改密码
-		int rowNum = memberInfoDao.updateMemberPassword(loginMember);
+		int rowNum = memberInfoDao.updatePassword(loginMember);
 
 		if(rowNum > 0){
 			

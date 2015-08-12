@@ -5,7 +5,7 @@ import java.util.List;
 public class PageObjectUtil<T> {
 	
 	@SuppressWarnings("unchecked")
-	public PageObject SavePageObject(int count,List<T> list,QueryInfo queryInfo){
+	public PageObject SavePageObject(int count,List<T> list,QueryObject queryInfo){
 		PageObject page = new PageObject() ;
 		int totalPage = 0 ;
 		int pageSize = queryInfo.getPageSize() ;

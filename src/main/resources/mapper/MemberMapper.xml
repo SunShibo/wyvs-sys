@@ -7,13 +7,30 @@
 
     <select id="login" resultType="com.wyvs.wp.entity.MemberDo"
             parameterType="com.wyvs.wp.entity.MemberDo">
-        select * from pms_member_info where email = #{email}
+        SELECT * FROM pms_member_info
+        WHERE email = #{email}
     </select>
 
     <select id="selectMemberBySearch" resultType="com.wyvs.wp.entity.MemberDo">
-        select id  , english_name , email  from pms_member_info
-        where (email = #{search} or id = #{search} ) and state = 1
+        SELECT id  , english_name , email
+        FROM pms_member_info
+        WHERE (email = #{search} OR id = #{search} ) AND state = 1
     </select>
+
+    <select id="selectMemberList" resultType="com.wyvs.wp.entity.MemberDo">
+        SELECT id, english_name, email, name, gender, enabled_state, state , title
+        FROM pms_member_info
+        WHERE state = 1 AND del_flag = 0
+        ORDER BY create_time DESC
+        LIMIT #{pageOffset}, #{pageSize}
+    </select>
+
+    <select id="selectMemberCount" resultType="int">
+        SELECT COUNT(id)
+        FROM pms_member_info
+        WHERE state = 1 AND del_flag = 0
+    </select>
+
 
 
 </mapper>

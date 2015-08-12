@@ -12,28 +12,28 @@ public interface MemberInfoDao {
       * @param memberInfo
       * @return
       */
- 	 public int updateMemberInfoByObj(MemberDo memberInfo);
+ 	 public int updateMember(MemberDo memberInfo);
  	 
  	 /**
- 	  * 根据条件查找会员列表
+ 	  * 查找会员列表
  	  * @param map
  	  * @return
  	  */
- 	 public List<MemberDo> selectAllMemberByParam(Map<String, Object> map);
+ 	 public List<MemberDo> selectMemberList(Map<String, Object> map);
  	 
  	 /**
  	  * 查找会员总记录数
  	  * @param map
  	  * @return
  	  */
- 	 public int selectAllMemberCount(Map<String, Object> map);
+ 	 public int selectMemberCount(Map<String, Object> map);
  	 
  	 /**
  	  * 通过id查找会员信息
  	  * @param map
  	  * @return
  	  */
- 	 public MemberDo selectMemberInfoById(Map<String, Object> map);
+ 	 public MemberDo selectMemberById(Map<String, Object> map);
  	 
  	 /**
  	  * 修改头像路径
@@ -47,13 +47,7 @@ public interface MemberInfoDao {
  	  * @return
  	  */
  	 public MemberDo login(MemberDo memberInfo);
- 	 
- 	 /**
- 	  * 通过部门节点模糊查找会员信息集合
- 	  * @param map
- 	  * @return
- 	  */
- 	 public List<MemberDo> selectMemberInfoBydepartmentFlag(Map<String, Object> map);
+
  	 
  	 /**
  	  * 用该用户密码
@@ -62,7 +56,7 @@ public interface MemberInfoDao {
  	  * @param memberInfo
  	  * @return
  	  */
- 	 public int updateMemberPassword(MemberDo memberInfo) ;
+ 	 public int updatePassword(MemberDo memberInfo) ;
  	 
  	 /**
  	  * 通过email查找邮箱是否注册

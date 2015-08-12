@@ -53,15 +53,7 @@ public class MemberDo implements Serializable {
 	private String jobGrade ;//职级
 	private String title ;//职务
 
-	private Integer sendEmail ; //参数 发送邮件 1代表确认发送
 	private String department ;//参数 部门
-
-	public Integer getSendEmail() {
-		return sendEmail;
-	}
-	public void setSendEmail(Integer sendEmail) {
-		this.sendEmail = sendEmail;
-	}
 	public String getPassword() {
 		return password;
 	}

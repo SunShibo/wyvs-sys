@@ -71,7 +71,7 @@ public class LoginController extends AbstractController {
 		// 登陆用户信息
 		super.putSession(request ,LoginConstant.LOGIN_USER_INFO, memberInfo);
 
-		ModelAndView mav = new ModelAndView("layout/master") ;
+		ModelAndView mav = new ModelAndView("redirect:/login?action=home") ;
 		return mav;
 	}
 
@@ -89,6 +89,18 @@ public class LoginController extends AbstractController {
 		super.removeSession(request ,LoginConstant.USER_MENU_LIST );
 
 		ModelAndView mav = new ModelAndView("login.jsp") ;
+		return mav;
+	}
+
+	/**
+	 * home页
+	 * @return
+	 */
+	@RequestMapping( params = "action=home")
+	public ModelAndView home (HttpServletRequest request
+			, HttpServletResponse response ) {
+
+		ModelAndView mav = new ModelAndView("home/home") ;
 		return mav;
 	}
 
