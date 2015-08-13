@@ -1,0 +1,192 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Advanced Form Elements
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Member List</a></li>
+            <li class="active">New Member</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+            <!-- SELECT2 EXAMPLE -->
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">New Member</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <form action="" method="post" id="add-member-form">
+                <div class="box-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>姓名</label>
+                                <input class="form-control" type="text" name="name" placeholder="your Chinese name">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>英文名</label>
+                                <input class="form-control" type="text" name="englishName" placeholder="your English name">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>性别/GENDER</label>
+                                <div>
+                                    男<input type="radio" name="gender" value="1" class="minimal" checked />
+                                    女<input type="radio" name="gender" value="0" class="minimal" />
+                                </div>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>邮箱</label>
+                                <input class="form-control" type="text" name="email" placeholder="E-Mail">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                    </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>毕业学校</label>
+                                <input class="form-control" type="text" name="university" placeholder="university">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>专业</label>
+                                <input class="form-control" type="text" name="major" placeholder="major">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>国籍</label>
+                                <input class="form-control" type="text" name="nationality" placeholder="nationality">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>籍贯</label>
+                                <input class="form-control" type="text" name="nativePlace" placeholder="native place">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                    </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>现居住国家</label>
+                                <input class="form-control" type="text" name="residenceCountry" placeholder="residence country">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>现居住城市</label>
+                                <input class="form-control" type="text" name="residenceCity" placeholder="residence city">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>手机</label>
+                                <input class="form-control" type="text" name="phone" placeholder="phone number">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>QQ</label>
+                                <input class="form-control" type="text" name="qq" placeholder="QQ number">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                    </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>skype</label>
+                                <input class="form-control" type="text" name="skype" placeholder="skype">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>加入时间</label>
+                                <input class="form-control" type="text" name="joinTime" placeholder="joinTime">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>职务</label>
+                                <input class="form-control" type="text" name="title" placeholder="title">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>职级</label>
+                                <input class="form-control" type="text" name="jobGrade" placeholder="job grade">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+
+                    </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- textarea -->
+                            <div class="form-group">
+                                <label>备注</label>
+                                <textarea class="form-control" rows="3" name="remarks" placeholder="Enter ..."></textarea>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="col-md-6">
+                            <!-- textarea -->
+                            <div class="form-group">
+                                <label>Textarea</label>
+                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            </div>
+                        </div><!-- /.col -->
+
+
+                    </div><!-- /.row -->
+                </div><!-- /.box-body -->
+                </form>
+                <div class="box-footer">
+
+                    <div class="col-md-8">
+                        Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about the plugin.
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-block btn-info" id="submit-btn">提交</button>
+                    </div>
+
+                </div>
+            </div><!-- /.box -->
+
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+<script>
+
+    $("#submit-btn").click(function(){
+        jQuery("#add-member-form").ajaxSubmit({
+            type: 'post',
+            url: "/member?action=newMember" ,
+            dataType:"json",
+            success: function(data){
+                if (data.status == 1) {
+                    alert("success") ;
+                }else {
+                    alert("error") ;
+                }
+            }
+        });
+    }) ;
+</script>
+

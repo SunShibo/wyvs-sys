@@ -1,0 +1,52 @@
+<div class="content-wrapper">
+
+    <div class="content-wrapper" style="min-height: 903px;">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Test Page
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">test page</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <button class="btn btn-block btn-primary" id="test-btn">弹框测试</button>
+        </section><!-- /.content -->
+    </div>
+
+    <div class="example-modal">
+        <div class="modal test-modal" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Modal Default</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body…</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                        <button class="btn btn-primary" type="button">Save changes</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+
+</div>
+##<script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script>
+    $("#test-btn").click(function(){
+        $('.test-modal').show() ;
+    }) ;
+
+    $(".close-btn , .close ").click(function(){
+        $('.test-modal').hide() ;
+    }) ;
+
+</script>

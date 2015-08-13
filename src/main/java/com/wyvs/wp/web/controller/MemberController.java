@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -105,6 +106,24 @@ public class MemberController extends AbstractController {
 
 		JSONObject result = JsonUtils.encapsulationJSON(1 , "" ,"" ) ;
 		super.safeJsonPrint(response , result.toString()) ;
+
+	}
+
+	@RequestMapping( params = "action=newMemberPage")
+	public ModelAndView newMemberPage(HttpServletRequest request
+			, HttpServletResponse response){
+		ModelAndView mav = new ModelAndView("member/new") ;
+		return mav ;
+
+	}
+
+
+	@RequestMapping(method = RequestMethod.POST, params = "action=newMember")
+	public void newMember(HttpServletRequest request
+			, HttpServletResponse response  , MemberDo  member){
+
+		JSONObject json = JsonUtils.encapsulationJSON(1 , "" , "") ;
+		super.safeJsonPrint(response , json.toString());
 
 	}
 

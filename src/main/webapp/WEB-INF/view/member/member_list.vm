@@ -19,7 +19,8 @@
                     <div class="box">
                         <div class="box-header">
 ##                            <h3 class="box-title" style="float: left;">Hover Data Table</h3>
-                            <button class="btn btn-block btn-default btn-xs" style="float: left;width: 60px">+ New</button>
+                            <button class="btn btn-block btn-default btn-xs"
+                                    style="float: left;width: 60px" id="new-btn">+ New</button>
                         </div><!-- /.box-header -->
                         <div class="box-body">
                             <table id="example2" class="table table-bordered table-hover">
@@ -90,4 +91,13 @@
             </div>
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
+##<script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#new-btn").click(function(){
+            window.location.href="member?action=newMemberPage" ;
+        }) ;
+    });
+
+</script>
 
