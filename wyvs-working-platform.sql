@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-08-10 18:29:41
+Date: 2015-08-14 18:19:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -121,25 +121,27 @@ CREATE TABLE `pms_member_info` (
   `qq` varchar(50) DEFAULT NULL COMMENT 'qq',
   `email` varchar(50) DEFAULT NULL COMMENT 'email',
   `skype` varchar(30) DEFAULT NULL COMMENT '部门id',
-  `photo` varchar(200) DEFAULT NULL COMMENT '照片路径',
+  `photo` varchar(300) DEFAULT NULL COMMENT '照片路径',
   `join_time` datetime DEFAULT NULL COMMENT '加入时间',
   `positive_time` datetime DEFAULT NULL COMMENT '转正时间',
   `quit_time` datetime DEFAULT NULL COMMENT '退会时间',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `del_flag` int(9) DEFAULT NULL,
-  `state` int(9) DEFAULT NULL COMMENT '状态id：0待面试 1正式会员 2不合格 3退会',
+  `state` int(9) DEFAULT NULL COMMENT '状态id：1正式会员 2退会',
   `remarks` varchar(300) DEFAULT NULL COMMENT '备注',
   `description` varchar(300) DEFAULT NULL COMMENT '个人描述',
   `address` varchar(300) DEFAULT NULL COMMENT '地址',
   `job_grade` varchar(10) DEFAULT NULL COMMENT '职级',
+  `title` varchar(100) DEFAULT NULL COMMENT '职务',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1005 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_member_info
 -- ----------------------------
-INSERT INTO `pms_member_info` VALUES ('1003', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1', '1', '金琪斌', 'Qibin', '1', '2014-02-28', null, 'XX大学', '英语', '中国', '天津', '美国1', '波士顿1', '18601117545', '123456789', '395831708@qq.com', '395831708@qq.com', '../wyvs/member/1003/headPortrait/1420972207651.jpg', '2014-02-28 00:00:00', '2014-02-28 00:00:00', '2014-02-28 00:00:00', null, '0', '1', '测试数据', '', '美国XX街道', null);
-INSERT INTO `pms_member_info` VALUES ('1004', null, null, null, '孙诗博', 'shibo', '1', null, null, '', '', '', '', '', '', '', null, '', '', '../wyvs/member/1004/headPortrait/1420969512711.png', null, null, null, null, '0', null, '', '', '', null);
+INSERT INTO `pms_member_info` VALUES ('1003', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1', '1', '金琪斌', 'Qibin', '1', '2014-02-28', null, 'XX大学', '英语', '中国', '天津', '美国1', '波士顿1', '18601117545', '123456789', '395831708@qq.com', '395831708@qq.com', '../wyvs/member/1003/headPortrait/1420972207651.jpg', '2014-02-28 00:00:00', '2014-02-28 00:00:00', '2014-02-28 00:00:00', null, '0', '1', '测试数据', '', '美国XX街道', null, '纪检委');
+INSERT INTO `pms_member_info` VALUES ('1004', null, null, null, '孙诗博', 'shibo', '1', null, null, '', '', '', '', '', '', '', null, '', '', '../wyvs/member/1004/headPortrait/1420969512711.png', null, null, null, null, '0', null, '', '', '', null, null);
+INSERT INTO `pms_member_info` VALUES ('1005', null, null, null, '孙诗博', 'SUN SHI BO', '1', null, null, '', '', '', '', '', '', '18601117545', '', '11111@qq.com', '00000@skype.com', null, '2015-08-14 17:38:04', null, null, '2015-08-14 17:38:04', '0', '1', '测试数据', null, null, 'P3', 'CTO(首席技术官)');
 
 -- ----------------------------
 -- Table structure for `pms_permission`
