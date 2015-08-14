@@ -118,24 +118,26 @@
                                 <input class="form-control" type="text" name="skype" placeholder="skype">
                             </div><!-- /.form-group -->
                         </div><!-- /.col -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>加入时间</label>
-                                <input class="form-control" type="text" name="joinTime" placeholder="joinTime">
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>职务</label>
-                                <input class="form-control" type="text" name="title" placeholder="title">
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>职级</label>
-                                <input class="form-control" type="text" name="jobGrade" placeholder="job grade">
-                            </div><!-- /.form-group -->
-                        </div><!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>加入时间</label>
+##                            <input class="form-control" type="text" name="joinTime" placeholder="joinTime">
+                            <input id="join_time" class="form-control pull-right active" name="join_time"
+                                   placeholder="join time" type="text">
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>职务</label>
+                            <input class="form-control" type="text" name="title" placeholder="title">
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>职级</label>
+                            <input class="form-control" type="text" name="jobGrade" placeholder="job grade">
+                        </div><!-- /.form-group -->
+                    </div><!-- /.col -->
 
                     </div><!-- /.row -->
                     <div class="row">
@@ -161,7 +163,7 @@
                 <div class="box-footer">
 
                     <div class="col-md-8">
-                        Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about the plugin.
+                        带*为必填项.
                     </div>
                     <div class="col-md-1">
                         <button class="btn btn-block btn-info" id="submit-btn">提交</button>
@@ -180,7 +182,7 @@
             url: "/member?action=newMember" ,
             dataType:"json",
             success: function(data){
-                if (data.status == 1) {
+                if (data.code == 1) {
                     alert("success") ;
                 }else {
                     alert("error") ;
@@ -188,5 +190,13 @@
             }
         });
     }) ;
+
+    $(function(){
+        //Date range picker
+        $('#join_time').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'cn'
+        });
+    });
 </script>
 

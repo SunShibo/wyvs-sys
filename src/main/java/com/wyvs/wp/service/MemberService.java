@@ -26,21 +26,6 @@ public class MemberService {
 	
 	private static final Logger logger = Logger.getLogger(MemberService.class);
 
-	/**
-	 * 
-	 * @author sun
-	 * @version 2014-8-28 上午11:26:27
-	 * @param memberInfo
-	 * @return
-	 */
-	public String addMemberInfoByObj2Public(MemberDo memberInfo) {
-
-		memberInfo.setCreateTime(new Date());
-		memberInfo.setDelFlag(0);// 0代表正常 ， 1代表已删除的会员
-		memberInfo.setState(1);
-		memberInfoDao.insert(memberInfo);// 插入数据
-		return "";
-	}
 
 	public PageObject<MemberDo> getMemberList(QueryObject queryInfo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -164,6 +149,15 @@ public class MemberService {
 	 */
 	public List<MemberDo> findMember(String search){
 		return memberInfoDao.selectMemberBySearch(search) ;
+	}
+
+	/**
+	 * 创建会员
+	 * @param memberDo
+	 * @return
+	 */
+	public int addMember(MemberDo memberDo){
+		return memberInfoDao.insert(memberDo) ;
 	}
 
 }

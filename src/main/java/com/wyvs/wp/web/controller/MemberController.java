@@ -5,10 +5,7 @@ import com.wyvs.wp.entity.MemberDo;
 import com.wyvs.wp.entity.PermissionDo;
 import com.wyvs.wp.service.MemberService;
 import com.wyvs.wp.service.RoleService;
-import com.wyvs.wp.util.JsonUtils;
-import com.wyvs.wp.util.PageObject;
-import com.wyvs.wp.util.QueryObject;
-import com.wyvs.wp.util.StringUtils;
+import com.wyvs.wp.util.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -117,12 +115,34 @@ public class MemberController extends AbstractController {
 
 	}
 
-
+	/**
+	 * 新增会员
+	 * @param request
+	 * @param response
+	 * @param member
+	 */
 	@RequestMapping(method = RequestMethod.POST, params = "action=newMember")
 	public void newMember(HttpServletRequest request
 			, HttpServletResponse response  , MemberDo  member){
 
-		JSONObject json = JsonUtils.encapsulationJSON(1 , "" , "") ;
+		//获取部分参数
+		String joinTime = request.getParameter("join_time") ;
+		//校验参数
+		if (StringUtils.isEmpty(joinTime) || StringUtils.isEmpty(member.getName() )
+				|| StringUtils.isEmpty(member.getTitle()) || StringUtils.isEmpty(member.getJobGrade()) ){
+			JSONObject json = JsonUtils.encapsulationJSON(0 , "参数异常!" , "") ;
+			super.safeJsonPrint(response , json.toString());
+			return ;
+		}
+
+		Date joinDate = DateUtils.parseDate(joinTime, DateUtils.DATE_PATTERN) ;
+		member.setJoinTime(joinDate);
+
+		//插入数据
+		int rowNum = memberService.addMember(member) ;
+
+		JSONObject json = JsonUtils.encapsulationJSON(rowNum > 0 ? 1 : 0
+				, rowNum == 0 ? "网络可能存在问题，请联络系统管理员" :"" , "") ;
 		super.safeJsonPrint(response , json.toString());
 
 	}

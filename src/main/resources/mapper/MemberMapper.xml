@@ -31,6 +31,27 @@
         WHERE state = 1 AND del_flag = 0
     </select>
 
+    <insert id="insert" parameterType="com.wyvs.wp.entity.MemberDo" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+           INSERT INTO pms_member_info(
+                password, role_id, enabled_state,name,
+                english_name,gender,birthday,education_background,
+                university,major,nationality,native_place ,
+                residence_country ,residence_city , phone ,qq ,
+                email , skype ,  photo , join_time,
+                create_time ,  del_flag ,  state , remarks ,
+                description , address , job_grade , title)
+            VALUES(
+                #{password}, #{roleId},#{enabledState}, #{name},
+                #{englishName},#{gender},#{birthday}, #{educationBackground},
+                #{university},#{major},#{nationality},#{nativePlace} ,
+                #{residenceCountry},#{residenceCity} ,  #{phone} ,#{qq} ,
+                #{email} , #{skype} , #{photo} ,NOW(),
+                NOW() , 0  , 1 , #{remarks} ,
+                #{description} , #{address} , #{jobGrade} , #{title}
+            )
+        ]]>
+    </insert>
 
 
 </mapper>
