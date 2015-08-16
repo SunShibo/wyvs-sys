@@ -31,6 +31,15 @@
         WHERE state = 1 AND del_flag = 0
     </select>
 
+    <select id="selectMemberByEmail" resultType="com.wyvs.wp.entity.MemberDo">
+        SELECT
+            id
+        FROM
+            pms_member_info
+        WHERE
+            email = #{email} AND state = 1 AND del_flag = 0
+    </select>
+
     <insert id="insert" parameterType="com.wyvs.wp.entity.MemberDo" useGeneratedKeys="true" keyProperty="id">
         <![CDATA[
            INSERT INTO pms_member_info(

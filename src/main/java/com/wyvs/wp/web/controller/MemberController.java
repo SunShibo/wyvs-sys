@@ -147,4 +147,25 @@ public class MemberController extends AbstractController {
 
 	}
 
+	/**
+	 * 检查邮箱
+	 * @param request
+	 * @param response
+	 * @param email
+	 */
+	@RequestMapping( params = "action=checkEmail")
+	public void  checkEmail(HttpServletRequest request
+			, HttpServletResponse response  , String email){
+
+		if (StringUtils.isEmpty(email)) {
+			JSONObject json = JsonUtils.encapsulationJSON(0 ,  "参数异常!" , " ") ;
+			super.safeJsonPrint(response , json.toString());
+			return ;
+		}
+
+		JSONObject json = memberService.checkEmailIsExist(email) ;
+		super.safeJsonPrint(response , json.toString());
+
+	}
+
 }

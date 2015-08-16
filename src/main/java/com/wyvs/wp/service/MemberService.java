@@ -125,17 +125,16 @@ public class MemberService {
 		memberInfo.setEmail(email) ;
 		
 		//通过邮箱查找会员信息
-		MemberDo findMember = memberInfoDao.selectMemberByEmail(memberInfo) ;
+		MemberDo findMember = memberInfoDao.selectMemberByEmail(email) ;
 		
 		//返回的json对象
 		JSONObject json = new JSONObject() ;
 		
-		if(findMember == null){ //对象为空说明该邮箱未被注册
-			
-			json.put("status", "y");
+		if (findMember == null) { //对象为空说明该邮箱未被注册
+			json.put("exist", "n");
 			json.put("info", "");
-		}else{
-			json.put("status", "n");
+		} else {
+			json.put("exist", "y");
 			json.put("info", "邮箱已存在");
 		}
 		

@@ -62,10 +62,10 @@ public interface MemberInfoDao {
  	  * 通过email查找邮箱是否注册
  	  * @author sun
  	  * @version 2015-1-12 下午04:37:10
- 	  * @param memberInfo
+ 	  * @param email
  	  * @return
  	  */
- 	 public MemberDo selectMemberByEmail(MemberDo memberInfo) ;
+ 	 public MemberDo selectMemberByEmail(String email ) ;
 
 
 	/**
