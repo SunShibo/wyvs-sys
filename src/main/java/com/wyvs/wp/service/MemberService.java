@@ -36,9 +36,9 @@ public class MemberService {
 				memberInfoDao.selectMemberList(map), queryInfo);
 	}
 
-	public MemberDo getMemberInfoById(MemberDo member) {
+	public MemberDo getMemberById(int id) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("entity", member);
+		map.put("id", id);
 		return memberInfoDao.selectMemberById(map);
 	}
 
@@ -56,8 +56,8 @@ public class MemberService {
 	 * 
 	 * @param member
 	 */
-	public void modifyMember(MemberDo member) {
-		memberInfoDao.updateMember(member);
+	public int modifyMember(MemberDo member) {
+		return memberInfoDao.updateMember(member);
 	}
 
 	/**

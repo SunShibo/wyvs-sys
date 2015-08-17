@@ -50,6 +50,7 @@ public class MemberController extends AbstractController {
 		query.setPageNum(pageNum);
 		query.setPageSize(pageSize);
 		PageObject<MemberDo> page = memberService.getMemberList(query) ;
+		page.setPageNum(pageNum);
 
 		ModelAndView mav = new ModelAndView("member/member_list") ;
 		mav.addObject("page" , page) ;
@@ -167,5 +168,69 @@ public class MemberController extends AbstractController {
 		super.safeJsonPrint(response , json.toString());
 
 	}
+
+	/**
+	 * 查看会员详细信息
+	 * @param request
+	 * @param response
+	 * @param id
+	 */
+	@RequestMapping( params = "action=memberDetails")
+	public ModelAndView  memberDetails(HttpServletRequest request
+			, HttpServletResponse response  , int id ){
+
+		MemberDo memberDo = memberService.getMemberById(id) ;
+
+		ModelAndView mav = new ModelAndView("member/details") ;
+		mav.addObject("member" , memberDo) ;
+		return mav ;
+	}
+
+	/**
+	 * 关闭会员账户
+	 * @param request
+	 * @param response
+	 * @param id
+	 */
+	@RequestMapping( params = "action=closeMemebr")
+	public void closeMemebr (HttpServletRequest request
+			, HttpServletResponse response  , int id ){
+
+		MemberDo member = new MemberDo() ;
+		member.setId(id);
+		member.setEnabledState(MemberDo.ENABLEDSTATE_DISABLED) ;
+
+		//修改账户状态
+		int rowNum = memberService.modifyMember(member);
+
+		JSONObject json = JsonUtils.encapsulationJSON(rowNum > 0 ? 1 : 0
+				, rowNum == 0 ? "网络可能存在问题，请联络系统管理员!" :"" , "") ;
+		super.safeJsonPrint(response , json.toString());
+
+	}
+
+	/**
+	 * 开启会员账户
+	 * @param request
+	 * @param response
+	 * @param id
+	 */
+	@RequestMapping( params = "action=openMemebr")
+	public void openMemebr (HttpServletRequest request
+			, HttpServletResponse response  , int id ){
+
+		MemberDo member = new MemberDo() ;
+		member.setId(id);
+		member.setEnabledState(MemberDo.ENABLEDSTATE_ABLE) ;
+
+		//修改账户状态
+		int rowNum = memberService.modifyMember(member);
+
+		JSONObject json = JsonUtils.encapsulationJSON(rowNum > 0 ? 1 : 0
+				, rowNum == 0 ? "网络可能存在问题，请联络系统管理员!" :"" , "") ;
+		super.safeJsonPrint(response , json.toString());
+
+	}
+
 
 }

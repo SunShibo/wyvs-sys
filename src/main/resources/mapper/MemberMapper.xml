@@ -40,6 +40,15 @@
             email = #{email} AND state = 1 AND del_flag = 0
     </select>
 
+    <select id="selectMemberById" resultType="com.wyvs.wp.entity.MemberDo">
+        SELECT
+          *
+        FROM
+          pms_member_info
+        WHERE
+        id = #{id} AND state = 1 AND del_flag = 0
+    </select>
+
     <insert id="insert" parameterType="com.wyvs.wp.entity.MemberDo" useGeneratedKeys="true" keyProperty="id">
         <![CDATA[
            INSERT INTO pms_member_info(
@@ -61,6 +70,16 @@
             )
         ]]>
     </insert>
+
+    <update id="updateMember" parameterType="com.wyvs.wp.entity.MemberDo">
+
+        UPDATE pms_member_info SET
+        <if test="enabledState != null">
+            enabled_state = #{enabledState} ,
+        </if>
+        id = #{id}
+        WHERE id = #{id}
+    </update>
 
 
 </mapper>

@@ -23,7 +23,7 @@
                                     style="float: left;width: 60px" id="new-btn">+ New</button>
                         </div><!-- /.box-header -->
                         <div class="box-body">
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="member-list-table" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
@@ -31,13 +31,14 @@
                                     <th>Gender</th>
                                     <th>Department</th>
                                     <th>Title</th>
+                                    <th>Status</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                     #foreach($!item in $!page.datas)
-                                        <tr>
+                                        <tr item-id="$!item.id">
                                             <td>$!item.name</td>
                                             <td>$!item.englishName</td>
                                             <td>
@@ -50,7 +51,33 @@
                                             </td>
                                             <td>测试部门</td>
                                             <td>$!item.title</td>
-                                            <td><a href="#">操作</a></td>
+                                            <td>
+                                                #if($!item.enabledState==0)
+                                                    账号关闭
+                                                #elseif($!item.gender==1)
+                                                    正常
+                                                #elseif($!item.gender==2)
+                                                    待激活
+                                                #else
+
+                                                #end
+                                            </td>
+                                            <td style="width: 11%">
+                                                <div class="btn-group">
+                                                    <button class="btn btn-default" type="button">Action</button>
+                                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button" aria-expanded="false">
+                                                        <span class="caret"></span>
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <ul role="menu" class="dropdown-menu">
+                                                        <li><a href="member?action=memberDetails&id=$!item.id">Details</a></li>
+                                                        <li class="close-li"><a href="#">Close</a></li>
+                                                        <li class="open-li"><a href="#">Open</a></li>
+                                                        <li class="divider"></li>
+                                                        <li class="quit-li"><a href="#">Quit</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
                                         </tr>
                                     #end
 
@@ -84,37 +111,181 @@
                             <li><a href="javascript:;" onclick="pageRequest($!{page.nextPage})">&gt;</a></li>
                         </ul>
                     </div>
-##                        <div class="footerA clear height55">
-##                            <div class="pull-left pageheight35">显示$!{page.minPageNum}～$!{page.maxPageNum}，共$!{page.totalPage}</div>
-##                            <ul class="pagination ulMargin pagecss pull-left pagingList">
-##                                <li><a href="javascript:;" onclick="pageRequest($!{page.prePage})">&lt;</a></li>
-##                                #if($!{page})
-##                                    #foreach($!pageNum in [$!{page.minPageNum}..$!{page.maxPageNum}])
-##                                        #if($!pageNum==$!page.pageNum)
-##                                            <li><a href="javascript:;" onclick="pageRequest($!{pageNum})" style="background:#ccc" id="pageselectclass">$pageNum</a></li>
-##                                        #else
-##                                            <li><a href="javascript:;" onclick="pageRequest($!{pageNum})">$pageNum</a></li>
-##                                        #end
-##                                    #end
-##                                #end
-##                                <li><a href="javascript:;" onclick="pageRequest($!{page.nextPage})">&gt;</a></li>
-##                            </ul>
-##                        </div>
                 </div>
             </div>
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
-##<script src="/static/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+
+<!-- /.提示弹框 -->
+<div class="example-modal">
+    <div class="modal close-modal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 20%;">
+                <div class="modal-header">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Action</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                    <button class="btn btn-default pull-left confirm-close-btn" type="button" >确认</button>
+                ##                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+<!-- /.提示弹框 -->
+<div class="example-modal">
+    <div class="modal open-modal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 20%;">
+                <div class="modal-header">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Action</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                    <button class="btn btn-default pull-left confirm-open-btn" type="button" >确认</button>
+                ##                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+<!-- /.提示弹框 -->
+<div class="example-modal">
+    <div class="modal quit-modal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 20%;">
+                <div class="modal-header">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Action</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                ##                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+<!-- /.提示弹框 -->
+<div class="example-modal">
+    <div class="modal error-modal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 20%;">
+                <div class="modal-header">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Action</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                ##                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
 <script type="text/javascript">
-    $(function(){
-        $("#new-btn").click(function(){
-            window.location.href="member?action=newMemberPage" ;
-        }) ;
-    });
+
+    /**全局变量，被操作的记录id*/
+    var item_id = 0 ;
+
+    /**点击新增会员*/
+    $("#new-btn").click(function(){
+        window.location.href="member?action=newMemberPage" ;
+    }) ;
+
+    /**点击关闭选项*/
+    $(".close-li").click(function(){
+        $('.close-modal .modal-body p').html("确定要关闭该账户吗？") ;
+        $('.close-modal').show() ;
+        var temp = $(this).parents("tr").index() ;
+
+        //找到每个tr中的记录id,赋值给全局变量
+        item_id = $(this).parents("tr").attr("item-id") ;
+    }) ;
+
+    /**点击开启选项*/
+    $(".open-li").click(function(){
+        $('.open-modal .modal-body p').html("确定要关闭该账户吗？") ;
+        $('.open-modal').show() ;
+
+        //找到每个tr中的记录id,赋值给全局变量
+        item_id = $(this).parents("tr").attr("item-id") ;
+    }) ;
+
+    /**点击会员退会*/
+    $(".quit-li").click(function(){
+        $('.quit-modal .modal-body p').html("确定要关闭该账户吗？") ;
+        $('.quit-modal').show() ;
+    }) ;
+
+    /**关闭弹框方法*/
+    $(".close-btn , .close ").click(function(){
+        close_remind_modal() ;
+    }) ;
+
+    /**确认关闭账户*/
+    $(".confirm-close-btn").click(function(){
+        $.ajax({
+            type : "post",
+            url : "member?action=closeMemebr",
+            data : {id : item_id} ,
+            dataType : "json",
+            success:function(data){
+                if (data.code == 1) {
+                    pageRequest($("#pageselectclass").html())
+                } else {
+                    close_remind_modal() ;
+                    $('.error-modal .modal-body p').html(data.msg) ;
+                    $('.error-modal').show() ;
+                }
+            }
+        });
+    }) ;
+
+    /**确认打开账户*/
+    $(".confirm-open-btn").click(function(){
+        $.ajax({
+            type : "post",
+            url : "member?action=openMemebr",
+            data : {id : item_id} ,
+            dataType : "json",
+            success:function(data){
+                if (data.code == 1) {
+                    pageRequest($("#pageselectclass").html())
+                } else {
+                    close_remind_modal() ;
+                    $('.error-modal .modal-body p').html(data.msg) ;
+                    $('.error-modal').show() ;
+                }
+            }
+        });
+    }) ;
 
     function pageRequest (pageNum){
         window.location.href="/member?action=memberList&pageNum=" + pageNum ;
     }
+
+    /**关闭通知提示框*/
+    function close_remind_modal(){
+        $('.modal').hide() ;
+    }
+
+
 
 </script>
 
