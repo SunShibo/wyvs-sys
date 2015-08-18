@@ -220,7 +220,7 @@
 
     /**点击开启选项*/
     $(".open-li").click(function(){
-        $('.open-modal .modal-body p').html("确定要关闭该账户吗？") ;
+        $('.open-modal .modal-body p').html("确定要开启该账户吗？") ;
         $('.open-modal').show() ;
 
         //找到每个tr中的记录id,赋值给全局变量
@@ -229,8 +229,10 @@
 
     /**点击会员退会*/
     $(".quit-li").click(function(){
-        $('.quit-modal .modal-body p').html("确定要关闭该账户吗？") ;
-        $('.quit-modal').show() ;
+//        $('.quit-modal .modal-body p').html("确定要关闭该账户吗？") ;
+//        $('.quit-modal').show() ; action=quit
+        item_id = $(this).parents("tr").attr("item-id") ;
+        window.location.href="member?action=quit&id=" +item_id  ;
     }) ;
 
     /**关闭弹框方法*/

@@ -232,5 +232,22 @@ public class MemberController extends AbstractController {
 
 	}
 
+	/**
+	 * 会员退会
+	 * @param request
+	 * @param response
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping( params = "action=quit")
+	public ModelAndView quitMemebrPage (HttpServletRequest request
+			, HttpServletResponse response  , int id ){
+
+		MemberDo memberDo = memberService.getMemberById(id) ;
+		ModelAndView mav = new ModelAndView("member/quit") ;
+		mav.addObject("member" , memberDo) ;
+		return mav ;
+	}
+
 
 }
