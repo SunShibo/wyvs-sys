@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyvs.wp.dao.QuitDao">
+
+
+    <select id="login" resultType="com.wyvs.wp.entity.MemberDo"
+            parameterType="com.wyvs.wp.entity.MemberDo">
+        SELECT * FROM pms_member_info
+        WHERE email = #{email}
+    </select>
+
+
+    <insert id="insert" parameterType="com.wyvs.wp.entity.QuitDo"
+            useGeneratedKeys="true" keyProperty="id">
+
+        <![CDATA[
+           INSERT INTO pms_member_quit(
+                member_id, member_name,member_english, department, job_grade,
+                create_time, last_date, join_date, description, lister_id,
+                lister_name, status
+                )
+            VALUES(
+                #{memberId},#{memberName}, #{memberEnglish},
+                #{department},#{jobGrade},#{createTime}, #{lastDate},
+                #{description},#{listerId},#{listerName},#{status}
+            )
+        ]]>
+    </insert>
+
+    <update id="updateMember" parameterType="com.wyvs.wp.entity.MemberDo">
+
+        UPDATE pms_member_info SET
+        <if test="enabledState != null">
+            enabled_state = #{enabledState} ,
+        </if>
+        id = #{id}
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>

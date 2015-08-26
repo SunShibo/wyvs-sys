@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-08-14 18:19:53
+Date: 2015-08-26 17:53:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -141,7 +141,32 @@ CREATE TABLE `pms_member_info` (
 -- ----------------------------
 INSERT INTO `pms_member_info` VALUES ('1003', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1', '1', '金琪斌', 'Qibin', '1', '2014-02-28', null, 'XX大学', '英语', '中国', '天津', '美国1', '波士顿1', '18601117545', '123456789', '395831708@qq.com', '395831708@qq.com', '../wyvs/member/1003/headPortrait/1420972207651.jpg', '2014-02-28 00:00:00', '2014-02-28 00:00:00', '2014-02-28 00:00:00', null, '0', '1', '测试数据', '', '美国XX街道', null, '纪检委');
 INSERT INTO `pms_member_info` VALUES ('1004', null, null, null, '孙诗博', 'shibo', '1', null, null, '', '', '', '', '', '', '', null, '', '', '../wyvs/member/1004/headPortrait/1420969512711.png', null, null, null, null, '0', null, '', '', '', null, null);
-INSERT INTO `pms_member_info` VALUES ('1005', null, null, null, '孙诗博', 'SUN SHI BO', '1', null, null, '', '', '', '', '', '', '18601117545', '', '11111@qq.com', '00000@skype.com', null, '2015-08-14 17:38:04', null, null, '2015-08-14 17:38:04', '0', '1', '测试数据', null, null, 'P3', 'CTO(首席技术官)');
+INSERT INTO `pms_member_info` VALUES ('1005', null, null, '1', '孙诗博', 'SUN SHI BO', '1', null, null, '', '', '', '', '', '', '18601117545', '', '11111@qq.com', '00000@skype.com', null, '2015-08-14 17:38:04', null, null, '2015-08-14 17:38:04', '0', '1', '测试数据', null, null, 'P3', 'CTO(首席技术官)');
+
+-- ----------------------------
+-- Table structure for `pms_member_quit`
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_member_quit`;
+CREATE TABLE `pms_member_quit` (
+  `id` int(9) NOT NULL AUTO_INCREMENT COMMENT '离职申请表',
+  `member_id` int(9) DEFAULT NULL COMMENT '退会会员id',
+  `member_name` varchar(50) DEFAULT NULL COMMENT '退会会员名字',
+  `member_english` varchar(100) DEFAULT NULL COMMENT '退会会员英文名',
+  `department` varchar(100) DEFAULT NULL COMMENT '部门',
+  `job_grade` varchar(10) DEFAULT NULL COMMENT '职级',
+  `create_time` datetime DEFAULT NULL COMMENT '记录创建时间',
+  `last_date` date DEFAULT NULL COMMENT '退会会员的最后工作日期',
+  `join_date` date DEFAULT NULL COMMENT '退会会员的加入时间',
+  `description` varchar(1000) DEFAULT NULL COMMENT '离职原因描述',
+  `lister_id` int(9) DEFAULT NULL COMMENT '制表人id',
+  `lister_name` varchar(50) DEFAULT NULL COMMENT '制表人名字',
+  `status` varchar(50) DEFAULT NULL COMMENT '状态  PASS通过  reject驳回 ，',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pms_member_quit
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `pms_permission`
