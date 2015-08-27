@@ -11,19 +11,25 @@
         WHERE email = #{email}
     </select>
 
+    <select id="selectQuitByMemberId" resultType="com.wyvs.wp.entity.QuitDo"
+            parameterType="int">
+        SELECT * FROM pms_member_quit
+        WHERE member_id = #{memberId} and status != "reject"
+    </select>
+
 
     <insert id="insert" parameterType="com.wyvs.wp.entity.QuitDo"
             useGeneratedKeys="true" keyProperty="id">
 
         <![CDATA[
            INSERT INTO pms_member_quit(
-                member_id, member_name,member_english, department, job_grade,
+                member_id, member_name,english_name, department, job_grade,
                 create_time, last_date, join_date, description, lister_id,
                 lister_name, status
                 )
             VALUES(
-                #{memberId},#{memberName}, #{memberEnglish},
-                #{department},#{jobGrade},#{createTime}, #{lastDate},
+                #{memberId},#{memberName}, #{englishName},
+                #{department},#{jobGrade},NOW(), #{lastDate},#{joinDate},
                 #{description},#{listerId},#{listerName},#{status}
             )
         ]]>

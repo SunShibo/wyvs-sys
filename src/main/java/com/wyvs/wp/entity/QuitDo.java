@@ -6,6 +6,13 @@ public class QuitDo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/**状态的枚举值  new新流程 processing处理中 pass通过 reject驳回 */
+	public static final String STATUS_NEW = "new";
+	public static final String STATUS_PROCESSING = "processing";
+	public static final String STATUS_PASS = "pass";
+	public static final String STATUS_REJECT = "reject";
+
+
 	/**主键*/
 	private Integer id;
 	/**退会会员id*/
@@ -13,7 +20,7 @@ public class QuitDo implements Serializable {
 	/**会员名字*/
 	private String memberName ;
 	/**英文名*/
-	private String memberEnglish ;
+	private String englishName ;
 	/**部门*/
 	private String department ;
 	/**职级*/
@@ -57,12 +64,12 @@ public class QuitDo implements Serializable {
 		this.memberName = memberName;
 	}
 
-	public String getMemberEnglish() {
-		return memberEnglish;
+	public String getEnglishName() {
+		return englishName;
 	}
 
-	public void setMemberEnglish(String memberEnglish) {
-		this.memberEnglish = memberEnglish;
+	public void setEnglishName(String englishName) {
+		this.englishName = englishName;
 	}
 
 	public String getDepartment() {

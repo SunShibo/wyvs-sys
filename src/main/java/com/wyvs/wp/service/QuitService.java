@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -19,6 +21,15 @@ public class QuitService {
 
 	public int addQuit(QuitDo quitDo) {
 		return quitDao.insert(quitDo) ;
+	}
+
+	/**
+	 * 通过工作人员id来查找离职记录
+	 * @param memberId
+	 * @return
+	 */
+	public List<QuitDo> getQuitByMemberId (int memberId) {
+		return quitDao.selectQuitByMemberId(memberId) ;
 	}
 
 }

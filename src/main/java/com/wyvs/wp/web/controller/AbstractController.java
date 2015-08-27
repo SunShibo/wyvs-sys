@@ -1,6 +1,8 @@
 package com.wyvs.wp.web.controller;
 
 import com.google.common.collect.Lists;
+import com.wyvs.wp.constants.LoginConstant;
+import com.wyvs.wp.entity.MemberDo;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -187,6 +189,11 @@ public class AbstractController {
     /**获取session*/
     public Object getSession (HttpServletRequest request,String key) {
         return request.getSession().getAttribute(key);
+    }
+
+    /**获取登录用户*/
+    public MemberDo getLoginUser (HttpServletRequest request) {
+        return (MemberDo)request.getSession().getAttribute(LoginConstant.LOGIN_USER_INFO);
     }
 
     /**移除session*/

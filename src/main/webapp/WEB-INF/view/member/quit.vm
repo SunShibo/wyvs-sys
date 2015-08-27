@@ -26,26 +26,26 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>姓名</label>
-                            <p class="form-control-static">$!{member.name}/$!{member.englishName}</p>
+                            <p class="form-control-static">$!{loginUser.name}/$!{loginUser.englishName}</p>
                         </div><!-- /.form-group -->
                     </div><!-- /.col -->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>部门</label>
-                            <p class="form-control-static">$!{member.department}</p>
+                            <p class="form-control-static">$!{loginUser.department}</p>
                         </div><!-- /.form-group -->
                     </div><!-- /.col -->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>申请时间</label>
-                            <p class="form-control-static">$!{member.jobGrade}</p>
+                            <p class="form-control-static">$!{loginUser.jobGrade}</p>
                         </div><!-- /.form-group -->
                     </div><!-- /.col -->
 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>UUID</label>
-                            <p class="form-control-static">$!{member.nationality}</p>
+                            <p class="form-control-static">$!{UUID}</p>
                         </div><!-- /.form-group -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -53,74 +53,107 @@
             </div><!-- /.box-body -->
         </div><!-- /.box -->
         <div class="box box-primary">
+
             <div class="box-header">
                 <span>离职人信息</span>
             </div><!-- /.box-header -->
 
             <div class="box-body">
+                <form action="" method="post" id="quit-form">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>姓名</label>
+                                <input type="hidden" value="$!{member.id}" name="memberId">
+                                <p class="form-control-static">$!{member.name}/$!{member.englishName}</p>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>职务/职级</label>
+                                <p class="form-control-static">$!{member.title}/$!{member.jobGrade}</p>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>部门</label>
+                                <p class="form-control-static">测试部门</p>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>加入时间</label>
+                                <p class="form-control-static">$!{member.join_time}</p>
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>姓名</label>
-                            <p class="form-control-static">$!{member.name}/$!{member.englishName}</p>
-                        </div><!-- /.form-group -->
-                    </div><!-- /.col -->
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>职务/职级</label>
-                            <p class="form-control-static">$!{member.title}/$!{member.jobGrade}</p>
-                        </div><!-- /.form-group -->
-                    </div><!-- /.col -->
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>部门</label>
-                            <p class="form-control-static">测试部门</p>
-                        </div><!-- /.form-group -->
-                    </div><!-- /.col -->
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>加入时间</label>
-                            <p class="form-control-static">$!{member.join_time}</p>
-                        </div><!-- /.form-group -->
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>最后工作日</label>
+                                <input id="last_date" class="form-control pull-right active" name="last_date"
+                                       placeholder="last date" type="text">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                        <div class="col-md-9">
+                            <div class="form-group">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- textarea -->
+                            <div class="form-group">
+                                <label>辞职理由陈述</label>
+                                <textarea class="form-control" rows="3" name="description" placeholder="Enter ..."></textarea>
+                            </div>
+                        </div><!-- /.col -->
 
+                    </div><!-- /.row -->
+                </form>
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>最后工作日</label>
-                            <input id="last_date" class="form-control pull-right active" name="lastDate"
-                                   placeholder="last date" type="text">
-                        </div><!-- /.form-group -->
-                    </div><!-- /.col -->
-                    <div class="col-md-9">
-                        <div class="form-group">
-                        </div><!-- /.form-group -->
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="form-group">
-                        </div><!-- /.form-group -->
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-1">
                         <!-- textarea -->
                         <div class="form-group">
-                            <label>辞职理由陈述</label>
-                            <textarea class="form-control" rows="3" name="remarks" placeholder="Enter ..."></textarea>
+                            <button id="submit-btn" class="btn btn-block btn-info">提交</button>
                         </div>
                     </div><!-- /.col -->
 
                 </div><!-- /.row -->
 
             </div><!-- /.box-body -->
+
         </div><!-- /.box -->
 
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+<!-- /.提示弹框 -->
+<div class="example-modal">
+    <div class="modal remind-modal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 20%;">
+                <div class="modal-header">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">会员离职</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                ##                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
 
 <script type="text/javascript">
 
@@ -131,5 +164,47 @@
             language: 'cn'
         });
     });
+
+    $(".close-btn , .close ").click(function(){
+        close_remind_modal() ;
+    }) ;
+
+    /**显示通知提示框*/
+    function show_remind_modal(content){
+        $('.remind-modal .modal-body p').html(content) ;
+        $('.remind-modal').show() ;
+    }
+
+    /**关闭通知提示框*/
+    function close_remind_modal(){
+        $('.remind-modal').hide() ;
+    }
+
+    /**提交表单按钮*/
+    $("#submit-btn").click(function() {
+
+        if ($("input[name=last_date]").val() == "" ) {
+            show_remind_modal("最后工作日期为必填项！") ;
+            return false ;
+        }
+        if ($("textarea[name=description]").html() == "" ) {
+            show_remind_modal("辞职理由陈述为必填项！") ;
+            return false ;
+        }
+        jQuery("#quit-form").ajaxSubmit({
+            type: 'post',
+            url: "/member?action=submitQuit" ,
+            dataType:"json",
+            success: function(data){
+                if (data.code == 1) {
+                    show_remind_modal("创建成功！") ;
+                }else {
+                    show_remind_modal(data.msg) ;
+                }
+            }
+        });
+    }) ;
+
+
 </script>
 

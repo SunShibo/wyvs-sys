@@ -3,7 +3,9 @@ package com.wyvs.wp.web.controller;
 import com.wyvs.wp.constants.LoginConstant;
 import com.wyvs.wp.entity.MemberDo;
 import com.wyvs.wp.entity.PermissionDo;
+import com.wyvs.wp.entity.QuitDo;
 import com.wyvs.wp.service.MemberService;
+import com.wyvs.wp.service.QuitService;
 import com.wyvs.wp.service.RoleService;
 import com.wyvs.wp.util.*;
 import net.sf.json.JSONArray;
@@ -29,6 +31,9 @@ public class MemberController extends AbstractController {
 
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private QuitService quitService;
 
 
 	/**
@@ -243,10 +248,79 @@ public class MemberController extends AbstractController {
 	public ModelAndView quitMemebrPage (HttpServletRequest request
 			, HttpServletResponse response  , int id ){
 
+		MemberDo loginUser = super.getLoginUser(request) ;
 		MemberDo memberDo = memberService.getMemberById(id) ;
+
 		ModelAndView mav = new ModelAndView("member/quit") ;
 		mav.addObject("member" , memberDo) ;
+		mav.addObject("loginUser" , loginUser) ;
 		return mav ;
+	}
+
+	/**
+	 * 提交离职申请
+	 * @param request
+	 * @param response
+	 * @param quit
+	 * @return
+	 */
+	@RequestMapping( params = "action=submitQuit")
+	public void submitQuit (HttpServletRequest request
+			, HttpServletResponse response  , QuitDo quit){
+
+		//获取部分参数
+		String lastDate = request.getParameter("last_date") ;
+
+		//校验参数
+		if (quit.getMemberId() == null || quit.getDescription() == null
+				|| StringUtils.isEmpty(lastDate)
+				|| !DateUtils.isValidDate(lastDate , DateUtils.DATE_PATTERN)) {
+
+			JSONObject json = JsonUtils.encapsulationJSON(0 , "非法请求！" ,"") ;
+			super.safeJsonPrint(response , json.toString());
+			return ;
+		}
+
+		//查找是否已经申请过离职
+		List<QuitDo> quitList = quitService.getQuitByMemberId(quit.getMemberId()) ;
+		if (quitList.size() > 0) {
+			JSONObject json = JsonUtils.encapsulationJSON(0
+					, "存在未完成的流程，该工作人员已经提交了离职申请！" ,"") ;
+			super.safeJsonPrint(response , json.toString());
+			return ;
+		}
+
+		//查找离职人信息
+		MemberDo member = memberService.getMemberById(quit.getMemberId()) ;
+
+		if (member ==  null ) {
+			JSONObject json = JsonUtils.encapsulationJSON(0 , "非法请求！" ,"") ;
+			super.safeJsonPrint(response , json.toString());
+			return ;
+		}
+
+		//获取登录用户
+		MemberDo loginUser = super.getLoginUser(request) ;
+		quit.setMemberId(member.getId());
+		quit.setMemberName(member.getName() + "/" + member.getEnglishName());
+		quit.setLastDate(DateUtils.parseDate(lastDate , DateUtils.DATE_PATTERN));
+		quit.setJobGrade(member.getJobGrade());
+		quit.setJoinDate(member.getJoinTime());
+		quit.setEnglishName(member.getEnglishName());
+		quit.setListerId(loginUser.getId());
+		quit.setListerName(loginUser.getName());
+		quit.setStatus(QuitDo.STATUS_NEW);
+		quit.setDepartment(member.getDepartment());
+		//插入数据
+		int rowNum = quitService.addQuit(quit) ;
+		JSONObject json ;
+		if (rowNum > 0) {
+			json = JsonUtils.encapsulationJSON( 1 , "" , "") ;
+		} else {
+			json = JsonUtils.encapsulationJSON( 0 , "网络可能不稳定，请退出后重试！" , "") ;
+		}
+		super.safeJsonPrint(response , json.toString());
+
 	}
 
 
