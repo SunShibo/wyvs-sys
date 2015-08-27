@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-08-26 17:53:38
+Date: 2015-08-27 18:26:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -151,7 +151,7 @@ CREATE TABLE `pms_member_quit` (
   `id` int(9) NOT NULL AUTO_INCREMENT COMMENT '离职申请表',
   `member_id` int(9) DEFAULT NULL COMMENT '退会会员id',
   `member_name` varchar(50) DEFAULT NULL COMMENT '退会会员名字',
-  `member_english` varchar(100) DEFAULT NULL COMMENT '退会会员英文名',
+  `english_name` varchar(100) DEFAULT NULL COMMENT '退会会员英文名',
   `department` varchar(100) DEFAULT NULL COMMENT '部门',
   `job_grade` varchar(10) DEFAULT NULL COMMENT '职级',
   `create_time` datetime DEFAULT NULL COMMENT '记录创建时间',
@@ -162,11 +162,12 @@ CREATE TABLE `pms_member_quit` (
   `lister_name` varchar(50) DEFAULT NULL COMMENT '制表人名字',
   `status` varchar(50) DEFAULT NULL COMMENT '状态  PASS通过  reject驳回 ，',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_member_quit
 -- ----------------------------
+INSERT INTO `pms_member_quit` VALUES ('1', '1005', '孙诗博/SUN SHI BO', 'SUN SHI BO', null, 'P3', '2015-08-27 17:41:39', '2015-08-26', '2015-08-14', 'test', '1003', '金琪斌', 'new');
 
 -- ----------------------------
 -- Table structure for `pms_permission`
