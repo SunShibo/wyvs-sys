@@ -25,12 +25,12 @@
            INSERT INTO pms_member_quit(
                 member_id, member_name,english_name, department, job_grade,
                 create_time, last_date, join_date, description, lister_id,
-                lister_name, status
+                lister_name, status , serial_number
                 )
             VALUES(
                 #{memberId},#{memberName}, #{englishName},
                 #{department},#{jobGrade},NOW(), #{lastDate},#{joinDate},
-                #{description},#{listerId},#{listerName},#{status}
+                #{description},#{listerId},#{listerName},#{status} ,#{serialNumber}
             )
         ]]>
     </insert>

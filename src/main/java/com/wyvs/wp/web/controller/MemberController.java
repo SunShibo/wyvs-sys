@@ -311,6 +311,7 @@ public class MemberController extends AbstractController {
 		quit.setListerName(loginUser.getName());
 		quit.setStatus(QuitDo.STATUS_NEW);
 		quit.setDepartment(member.getDepartment());
+		quit.setSerialNumber( SerialNumberTool.newSerialNumber(SerialNumberTool.QUIT_TYPE) );
 		//插入数据
 		int rowNum = quitService.addQuit(quit) ;
 		JSONObject json ;

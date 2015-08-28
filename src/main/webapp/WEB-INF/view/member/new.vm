@@ -245,11 +245,11 @@
             language: 'cn'
         });
 
-        $(".close-btn , .close ").click(function(){
+        $(".close-btn , .close ").click(function() {
             close_remind_modal() ;
         }) ;
 
-        $("input[name=email]").blur(function(){
+        $("input[name=email]").blur(function() {
 
             var email = $("input[name=email]").val() ;
 

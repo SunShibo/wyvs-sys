@@ -39,6 +39,8 @@ public class QuitDo implements Serializable {
 	private String listerName ;
 	/**状态*/
 	private String status ;
+	/**序列号*/
+	private String serialNumber ;
 
 	public Integer getId() {
 		return id;
@@ -142,6 +144,14 @@ public class QuitDo implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
 	}
 }
 

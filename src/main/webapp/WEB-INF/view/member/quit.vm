@@ -187,7 +187,7 @@
             show_remind_modal("最后工作日期为必填项！") ;
             return false ;
         }
-        if ($("textarea[name=description]").html() == "" ) {
+        if ($("textarea[name=description]").val() == "" ) {
             show_remind_modal("辞职理由陈述为必填项！") ;
             return false ;
         }
@@ -197,7 +197,7 @@
             dataType:"json",
             success: function(data){
                 if (data.code == 1) {
-                    show_remind_modal("创建成功！") ;
+                    show_remind_modal("申请提交成功！") ;
                 }else {
                     show_remind_modal(data.msg) ;
                 }
