@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : location
+Source Server         : localhost
 Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : wyvs-working-platform
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-08-27 18:26:44
+Date: 2015-09-08 18:45:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -292,6 +292,27 @@ INSERT INTO `pms_schedule_info` VALUES ('19', 'Boxing\'s Birthday', '2014-04-21 
 INSERT INTO `pms_schedule_info` VALUES ('20', '例会', '2014-06-11 00:00:00', '2014-06-11 00:00:00', '1003', null, null);
 
 -- ----------------------------
+-- Table structure for `pms_task`
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_task`;
+CREATE TABLE `pms_task` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(100) DEFAULT NULL COMMENT '主题',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `end_time` datetime DEFAULT NULL COMMENT '计划结束时间',
+  `content` varchar(2000) DEFAULT NULL COMMENT '内容',
+  `create_user` int(9) DEFAULT NULL COMMENT '创建人',
+  `status` varchar(50) DEFAULT NULL COMMENT '状态',
+  `level` varchar(50) DEFAULT NULL COMMENT '任务级别',
+  `finish_time` datetime DEFAULT NULL COMMENT '最总完成时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pms_task
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `pms_task_allocation_info`
 -- ----------------------------
 DROP TABLE IF EXISTS `pms_task_allocation_info`;
@@ -334,6 +355,22 @@ CREATE TABLE `pms_task_info` (
 
 -- ----------------------------
 -- Records of pms_task_info
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `pms_task_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_task_user`;
+CREATE TABLE `pms_task_user` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `mission_id` int(9) DEFAULT NULL,
+  `member_id` int(9) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pms_task_user
 -- ----------------------------
 
 -- ----------------------------
