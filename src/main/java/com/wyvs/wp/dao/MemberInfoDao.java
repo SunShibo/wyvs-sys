@@ -6,7 +6,13 @@ import java.util.Map;
 
 public interface MemberInfoDao {
      public int insert(MemberDo MemberInfo);
-     
+
+	/**
+	 * 通过id查找会员信息
+	 * @param memberId
+	 * @return
+	 */
+	public MemberDo getItemById(int memberId);
      /**
       * 修改会员信息
       * @param memberInfo
