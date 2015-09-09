@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyvs.wp.dao.TaskDao">
+
+
+    <select id="getListPage" resultType="com.wyvs.wp.entity.TaskDo">
+        SELECT id,subject,create_time,end_time,content,create_user,status,level,finish_time
+        FROM pms_task
+        WHERE 1=1
+    </select>
+
+    <select id="getListCount" resultType="int">
+        SELECT COUNT(id)
+        FROM pms_task
+        WHERE 1=1
+    </select>
+
+    <insert id="insert" parameterType="com.wyvs.wp.entity.TaskDo" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+           INSERT INTO pms_task (
+               subject,create_time,end_time,content,create_user,status,level,finish_time)
+            VALUES(
+                #{subject}, NOW() ,#{endTime}, #{content},
+                #{createUser},#{status},#{level}, #{finishTime}
+            )
+        ]]>
+    </insert>
+
+    <update id="updateTask" parameterType="com.wyvs.wp.entity.TaskDo">
+
+        UPDATE pms_task SET
+        <if test="status != null and status != ''">
+            status = #{status} ,
+        </if>
+        id = #{id}
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>

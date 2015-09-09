@@ -5,11 +5,13 @@ import com.wyvs.wp.service.MemberService;
 import com.wyvs.wp.service.RoleService;
 import com.wyvs.wp.service.TaskService;
 import com.wyvs.wp.util.JsonUtils;
+import com.wyvs.wp.util.QueryObject;
 import com.wyvs.wp.util.StringUtils;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +45,12 @@ public class TaskController extends AbstractController {
 		return mav;
 	}
 
-	//添加任务
+	/**
+	 * 添加任务
+	 * @param request
+	 * @param response
+	 * @param taskDo
+	 */
 	@RequestMapping( params = "action=addTask")
 	public void addTask(HttpServletRequest request
 			, HttpServletResponse response , TaskDo taskDo ){
@@ -60,5 +67,24 @@ public class TaskController extends AbstractController {
 		super.safeJsonPrint(response , json.toString());
 	}
 
+	/**
+	 * 获取任务列表
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping( params = "action=queryTaskList")
+	public void queryTaskList(HttpServletRequest request
+			, HttpServletResponse response ,TaskDo taskDo
+			, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum
+			, @RequestParam(value = "pageSize", defaultValue = "30") Integer pageSize ){
+
+		//获取分页
+		QueryObject query = new QueryObject() ;
+		query.setPageNum(pageNum);
+		query.setPageSize(pageSize);
+
+		JSONObject json = taskService.getTaskListPageJSON(taskDo, query) ;
+		super.safeJsonPrint(response , json.toString());
+	}
 
 }

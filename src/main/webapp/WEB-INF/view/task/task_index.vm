@@ -7,7 +7,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Mailbox</li>
+            <li class="active">Task</li>
         </ol>
     </section>
 
@@ -15,7 +15,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-3">
-                <a href="compose.html" class="btn btn-primary btn-block margin-bottom">Compose</a>
+                <a href="#" id="btn_new_task" class="btn btn-primary btn-block margin-bottom">New Task</a>
                 <div class="box box-solid">
                     <div class="box-header with-border">
                         <h3 class="box-title">Folders</h3>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="box-body no-padding">
                         <ul class="nav nav-pills nav-stacked">
-                            <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-primary pull-right">12</span></a></li>
+                            <li class="active" id="li_task_list"><a href="#"><i class="fa fa-inbox"></i> Task List <span class="label label-primary pull-right">12</span></a></li>
                             <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
                             <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
                             <li><a href="#"><i class="fa fa-filter"></i> Junk <span class="label label-warning pull-right">65</span></a></li>
@@ -49,198 +49,224 @@
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div><!-- /.col -->
-            <div class="col-md-9">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Inbox</h3>
-                        <div class="box-tools pull-right">
-                            <div class="has-feedback">
-                                <input type="text" class="form-control input-sm" placeholder="Search Mail">
-                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </div><!-- /.box-tools -->
-                    </div><!-- /.box-header -->
-                    <div class="box-body no-padding">
-                        <div class="mailbox-controls">
-                            <!-- Check all button -->
-                            <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                            <div class="btn-group">
-                                <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                            </div><!-- /.btn-group -->
-                            <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                            <div class="pull-right">
-                                1-50/200
-                                <div class="btn-group">
-                                    <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                    <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                                </div><!-- /.btn-group -->
-                            </div><!-- /.pull-right -->
-                        </div>
-                        <div class="table-responsive mailbox-messages">
-                            <table class="table table-hover table-striped">
-                                <tbody>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">5 mins ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">28 mins ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">11 hours ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">15 hours ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">Yesterday</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">2 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">2 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">2 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">2 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">2 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">4 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">12 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">12 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">14 days ago</td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                    <td class="mailbox-date">15 days ago</td>
-                                </tr>
-                                </tbody>
-                            </table><!-- /.table -->
-                        </div><!-- /.mail-box-messages -->
-                    </div><!-- /.box-body -->
-                    <div class="box-footer no-padding">
-                        <div class="mailbox-controls">
-                            <!-- Check all button -->
-                            <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                            <div class="btn-group">
-                                <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                            </div><!-- /.btn-group -->
-                            <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                            <div class="pull-right">
-                                1-50/200
-                                <div class="btn-group">
-                                    <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                                    <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                                </div><!-- /.btn-group -->
-                            </div><!-- /.pull-right -->
-                        </div>
-                    </div>
-                </div><!-- /. box -->
+            <div class="col-md-9" id="template_container">
+
             </div><!-- /.col -->
         </div><!-- /.row -->
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
+<!-- 渲染模板js -->
+<script src="/static/js/template/template-native.js" type="text/javascript"></script>
+
+<!-- 新建任务 -->
+<script id="template_new_task" type="text/html">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">New Task</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+##            <div class="form-group">
+##                <input class="form-control" placeholder="To:" id="">
+##            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="Subject:" id="input_subject">
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="开始时间" id="begin_time" style="width:230px; float: left;margin-right: 11px;">
+                <input class="form-control" placeholder="结束时间" id="end_time" style="width:230px;float: left;margin-right: 11px;">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default task-level">Middle</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" id="ul_level">
+                        <li data-value="High"><a href="#">High</a></li>
+                        <li data-value="Middle"><a href="#">Middle</a></li>
+                        <li data-value="Low"><a href="#">Low</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                    <textarea id="compose-textarea" class="form-control" style="height: 300px">
+                      <h1><u>Heading Of Message</u></h1>
+                      <h4>Subheading</h4>
+                      <p>请输入一些描述......</p>
+                      <ul>
+                          <li>List item one</li>
+                          <li>List item two</li>
+                          <li>List item three</li>
+                          <li>List item four</li>
+                      </ul>
+                      <p>Thank you,</p>
+                      <p>John Doe</p>
+                    </textarea>
+            </div>
+            <div class="form-group">
+                <div class="btn btn-default btn-file">
+                    <i class="fa fa-paperclip"></i> Attachment
+                    <input type="file" name="attachment">
+                </div>
+                <p class="help-block">Max. 32MB</p>
+            </div>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <div class="pull-right">
+                <button class="btn btn-default"><i class="fa fa-pencil"></i> Draft</button>
+                <button type="submit" id="btn-submit-task" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
+            </div>
+            <button class="btn btn-default"><i class="fa fa-times"></i> Discard</button>
+        </div><!-- /.box-footer -->
+    </div><!-- /. box -->
+</script>
+<!-- 任务列表模板 -->
+<script id="template_task_list" type="text/html">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Inbox</h3>
+            <div class="box-tools pull-right">
+                <div class="has-feedback">
+                    <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+            </div><!-- /.box-tools -->
+        </div><!-- /.box-header -->
+        <div class="box-body no-padding">
+            <div class="mailbox-controls">
+                <!-- Check all button -->
+                <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                    <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                </div><!-- /.btn-group -->
+                <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                <div class="pull-right">
+                    1-50/200
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                    </div><!-- /.btn-group -->
+                </div><!-- /.pull-right -->
+            </div>
+            <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                    <%for(i = 0; i < datas.length; i ++) {%>
+                        <tr>
+                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                            <td class="mailbox-name"><%=datas[i].level%></td>
+                            <td class="mailbox-subject"><b><%=datas[i].subject%></b> - Trying to find a solution to this problem...</td>
+                            <td class="mailbox-attachment"></td>
+                            <td class="mailbox-date"><%=datas[i].createTime%></td>
+                        </tr>
+                    <%}%>
+                    </tbody>
+                </table><!-- /.table -->
+            </div><!-- /.mail-box-messages -->
+        </div><!-- /.box-body -->
+        <div class="box-footer no-padding">
+            <div class="mailbox-controls">
+                <!-- Check all button -->
+                <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                    <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                    <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                </div><!-- /.btn-group -->
+                <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                <div class="pull-right">
+                    1-50/200
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                    </div><!-- /.btn-group -->
+                </div><!-- /.pull-right -->
+            </div>
+        </div>
+    </div>
+
+</script>
+
 <!-- Page Script -->
 <script>
-    $(function () {
-       $(".fa-star, .fa-star-o").click(function(){
-            if( $(this).hasClass("fa-star")) {
-                $(this).removeClass("fa-star") ;
-                $(this).addClass("fa-star-o") ;
-            }else {
-                $(this).removeClass("fa-star-o") ;
-                $(this).addClass("fa-star") ;
-            }
-       });
+
+    $(function(){
+        // 模拟点击事件
+        $("#li_task_list").trigger("click");
     });
+
+    $(".fa-star, .fa-star-o").click(function(){
+        if( $(this).hasClass("fa-star")) {
+            $(this).removeClass("fa-star") ;
+            $(this).addClass("fa-star-o") ;
+        }else {
+            $(this).removeClass("fa-star-o") ;
+            $(this).addClass("fa-star") ;
+        }
+    });
+    /**点击任务列表*/
+    $("#li_task_list").click(function() {
+        $.ajax({
+            type : "post",
+            url : "task?action=queryTaskList",
+            data : {} ,
+            dataType : "json",
+            success:function(data){
+                if (data.code == 1) {
+                    var html = template('template_task_list', data.data);
+                    $("#template_container").html(html) ;
+                }else {
+                    alert("请求失败!") ;
+                }
+            }
+        });
+    }) ;
+
+    /**新建任务*/
+    $("#btn_new_task").click(function() {
+        var html = template('template_new_task', {param:""});
+        $("#template_container").html(html) ;
+        init_new_task() ;
+    }) ;
+
+    /**提交任务*/
+    function submit_task(){
+        var subject = $("#input_subject").val() ;
+        var content = $("#compose-textarea").val() ;
+        var begin_time = $("#begin_time").val() ;
+        var end_time = $("#end_time").val() ;
+        var level = $(".task-level").html();
+
+        $.ajax({
+            type : "post",
+            url : "task?action=addTask",
+            data : {subject : subject , content : content ,
+                begin_time : begin_time , end_time : end_time , level : level} ,
+            dataType : "json",
+            success:function(data){
+                alert(data.msg) ;
+            }
+        });
+
+    }
+
+    function init_new_task () {
+        $("#compose-textarea").wysihtml5();
+        //绑定提交按钮事件
+        $("#btn-submit-task").click(submit_task) ;
+        $("#ul_level li").click(function(){
+            var val = $(this).attr("data-value") ;
+            $(".task-level").html(val) ;
+        }) ;
+        //Date range picker
+        $('#begin_time,#end_time').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'cn'
+        });
+    }
+
 </script>

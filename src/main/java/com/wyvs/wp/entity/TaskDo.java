@@ -27,6 +27,7 @@ public class TaskDo implements Serializable {
 	private String status ;//状态
 	private String level ;//任务级别
 	private Date finishTime ;//最总完成时间
+	private Integer createUser ;//创建人
 
 	public Integer getId() {
 		return id;
@@ -90,6 +91,14 @@ public class TaskDo implements Serializable {
 
 	public void setFinishTime(Date finishTime) {
 		this.finishTime = finishTime;
+	}
+
+	public Integer getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(Integer createUser) {
+		this.createUser = createUser;
 	}
 }
 
