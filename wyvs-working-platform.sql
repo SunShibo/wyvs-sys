@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-09-08 18:45:32
+Date: 2015-09-09 19:15:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -306,56 +306,13 @@ CREATE TABLE `pms_task` (
   `level` varchar(50) DEFAULT NULL COMMENT '任务级别',
   `finish_time` datetime DEFAULT NULL COMMENT '最总完成时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_task
 -- ----------------------------
-
--- ----------------------------
--- Table structure for `pms_task_allocation_info`
--- ----------------------------
-DROP TABLE IF EXISTS `pms_task_allocation_info`;
-CREATE TABLE `pms_task_allocation_info` (
-  `id` int(9) NOT NULL AUTO_INCREMENT,
-  `taskId` int(9) DEFAULT NULL COMMENT '任务id',
-  `memberId` int(9) DEFAULT NULL COMMENT '认领者id',
-  `score` double(4,2) DEFAULT NULL COMMENT '分数',
-  `taskState` int(4) DEFAULT NULL COMMENT '任务状态  0是正在处理  1是已完成',
-  `claimOrAssign` int(4) DEFAULT NULL COMMENT '任务是自己认领   还是部门分配 0部门分配 1自己认领',
-  `submitTime` datetime DEFAULT NULL COMMENT '提交完成任务的时间',
-  `joinTime` datetime DEFAULT NULL COMMENT '分配任务时间',
-  `remarks` varchar(300) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of pms_task_allocation_info
--- ----------------------------
-
--- ----------------------------
--- Table structure for `pms_task_info`
--- ----------------------------
-DROP TABLE IF EXISTS `pms_task_info`;
-CREATE TABLE `pms_task_info` (
-  `id` int(9) NOT NULL DEFAULT '0',
-  `taskName` varchar(60) DEFAULT NULL COMMENT '任务名称',
-  `taskDescription` varchar(400) DEFAULT NULL COMMENT '任务描述',
-  `startTime` datetime DEFAULT NULL COMMENT '开始时间',
-  `endTime` datetime DEFAULT NULL COMMENT '结束时间',
-  `departmentFlag` varchar(255) DEFAULT NULL COMMENT '部门标记',
-  `taskLevel` int(9) DEFAULT NULL COMMENT '任务等级：1非常紧急，2正常任务',
-  `taskStatus` int(9) DEFAULT NULL COMMENT 's任务状态：0未认领  1工作中  2已完成  3已作废',
-  `checkStatus` int(9) DEFAULT NULL COMMENT '审核状态：0未审核 1已审核',
-  `checkMemberId` int(9) DEFAULT NULL COMMENT '审核人id',
-  `checkTime` datetime DEFAULT NULL COMMENT '审核时间',
-  `remarks` varchar(200) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of pms_task_info
--- ----------------------------
+INSERT INTO `pms_task` VALUES ('1', '测试的任务', '2015-09-09 13:56:11', '2015-09-09 13:56:13', '这是一条测试数据，测试时间：2015/09/09.', '1001', null, 'Middle', '2015-09-09 13:56:53');
+INSERT INTO `pms_task` VALUES ('2', 'sdfsdf', '2015-09-09 18:07:57', null, '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', null, null, 'Middle', null);
 
 -- ----------------------------
 -- Table structure for `pms_task_user`
