@@ -6,22 +6,23 @@ public class TaskDo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**0锁定状态、1可用状态、2未激活状态*/
-	public static final int ENABLEDSTATE_DISABLED = 0 ;
-	public static final int ENABLEDSTATE_ABLE = 1 ;
-	public static final int ENABLEDSTATE_NONACTIVATED = 2 ;
+	/**严重级别 高中低*/
+	public static final String LEVEL_HIGH = "High" ;
+	public static final String LEVEL_MIDDLE = "Middle" ;
+	public static final String LEVEL_LOW = "Low" ;
 
-	/**性别 0女、1男*/
-	public static final int GENDER_MALE = 1 ;
-	public static final int GENDER_FEMALE = 0 ;
-
-	/**1正常状态，2退会状态*/
-	public static final int STATE_FORMAL = 1 ;
-	public static final int STATE_QUIT = 2 ;
+	/**新任务  打开  重新打开  等待  完成  关闭*/
+	public static final String STATUS_NEW = "New" ;
+	public static final String STATUS_OPEN  = "Open" ;
+	public static final String STATUS_REOPEN  = "Reopen" ;
+	public static final String STATUS_WAIT  = "Wait" ;
+	public static final String STATUS_FINISH = "Finish" ;
+	public static final String STATUS_CLOSE = "Close" ;
 
 	private Integer id; //主键
 	private String subject ;//主题
 	private Date createTime ;//创建时间
+	private Date beginTime ;
 	private Date endTime ;//计划结束时间
 	private String content ;//内容
 	private String status ;//状态
@@ -99,6 +100,14 @@ public class TaskDo implements Serializable {
 
 	public void setCreateUser(Integer createUser) {
 		this.createUser = createUser;
+	}
+
+	public Date getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
 	}
 }
 

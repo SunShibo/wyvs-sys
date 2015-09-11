@@ -26,10 +26,10 @@
                     <div class="box-body no-padding">
                         <ul class="nav nav-pills nav-stacked">
                             <li class="active" id="li_task_list"><a href="#"><i class="fa fa-inbox"></i> Task List <span class="label label-primary pull-right">12</span></a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                            <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                            <li><a href="#"><i class="fa fa-filter"></i> Junk <span class="label label-warning pull-right">65</span></a></li>
-                            <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i> 待我解决的任务</a></li>
+                            <li><a href="#"><i class="fa fa-file-text-o"></i> 我完成的任务</a></li>
+                            <li><a href="#"><i class="fa fa-filter"></i> 待我验证的任务 <span class="label label-warning pull-right">65</span></a></li>
+                            <li><a href="#"><i class="fa fa-trash-o"></i> 分析报告</a></li>
                         </ul>
                     </div><!-- /.box-body -->
                 </div><!-- /. box -->
@@ -55,6 +55,27 @@
         </div><!-- /.row -->
     </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
+
+<!-- /.提示弹框 -->
+<div class="example-modal">
+    <div class="modal infor-modal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 20%;">
+                <div class="modal-header">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Action</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                ##                    <button class="btn btn-primary" type="button">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
 
 <!-- 渲染模板js -->
 <script src="/static/js/template/template-native.js" type="text/javascript"></script>
@@ -87,8 +108,13 @@
                         <li data-value="Low"><a href="#">Low</a></li>
                     </ul>
                 </div>
-
-
+            </div>
+            <div class="form-group">
+                <ul class="f-list">
+                    <li><strong>孙诗博</strong><i>x</i></li>
+                    <li><strong>金琦斌</strong><i>x</i></li>
+                </ul>
+                <br/>
             </div>
             <div class="form-group">
                     <textarea id="compose-textarea" class="form-control" style="height: 300px">
@@ -126,7 +152,7 @@
 <script id="template_task_list" type="text/html">
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">Inbox</h3>
+            <h3 class="box-title">Task List</h3>
             <div class="box-tools pull-right">
                 <div class="has-feedback">
                     <input type="text" class="form-control input-sm" placeholder="Search Mail">
@@ -135,33 +161,18 @@
             </div><!-- /.box-tools -->
         </div><!-- /.box-header -->
         <div class="box-body no-padding">
-            <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                    <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                    <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                </div><!-- /.btn-group -->
-                <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                    1-50/200
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                    </div><!-- /.btn-group -->
-                </div><!-- /.pull-right -->
-            </div>
+
             <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
                     <tbody>
                     <%for(i = 0; i < datas.length; i ++) {%>
-                        <tr>
-                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                            <td class="mailbox-name"><%=datas[i].level%></td>
-                            <td class="mailbox-subject"><b><%=datas[i].subject%></b> - Trying to find a solution to this problem...</td>
-                            <td class="mailbox-attachment"></td>
-                            <td class="mailbox-date"><%=datas[i].createTime%></td>
+                        <tr html-content="<%=datas[i].content%>" item-task-id="<%=datas[i].id%>" planning-horizon="<%=datas[i].beginTime%>   To   <%=datas[i].endTime%>">
+                            <td class="mailbox-star" style="padding-left: 20px;"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                            <td class="task-id">【<%=datas[i].id%>】</td>
+                            <td class="task-level"><%=datas[i].level%></td>
+                            <td class=""><b class="task_subject" style="cursor:pointer"><%=datas[i].subject%></b> - Trying to find a solution to this problem...</td>
+                            <td class=""></td>
+                            <td class=""><%=datas[i].createTime%></td>
                         </tr>
                     <%}%>
                     </tbody>
@@ -170,14 +181,6 @@
         </div><!-- /.box-body -->
         <div class="box-footer no-padding">
             <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                    <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                    <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                </div><!-- /.btn-group -->
-                <button class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                 <div class="pull-right">
                     1-50/200
                     <div class="btn-group">
@@ -191,6 +194,62 @@
 
 </script>
 
+<!-- 读任务模板 -->
+<script id="template_read_task" type="text/html">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Read Task</h3>
+            <div class="box-tools pull-right">
+                <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"></i></a>
+                <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="Next"><i class="fa fa-chevron-right"></i></a>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body no-padding">
+            <div class="mailbox-read-info">
+                <input type="hidden" id="hid_task_id" value="<%=taskId%>"/>
+                <h3></h3>
+                <h5>Planning Horizon: <%=planning_horizon%> <span class="mailbox-read-time pull-right">15 Feb. 2015 11:03 PM</span></h5>
+            </div><!-- /.mailbox-read-info -->
+            <div class="mailbox-read-message">
+
+            </div><!-- /.mailbox-read-message -->
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <ul class="mailbox-attachments clearfix">
+                <li>
+                    <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+                    <div class="mailbox-attachment-info">
+                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+                        <span class="mailbox-attachment-size">
+                          1,245 KB
+                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <span class="mailbox-attachment-icon"><i class="fa fa-file-word-o"></i></span>
+                    <div class="mailbox-attachment-info">
+                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> App Description.docx</a>
+                        <span class="mailbox-attachment-size">
+                          1,245 KB
+                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                        </span>
+                    </div>
+                </li>
+
+            </ul>
+        </div><!-- /.box-footer -->
+        <div class="box-footer">
+            <div class="pull-right">
+##                <button class="btn btn-default"><i class="fa fa-reply"></i> Reply</button>
+                <button class="btn btn-default" onclick="join_task()"><i class="fa fa-share"></i> Join</button>
+            </div>
+            <button class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</button>
+            <button class="btn btn-default"><i class="fa fa-print"></i> Print</button>
+        </div><!-- /.box-footer -->
+    </div><!-- /. box -->
+</script>
+
 <!-- Page Script -->
 <script>
 
@@ -198,6 +257,11 @@
         // 模拟点击事件
         $("#li_task_list").trigger("click");
     });
+
+    /**关闭弹框方法*/
+    $(".close-btn , .close ").click(function(){
+        close_remind_modal() ;
+    }) ;
 
     $(".fa-star, .fa-star-o").click(function(){
         if( $(this).hasClass("fa-star")) {
@@ -208,6 +272,11 @@
             $(this).addClass("fa-star") ;
         }
     });
+
+    $(".nav-stacked, li").click(function(){
+        $(this).addClass("active") ;
+    });
+
     /**点击任务列表*/
     $("#li_task_list").click(function() {
         $.ajax({
@@ -222,8 +291,10 @@
                 }else {
                     alert("请求失败!") ;
                 }
+                init_task_list () ;
             }
         });
+
     }) ;
 
     /**新建任务*/
@@ -266,6 +337,45 @@
         $('#begin_time,#end_time').datepicker({
             format: 'yyyy-mm-dd',
             language: 'cn'
+        });
+    }
+
+    /**初始化任务列表*/
+    function init_task_list () {
+
+        /**读取任务*/
+        $(".task_subject").click(function () {
+            var content = $(this).parents("tr").attr("html-content") ;
+            var planning_horizon = $(this).parents("tr").attr("planning-horizon") ;
+            var taskId = $(this).parents("tr").attr("item-task-id") ;
+            var subject = $(this).parents("tr").find(".task_subject").html() ;
+            var level = $(this).parents("tr").find(".task-level").html() ;
+            var html = template('template_read_task', {planning_horizon:planning_horizon ,
+                taskId:taskId});
+
+            $("#template_container").html(html) ;
+            $(".mailbox-read-info h3").html("【"+taskId+"】——Subject " + subject + "(" + level + ")") ;
+            $(".mailbox-read-message").html(content) ;
+            $("#task_id").val(taskId) ;
+
+        }) ;
+    }
+
+    /**关闭通知提示框*/
+    function close_remind_modal(){
+        $('.modal').hide() ;
+    }
+
+    function join_task() {
+        var taskId = $("#hid_task_id").val() ;
+        $.ajax({
+            type : "post",
+            url : "task?action=joinTask",
+            data : {taskId : taskId } ,
+            dataType : "json",
+            success:function(data){
+                alert(data.code) ;
+            }
         });
     }
 

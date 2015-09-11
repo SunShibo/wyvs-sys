@@ -6,9 +6,10 @@
 
 
     <select id="getListPage" resultType="com.wyvs.wp.entity.TaskDo">
-        SELECT id,subject,create_time,end_time,content,create_user,status,level,finish_time
+        SELECT id,subject,create_time,begin_time ,end_time,content,create_user,status,level,finish_time
         FROM pms_task
         WHERE 1=1
+        ORDER BY id DESC
     </select>
 
     <select id="getListCount" resultType="int">
@@ -20,9 +21,9 @@
     <insert id="insert" parameterType="com.wyvs.wp.entity.TaskDo" useGeneratedKeys="true" keyProperty="id">
         <![CDATA[
            INSERT INTO pms_task (
-               subject,create_time,end_time,content,create_user,status,level,finish_time)
+               subject,create_time,begin_time ,end_time,content,create_user,status,level,finish_time)
             VALUES(
-                #{subject}, NOW() ,#{endTime}, #{content},
+                #{subject}, NOW() ,#{beginTime},#{endTime}, #{content},
                 #{createUser},#{status},#{level}, #{finishTime}
             )
         ]]>
