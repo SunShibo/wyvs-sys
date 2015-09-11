@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-09-09 19:15:46
+Date: 2015-09-11 18:53:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -299,6 +299,7 @@ CREATE TABLE `pms_task` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `subject` varchar(100) DEFAULT NULL COMMENT '主题',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `begin_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL COMMENT '计划结束时间',
   `content` varchar(2000) DEFAULT NULL COMMENT '内容',
   `create_user` int(9) DEFAULT NULL COMMENT '创建人',
@@ -306,13 +307,16 @@ CREATE TABLE `pms_task` (
   `level` varchar(50) DEFAULT NULL COMMENT '任务级别',
   `finish_time` datetime DEFAULT NULL COMMENT '最总完成时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12508 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_task
 -- ----------------------------
-INSERT INTO `pms_task` VALUES ('1', '测试的任务', '2015-09-09 13:56:11', '2015-09-09 13:56:13', '这是一条测试数据，测试时间：2015/09/09.', '1001', null, 'Middle', '2015-09-09 13:56:53');
-INSERT INTO `pms_task` VALUES ('2', 'sdfsdf', '2015-09-09 18:07:57', null, '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', null, null, 'Middle', null);
+INSERT INTO `pms_task` VALUES ('10000', '测试的任务', '2015-09-09 13:56:11', '2015-09-11 15:35:48', '2015-09-09 13:56:13', '这是一条测试数据，测试时间：2015/09/09.', '1001', null, 'Middle', '2015-09-09 13:56:53');
+INSERT INTO `pms_task` VALUES ('10001', '不可能完成的任务', '2015-09-09 18:07:57', '2015-09-11 15:35:51', '2015-09-11 15:36:02', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', null, null, 'Middle', null);
+INSERT INTO `pms_task` VALUES ('10003', '搞定大魔王', '2015-09-10 10:37:47', '2015-09-11 15:35:53', '2015-09-11 15:36:05', '<h1><u>解决大魔王，有奖励。。。<small></small></u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', null, null, 'High', null);
+INSERT INTO `pms_task` VALUES ('10004', '消灭敌人', '2015-09-10 16:50:49', '2015-09-11 15:35:56', '2015-09-11 15:36:07', '<h1><u>打到敌人。。。。<small>﻿</small></u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', null, null, 'Low', null);
+INSERT INTO `pms_task` VALUES ('12506', '攻打小日本', '2015-09-10 17:22:35', '2015-09-11 15:35:59', '2015-09-11 15:36:10', '<h1><u>打到日本军国主义，打到法西斯。</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', null, null, 'Low', null);
 
 -- ----------------------------
 -- Table structure for `pms_task_user`
@@ -320,15 +324,17 @@ INSERT INTO `pms_task` VALUES ('2', 'sdfsdf', '2015-09-09 18:07:57', null, '<h1>
 DROP TABLE IF EXISTS `pms_task_user`;
 CREATE TABLE `pms_task_user` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
-  `mission_id` int(9) DEFAULT NULL,
+  `task_id` int(9) DEFAULT NULL,
   `member_id` int(9) DEFAULT NULL,
+  `member_name` varchar(50) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_task_user
 -- ----------------------------
+INSERT INTO `pms_task_user` VALUES ('1', '12506', '1003', '金琪斌', '2015-09-11 16:37:10');
 
 -- ----------------------------
 -- Table structure for `pms_user_info`
