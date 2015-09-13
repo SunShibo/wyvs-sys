@@ -6,16 +6,57 @@
 
 
     <select id="getListPage" resultType="com.wyvs.wp.entity.TaskDo">
-        SELECT id,subject,create_time,begin_time ,end_time,content,create_user,status,level,finish_time
-        FROM pms_task
-        WHERE 1=1
+       SELECT t.id,t.subject,t.create_time,t.begin_time ,t.end_time,t.content,t.create_user,t.status,t.level,t.finish_time
+            FROM pms_task t
+            LEFT JOIN	pms_task_user tu on tu.task_id = t.id
+            WHERE 1=1
+        <choose>
+            <when test="search_type == 'ALL'">  </when>
+            <when test="search_type == 'MY_WORKING_TASK'">
+                AND tu.member_id = #{loginUser.id}
+                AND t.status != "Finish" AND  t.status != "Close"
+            </when>
+            <when test="search_type == 'MY_FINISH_TASK'">
+                AND tu.member_id = #{loginUser.id}
+                AND (t.status = "Finish" OR  t.status = "Close")
+            </when>
+            <when test="search_type == 'NEED_CHECK_TASK'">
+                AND t.create_user = #{loginUser.id} AND t.status = "Finish"
+            </when>
+            <otherwise>  </otherwise>
+        </choose>
+        <if test="search != null  and search != '' ">
+            AND (t.id = #{search}  OR t.subject like "%"#{search}"%")
+        </if>
+
         ORDER BY id DESC
+        LIMIT #{pageOffset}, #{pageSize}
     </select>
 
     <select id="getListCount" resultType="int">
-        SELECT COUNT(id)
-        FROM pms_task
+        SELECT COUNT(t.id)
+        FROM pms_task t
+        LEFT JOIN	pms_task_user tu on tu.task_id = t.id
         WHERE 1=1
+        <choose>
+            <when test="search_type == 'ALL'">  </when>
+            <when test="search_type == 'MY_WORKING_TASK'">
+                AND tu.member_id = #{loginUser.id}
+                AND t.status != "Finish" AND  t.status != "Close"
+            </when>
+            <when test="search_type == 'MY_FINISH_TASK'">
+                AND tu.member_id = #{loginUser.id}
+                AND (t.status = "Finish" OR  t.status = "Close")
+            </when>
+            <when test="search_type == 'NEED_CHECK_TASK'">
+                AND t.create_user = #{loginUser.id} AND t.status = "Finish"
+            </when>
+            <otherwise>  </otherwise>
+        </choose>
+        <if test="search != null  and search != '' ">
+            AND (t.id = #{search}  OR t.subject like "%"#{search}"%")
+        </if>
+
     </select>
 
     <insert id="insert" parameterType="com.wyvs.wp.entity.TaskDo" useGeneratedKeys="true" keyProperty="id">

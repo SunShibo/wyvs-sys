@@ -1,5 +1,6 @@
 package com.wyvs.wp.web.controller;
 
+import com.wyvs.wp.dao.TaskDao;
 import com.wyvs.wp.entity.MemberDo;
 import com.wyvs.wp.entity.TaskDo;
 import com.wyvs.wp.entity.TaskUserDo;
@@ -20,6 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Member;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 登陆Controller
@@ -37,6 +42,9 @@ public class TaskController extends AbstractController {
 	@Autowired
 	private TaskUserService taskUserService ;
 
+	@Autowired
+	private TaskDao taskDao ;
+
 
 	/**
 	 * 初始化任务页
@@ -48,7 +56,38 @@ public class TaskController extends AbstractController {
     public ModelAndView taskIndex(HttpServletRequest request
             , HttpServletResponse response ){
 
+		MemberDo loginUser = super.getLoginUser(request) ;
+
+		//查找所有任务
+		Map<String , Object> searchAllTask = new HashMap<String, Object>() ;
+		searchAllTask.put("loginUser" , loginUser) ;
+		searchAllTask.put("search_type" , "ALl") ;
+		int allCount =  taskDao.getListCount(searchAllTask) ;
+
+		//查找待我解决的任务
+		Map<String , Object> searchWorkingTask = new HashMap<String, Object>() ;
+		searchWorkingTask.put("loginUser" , loginUser) ;
+		searchWorkingTask.put("search_type" , "MY_WORKING_TASK") ;
+		int workingTaskCount =  taskDao.getListCount(searchWorkingTask) ;
+
+		//查找我完成的任务
+		Map<String , Object> searchMyFinishTask = new HashMap<String, Object>() ;
+		searchMyFinishTask.put("loginUser" , loginUser) ;
+		searchMyFinishTask.put("search_type" , "MY_FINISH_TASK") ;
+		int myFinishTaskCount =  taskDao.getListCount(searchMyFinishTask) ;
+
+		//查找需要我验收的任务
+		Map<String , Object> searchNeedCheckTask = new HashMap<String, Object>() ;
+		searchNeedCheckTask.put("loginUser" , loginUser) ;
+		searchNeedCheckTask.put("search_type" , "NEED_CHECK_TASK") ;
+		int needCheckTaskCount =  taskDao.getListCount(searchNeedCheckTask) ;
+
+
 		ModelAndView mav = new ModelAndView("task/task_index") ;
+		mav.addObject("allCount" ,allCount) ;
+		mav.addObject("workingTaskCount" ,workingTaskCount) ;
+		mav.addObject("myFinishTaskCount" ,myFinishTaskCount) ;
+		mav.addObject("needCheckTaskCount" ,needCheckTaskCount) ;
 		return mav;
 	}
 
@@ -61,6 +100,9 @@ public class TaskController extends AbstractController {
 	@RequestMapping( params = "action=addTask")
 	public void addTask(HttpServletRequest request
 			, HttpServletResponse response , TaskDo taskDo ){
+
+		//获取登录用户
+		MemberDo loginUser = super.getLoginUser(request) ;
 
 		String beginDate = (String)request.getAttribute("begin_time") ;
 		String endDate = (String)request.getAttribute("end_time") ;
@@ -81,6 +123,9 @@ public class TaskController extends AbstractController {
 		if (!StringUtils.isEmpty(endDate) && DateUtils.isValidDate(endDate ,  DateUtils.DATE_PATTERN)) {
 			taskDo.setBeginTime(DateUtils.parseDate(endDate , DateUtils.DATE_PATTERN ));
 		}
+
+		taskDo.setStatus(TaskDo.STATUS_NEW);
+		taskDo.setCreateUser(loginUser.getId() );
 		//插入数据
 		int rownum = taskService.addTask(taskDo) ;
 		JSONObject json = JsonUtils.encapsulationJSON(rownum > 0 ? 1 : 0 , "" ,"") ;
@@ -96,14 +141,17 @@ public class TaskController extends AbstractController {
 	public void queryTaskList(HttpServletRequest request
 			, HttpServletResponse response ,TaskDo taskDo
 			, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum
-			, @RequestParam(value = "pageSize", defaultValue = "30") Integer pageSize ){
+			, @RequestParam(value = "pageSize", defaultValue = "30") Integer pageSize
+			, @RequestParam(value = "search_type", defaultValue = "All") String search_type
+			,String search){
 
 		//获取分页
 		QueryObject query = new QueryObject() ;
 		query.setPageNum(pageNum);
 		query.setPageSize(pageSize);
 
-		JSONObject json = taskService.getTaskListPageJSON(taskDo, query) ;
+		MemberDo loginUser = super.getLoginUser(request) ;
+		JSONObject json = taskService.getTaskListPageJSON(taskDo, query , loginUser , search_type ,  search) ;
 		super.safeJsonPrint(response , json.toString());
 	}
 

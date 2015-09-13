@@ -40,10 +40,15 @@ public class TaskService {
 	 * @param queryObject
 	 * @return
 	 */
-	public PageObject getTaskListPage (TaskDo taskDo , QueryObject queryObject) {
+	public PageObject getTaskListPage (TaskDo taskDo , QueryObject queryObject , MemberDo loginUser
+			,String search_type ,String  search) {
 		Map<String , Object> map = new HashMap<String, Object>() ;
 		map.put("pageOffset", queryObject.getPageOffset());
 		map.put("pageSize", queryObject.getPageSize());
+		map.put("task" , taskDo) ;
+		map.put("loginUser" , loginUser) ;
+		map.put("search_type" , search_type) ;
+		map.put("search" , search) ;
 
 		List<TaskDo> list = taskDao.getListPage(map);
 		int count =  taskDao.getListCount(map) ;
@@ -58,8 +63,10 @@ public class TaskService {
 	 * @param queryObject
 	 * @return
 	 */
-	public JSONObject getTaskListPageJSON (TaskDo taskDo , QueryObject queryObject) {
-		PageObject page = this.getTaskListPage(taskDo, queryObject) ;
+	public JSONObject getTaskListPageJSON (TaskDo taskDo , QueryObject queryObject
+			, MemberDo loginUser,String search_type ,String  search) {
+
+		PageObject page = this.getTaskListPage(taskDo, queryObject , loginUser , search_type ,  search) ;
 		JSONObject data = JsonUtils.getJsonObject4JavaPOJO(page , DateUtils.DATE_PATTERN) ;
 		JSONObject json = JsonUtils.encapsulationJSON(1 , "" ,data.toString()) ;
 		return json ;

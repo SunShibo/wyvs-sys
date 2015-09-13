@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Mailbox
+            Taskbox
             <small>13 new messages</small>
         </h1>
         <ol class="breadcrumb">
@@ -24,12 +24,12 @@
                         </div>
                     </div>
                     <div class="box-body no-padding">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li class="active" id="li_task_list"><a href="#"><i class="fa fa-inbox"></i> Task List <span class="label label-primary pull-right">12</span></a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i> 待我解决的任务</a></li>
-                            <li><a href="#"><i class="fa fa-file-text-o"></i> 我完成的任务</a></li>
-                            <li><a href="#"><i class="fa fa-filter"></i> 待我验证的任务 <span class="label label-warning pull-right">65</span></a></li>
-                            <li><a href="#"><i class="fa fa-trash-o"></i> 分析报告</a></li>
+                        <ul class="nav nav-pills nav-stacked task-menu-list">
+                            <li class="task-list" id="li_task_list" search_type="ALL"><a href="#"><i class="fa fa-inbox"></i> Task List <span class="label label-primary pull-right">$!{allCount}</span></a></li>
+                            <li class="task-list" search_type="MY_WORKING_TASK"><a href="#"><i class="fa fa-envelope-o"></i> 待我解决的任务 <span class="label label-primary pull-right">$!{workingTaskCount}</span></a></li>
+                            <li class="task-list" search_type="MY_FINISH_TASK"><a href="#"><i class="fa fa-file-text-o"></i> 我完成的任务 <span class="label label-primary pull-right">$!{myFinishTaskCount}</span></a></li>
+                            <li class="task-list" search_type="NEED_CHECK_TASK"><a href="#"><i class="fa fa-filter"></i> 待我验证的任务 <span class="label label-warning pull-right">$!{needCheckTaskCount}</span></a></li>
+                            <li class="" search_type=""><a href="#"><i class="fa fa-trash-o"></i> 分析报告</a></li>
                         </ul>
                     </div><!-- /.box-body -->
                 </div><!-- /. box -->
@@ -255,7 +255,7 @@
 
     $(function(){
         // 模拟点击事件
-        $("#li_task_list").trigger("click");
+        $(".task-menu-list .task-list").eq(0).trigger("click");
     });
 
     /**关闭弹框方法*/
@@ -273,16 +273,18 @@
         }
     });
 
-    $(".nav-stacked, li").click(function(){
+    $(".task-menu-list li").click(function(){
+        $(".task-menu-list li").removeClass("active") ;
         $(this).addClass("active") ;
     });
 
     /**点击任务列表*/
-    $("#li_task_list").click(function() {
+    $(".task-menu-list .task-list").click(function() {
+        var search_type = $(this).attr("search_type") ;
         $.ajax({
             type : "post",
             url : "task?action=queryTaskList",
-            data : {} ,
+            data : {search_type : search_type } ,
             dataType : "json",
             success:function(data){
                 if (data.code == 1) {
