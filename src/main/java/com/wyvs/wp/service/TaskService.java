@@ -68,8 +68,22 @@ public class TaskService {
 
 		PageObject page = this.getTaskListPage(taskDo, queryObject , loginUser , search_type ,  search) ;
 		JSONObject data = JsonUtils.getJsonObject4JavaPOJO(page , DateUtils.DATE_PATTERN) ;
+		data.put("loginUserId" ,loginUser.getId() ) ;
 		JSONObject json = JsonUtils.encapsulationJSON(1 , "" ,data.toString()) ;
 		return json ;
+	}
+
+	public TaskDo getTaskById(int taskId) {
+		return taskDao.selectById(taskId) ;
+	}
+
+	/**
+	 * 通过id修改记录
+	 * @param taskDo
+	 * @return
+	 */
+	public int updateByObj (TaskDo taskDo) {
+		return taskDao.updateTask(taskDo) ;
 	}
 
 }

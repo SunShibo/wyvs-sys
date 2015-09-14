@@ -16,7 +16,8 @@
             <value>root</value>
         </property>
         <property name="password">
-            <value>admin</value>
+            <!--<value>admin</value>-->
+            <value>123456</value>
         </property>
         <property name="initialSize" value="1" />
         <property name="maxActive" value="30" />

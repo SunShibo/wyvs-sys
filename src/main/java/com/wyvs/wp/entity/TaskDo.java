@@ -1,6 +1,10 @@
 package com.wyvs.wp.entity;
+import com.google.common.collect.Sets;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 public class TaskDo implements Serializable {
 
@@ -18,6 +22,9 @@ public class TaskDo implements Serializable {
 	public static final String STATUS_WAIT  = "Wait" ;
 	public static final String STATUS_FINISH = "Finish" ;
 	public static final String STATUS_CLOSE = "Close" ;
+	public static final Set<String> STATUS_VALUE = Sets
+			.newHashSet("New" ,"Open","Reopen","Wait","Finish","Close") ;
+
 
 	private Integer id; //主键
 	private String subject ;//主题
@@ -29,6 +36,9 @@ public class TaskDo implements Serializable {
 	private String level ;//任务级别
 	private Date finishTime ;//最总完成时间
 	private Integer createUser ;//创建人
+
+	private String memberIds ;// 参数:参与任务者ID
+	private List<TaskUserDo> taskUsers ;//关联的TaskUserDo的集合
 
 	public Integer getId() {
 		return id;
@@ -108,6 +118,22 @@ public class TaskDo implements Serializable {
 
 	public void setBeginTime(Date beginTime) {
 		this.beginTime = beginTime;
+	}
+
+	public String getMemberIds() {
+		return memberIds;
+	}
+
+	public void setMemberIds(String memberIds) {
+		this.memberIds = memberIds;
+	}
+
+	public List<TaskUserDo> getTaskUsers() {
+		return taskUsers;
+	}
+
+	public void setTaskUsers(List<TaskUserDo> taskUsers) {
+		this.taskUsers = taskUsers;
 	}
 }
 

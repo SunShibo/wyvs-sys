@@ -181,4 +181,67 @@ public class TaskController extends AbstractController {
 
 	}
 
+	/**
+	 * 通过id查找任务
+	 * @param request
+	 * @param response
+	 * @param taskId
+	 */
+	@RequestMapping( params = "action=queryTaskById")
+	public void queryTaskById(HttpServletRequest request
+			, HttpServletResponse response 	,int taskId){
+
+		TaskDo taskDo = taskService.getTaskById(taskId) ;//查找任务信息
+		List<TaskUserDo> tuList = taskUserService.getTUListByTaskId(taskId) ;//查找任务关联的人员信息
+		taskDo.setTaskUsers(tuList);
+
+		JSONObject json = JsonUtils.getJsonObject4JavaPOJO(taskDo, DateUtils.DATE_PATTERN);
+		json.put("loginUserId" ,super.getLoginUser(request).getId()) ;
+		JSONObject result = JsonUtils.encapsulationJSON(
+				1 , "" ,json.toString()
+		) ;
+		super.safeJsonPrint(response , result.toString());
+	}
+
+	/**
+	 * 修改任务状态
+	 * @param request
+	 * @param response
+	 * @param taskId
+	 * @param status
+	 */
+	@RequestMapping( params = "action=updateStatus")
+	public void updateStatus(HttpServletRequest request
+			, HttpServletResponse response 	,int taskId , String status){
+
+		if (!TaskDo.STATUS_VALUE.contains(status)) {
+			JSONObject result = JsonUtils.encapsulationJSON(0 , "" ,""	) ;
+			super.safeJsonPrint(response , result.toString());
+			return ;
+		}
+		TaskDo taskDo = taskService.getTaskById(taskId) ;//查找任务信息
+		if (taskDo == null ) {
+			JSONObject result = JsonUtils.encapsulationJSON(0 , "" ,""	) ;
+			super.safeJsonPrint(response , result.toString());
+			return ;
+		}
+		if (status.equals(TaskDo.STATUS_CLOSE) && !taskDo.getStatus().equals(TaskDo.STATUS_FINISH)) {
+			JSONObject result = JsonUtils.encapsulationJSON(0 , "" ,""	) ;
+			super.safeJsonPrint(response , result.toString());
+			return ;
+		} else if (status.equals(TaskDo.STATUS_FINISH) && !taskDo.getStatus().equals(TaskDo.STATUS_CLOSE)) {
+			JSONObject result = JsonUtils.encapsulationJSON(0 , "" ,""	) ;
+			super.safeJsonPrint(response , result.toString());
+			return ;
+		}
+
+		TaskDo task = new TaskDo() ;
+		task.setId(taskId);
+		task.setStatus(status);
+		int rownum = taskService.updateByObj(task) ;
+		JSONObject result = JsonUtils.encapsulationJSON(rownum > 0 ? 1 : 0 , "" ,""	) ;
+		super.safeJsonPrint(response , result.toString());
+	}
+
+
 }

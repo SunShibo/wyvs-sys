@@ -22,5 +22,19 @@ public interface TaskDao {
       * @return
       */
      public int getListCount(Map<String , Object> map) ;
+
+     /**
+      * 通过id查找记录
+      * @param taskId
+      * @return
+      */
+     public TaskDo selectById(int taskId) ;
+
+     /**
+      * 通过id修改
+      * @param taskDo
+      * @return
+      */
+     public int updateTask(TaskDo taskDo) ;
  	 
 }

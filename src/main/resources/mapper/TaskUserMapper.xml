@@ -15,4 +15,9 @@
         ]]>
     </insert>
 
+    <select id="selectListByTaskId" resultType="com.wyvs.wp.entity.TaskUserDo">
+        SELECT id,task_id,member_id,member_name,create_time
+        FROM pms_task_user WHERE task_id = #{taskId}
+    </select>
+
 </mapper>
