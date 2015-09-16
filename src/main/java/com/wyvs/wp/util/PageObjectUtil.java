@@ -19,6 +19,7 @@ public class PageObjectUtil<T> {
 		page.setTotalPage(totalPage) ;
 		page.setTotalRecord(count) ;
 		page.setPageSize(pageSize) ;
+		page.setPageNum(queryInfo.getPageNum());
 		
 		return page ;
 	}

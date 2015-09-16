@@ -57,38 +57,28 @@ public class TaskController extends AbstractController {
             , HttpServletResponse response ){
 
 		MemberDo loginUser = super.getLoginUser(request) ;
-
-		//查找所有任务
-		Map<String , Object> searchAllTask = new HashMap<String, Object>() ;
-		searchAllTask.put("loginUser" , loginUser) ;
-		searchAllTask.put("search_type" , "ALl") ;
-		int allCount =  taskDao.getListCount(searchAllTask) ;
-
-		//查找待我解决的任务
-		Map<String , Object> searchWorkingTask = new HashMap<String, Object>() ;
-		searchWorkingTask.put("loginUser" , loginUser) ;
-		searchWorkingTask.put("search_type" , "MY_WORKING_TASK") ;
-		int workingTaskCount =  taskDao.getListCount(searchWorkingTask) ;
-
-		//查找我完成的任务
-		Map<String , Object> searchMyFinishTask = new HashMap<String, Object>() ;
-		searchMyFinishTask.put("loginUser" , loginUser) ;
-		searchMyFinishTask.put("search_type" , "MY_FINISH_TASK") ;
-		int myFinishTaskCount =  taskDao.getListCount(searchMyFinishTask) ;
-
-		//查找需要我验收的任务
-		Map<String , Object> searchNeedCheckTask = new HashMap<String, Object>() ;
-		searchNeedCheckTask.put("loginUser" , loginUser) ;
-		searchNeedCheckTask.put("search_type" , "NEED_CHECK_TASK") ;
-		int needCheckTaskCount =  taskDao.getListCount(searchNeedCheckTask) ;
-
+		JSONObject json = taskService.getCountByTaskMenu(loginUser) ;
 
 		ModelAndView mav = new ModelAndView("task/task_index") ;
-		mav.addObject("allCount" ,allCount) ;
-		mav.addObject("workingTaskCount" ,workingTaskCount) ;
-		mav.addObject("myFinishTaskCount" ,myFinishTaskCount) ;
-		mav.addObject("needCheckTaskCount" ,needCheckTaskCount) ;
+		mav.addObject("allCount" ,json.getInt("allCount")) ;
+		mav.addObject("workingTaskCount" ,json.getInt("workingTaskCount")) ;
+		mav.addObject("myFinishTaskCount" ,json.getInt("myFinishTaskCount")) ;
+		mav.addObject("needCheckTaskCount" ,json.getInt("needCheckTaskCount")) ;
 		return mav;
+	}
+
+	/**
+	 * 按任务列表页菜单来计算每项的总数
+	 * @return
+	 */
+	@RequestMapping( params = "action=queryCountByTaskMenu")
+	public void queryCountByTaskMenu(HttpServletRequest request
+			, HttpServletResponse response  ){
+
+		MemberDo loginUser = super.getLoginUser(request) ;
+		JSONObject data = taskService.getCountByTaskMenu(loginUser) ;
+		JSONObject json = JsonUtils.encapsulationJSON(1, "" ,data.toString()) ;
+		super.safeJsonPrint(response , json.toString());
 	}
 
 	/**
@@ -99,31 +89,25 @@ public class TaskController extends AbstractController {
 	 */
 	@RequestMapping( params = "action=addTask")
 	public void addTask(HttpServletRequest request
-			, HttpServletResponse response , TaskDo taskDo ){
+			, HttpServletResponse response , TaskDo taskDo ,String begin_time , String end_time){
 
 		//获取登录用户
 		MemberDo loginUser = super.getLoginUser(request) ;
 
-		String beginDate = (String)request.getAttribute("begin_time") ;
-		String endDate = (String)request.getAttribute("end_time") ;
-
 		if ( StringUtils.isEmpty(taskDo.getContent()) || StringUtils.isEmpty(taskDo.getLevel()) ) {
-
 			JSONObject json = JsonUtils.encapsulationJSON(0 , "" , "") ;
 			super.safeJsonPrint(response , json.toString());
 			return ;
 		}
-
 		//任务的开始时间
-		if (!StringUtils.isEmpty(beginDate) && DateUtils.isValidDate(beginDate ,  DateUtils.DATE_PATTERN)) {
-			taskDo.setBeginTime(DateUtils.parseDate(beginDate , DateUtils.DATE_PATTERN ));
+		if (!StringUtils.isEmpty(begin_time) && DateUtils.isValidDate(begin_time ,  DateUtils.DATE_PATTERN)) {
+			taskDo.setBeginTime(DateUtils.parseDate(begin_time , DateUtils.DATE_PATTERN ));
 		}
-
 		//任务的结束时间
-		if (!StringUtils.isEmpty(endDate) && DateUtils.isValidDate(endDate ,  DateUtils.DATE_PATTERN)) {
-			taskDo.setBeginTime(DateUtils.parseDate(endDate , DateUtils.DATE_PATTERN ));
+		if (!StringUtils.isEmpty(end_time) && DateUtils.isValidDate(end_time ,  DateUtils.DATE_PATTERN)) {
+			taskDo.setEndTime(DateUtils.parseDate(end_time , DateUtils.DATE_PATTERN ));
 		}
-
+		//补全数据
 		taskDo.setStatus(TaskDo.STATUS_NEW);
 		taskDo.setCreateUser(loginUser.getId() );
 		//插入数据
@@ -229,7 +213,7 @@ public class TaskController extends AbstractController {
 			JSONObject result = JsonUtils.encapsulationJSON(0 , "" ,""	) ;
 			super.safeJsonPrint(response , result.toString());
 			return ;
-		} else if (status.equals(TaskDo.STATUS_FINISH) && !taskDo.getStatus().equals(TaskDo.STATUS_CLOSE)) {
+		} else if (taskDo.getStatus().equals(TaskDo.STATUS_CLOSE)) {
 			JSONObject result = JsonUtils.encapsulationJSON(0 , "" ,""	) ;
 			super.safeJsonPrint(response , result.toString());
 			return ;

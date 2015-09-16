@@ -25,10 +25,10 @@
                     </div>
                     <div class="box-body no-padding">
                         <ul class="nav nav-pills nav-stacked task-menu-list">
-                            <li class="task-list" id="li_task_list" search_type="ALL"><a href="#"><i class="fa fa-inbox"></i> Task List <span class="label label-primary pull-right">$!{allCount}</span></a></li>
-                            <li class="task-list" search_type="MY_WORKING_TASK"><a href="#"><i class="fa fa-envelope-o"></i> 待我解决的任务 <span class="label label-primary pull-right">$!{workingTaskCount}</span></a></li>
-                            <li class="task-list" search_type="MY_FINISH_TASK"><a href="#"><i class="fa fa-file-text-o"></i> 我完成的任务 <span class="label label-primary pull-right">$!{myFinishTaskCount}</span></a></li>
-                            <li class="task-list" search_type="NEED_CHECK_TASK"><a href="#"><i class="fa fa-filter"></i> 待我验证的任务 <span class="label label-warning pull-right">$!{needCheckTaskCount}</span></a></li>
+                            <li class="task-list" id="li_task_list" search_type="ALL"><a href="#"><i class="fa fa-inbox"></i> Task List <span class="label label-primary pull-right" id="all-task-list-count">$!{allCount}</span></a></li>
+                            <li class="task-list" search_type="MY_WORKING_TASK"><a href="#"><i class="fa fa-envelope-o"></i> 待我解决的任务 <span class="label pull-right bg-green" id="working-task-count">$!{workingTaskCount}</span></a></li>
+                            <li class="task-list" search_type="MY_FINISH_TASK"><a href="#"><i class="fa fa-file-text-o"></i> 我完成的任务 <span class="label pull-right bg-teal" id="my-finish-task-count">$!{myFinishTaskCount}</span></a></li>
+                            <li class="task-list" search_type="NEED_CHECK_TASK"><a href="#"><i class="fa fa-filter"></i> 待我验证的任务 <span class="label label-warning pull-right" id="need-check-task-count">$!{needCheckTaskCount}</span></a></li>
                             <li class="" search_type=""><a href="#"><i class="fa fa-trash-o"></i> 分析报告</a></li>
                         </ul>
                     </div><!-- /.box-body -->
@@ -132,17 +132,16 @@
                     </textarea>
             </div>
             <div class="form-group">
-                <div class="btn btn-default btn-file">
-                    <i class="fa fa-paperclip"></i> Attachment
-                    <input type="file" name="attachment">
-                </div>
-                <p class="help-block">Max. 32MB</p>
+##                <div class="btn btn-default btn-file">
+##                    <i class="fa fa-paperclip"></i> Attachment
+##                    <input type="file" name="attachment">
+##                </div>
+##                <p class="help-block">Max. 32MB</p>
             </div>
         </div><!-- /.box-body -->
         <div class="box-footer">
             <div class="pull-right">
-                <button class="btn btn-default"><i class="fa fa-pencil"></i> Draft</button>
-                <button type="submit" id="btn-submit-task" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
+                <button type="submit" id="btn-submit-task" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Submit</button>
             </div>
             <button class="btn btn-default"><i class="fa fa-times"></i> Discard</button>
         </div><!-- /.box-footer -->
@@ -196,10 +195,22 @@
         <div class="box-footer no-padding">
             <div class="mailbox-controls">
                 <div class="pull-right">
-                    1-50/200
+                    Showing <%=minPageNum%> to <%=maxPageNum%> of <%=totalPage%> entries
                     <div class="btn-group">
-                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                        <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                            <ul class="pagination"  style="margin-top: 0px;">
+                                <li><a href="javascript:;" onclick="tab_pageNum('<%=prePage%>')">&lt;</a></li>
+                                <%for(i = minPageNum; i <=maxPageNum ; i ++) {%>
+                                    <%if (pageNum == i) {%>
+                                        <li><a href="javascript:;" onclick="tab_pageNum('<%=i%>')" style="background:#ccc" id="pageselectclass"><%=i%></a></li>
+                                    <%} else {%>
+                                        <li><a href="javascript:;" onclick="tab_pageNum('<%=i%>')"><%=i%></a></li>
+                                    <%}%>
+                                <%}%>
+                                <li><a href="javascript:;" onclick="tab_pageNum('<%=nextPage}>')">&gt;</a></li>
+                            </ul>
+                        </div>
+
                     </div><!-- /.btn-group -->
                 </div><!-- /.pull-right -->
             </div>
@@ -207,7 +218,6 @@
     </div>
 
 </script>
-
 <!-- 读任务模板 -->
 <script id="template_read_task" type="text/html">
     <% myTaskFlag = 0 %>
@@ -228,32 +238,38 @@
         <div class="box-body no-padding">
             <div class="mailbox-read-info">
                 <input type="hidden" id="hid_task_id" value="<%=id%>"/>
+                <%if (myTaskFlag == 1) {%>
                 <div style="float: left">
+                <%} else {%>
+                <div style="">
+                <%}%>
                     <h3>【<%=id%>】——Subject <%=subject%> (<%=level%>)</h3>
                     <h5>Planning Horizon: <%=beginTime%> To <%=endTime%> <span class="mailbox-read-time pull-right"><%=createTime%></span></h5>
                 </div>
                 <div>
-                    <div class="btn-group" style="left: 80px;top: 5px;">
-                        <button type="button" class="btn btn-default"><%=status%></button>
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu task-status-ul"  role="menu">
-                            <%if (status == 'Close') {%>
+                    <%if (myTaskFlag == 1) {%>
+                        <div class="btn-group" style="left: 80px;top: 5px;">
+                            <button type="button" class="btn btn-default"><%=status%></button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu task-status-ul"  role="menu">
+                                <%if (status == 'Close') {%>
 
-                            <%} else if(status == 'Finish') {%>
-                                <%if (createUser == loginUserId) {%>
-                                    <li status-value="Close" onclick="updateStatus(Close)"><a href="#">Close</a></li>
-                                    <li status-value="Reopen" onclick="updateStatus(Reopen)"><a href="#">Reopen</a></li>
+                                <%} else if(status == 'Finish') {%>
+                                    <%if (createUser == loginUserId) {%>
+                                        <li status-value="Close" onclick="updateStatus('Close')"><a href="#">Close</a></li>
+                                        <li status-value="Reopen" onclick="updateStatus('Reopen')"><a href="#">Reopen</a></li>
+                                    <%}%>
+                                <%} else {%>
+                                    <li status-value="Open" onclick="updateStatus('Open')"><a href="#">Open</a></li>
+                                    <li status-value="Wait" onclick="updateStatus('Wait')"><a href="#">Wait</a></li>
+                                    <li status-value="Finish" onclick="updateStatus('Finish')"><a href="#">Finish</a></li>
                                 <%}%>
-                            <%} else {%>
-                                <li status-value="Open" onclick="updateStatus(Open)"><a href="#">Open</a></li>
-                                <li status-value="Wait" onclick="updateStatus(Wait)"><a href="#">Wait</a></li>
-                                <li status-value="Finish" onclick="updateStatus(Finish)"><a href="#">Finish</a></li>
-                            <%}%>
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                    <%}%>
                 </div>
 
             </div><!-- /.mailbox-read-info -->
@@ -269,41 +285,37 @@
             </ul>
             <br/>
 
-            <ul class="mailbox-attachments clearfix">
-                <li>
-                    <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
-                    <div class="mailbox-attachment-info">
-                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
-                        <span class="mailbox-attachment-size">
-                          1,245 KB
-                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <span class="mailbox-attachment-icon"><i class="fa fa-file-word-o"></i></span>
-                    <div class="mailbox-attachment-info">
-                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> App Description.docx</a>
-                        <span class="mailbox-attachment-size">
-                          1,245 KB
-                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-                        </span>
-                    </div>
-                </li>
-
-            </ul>
+##            <ul class="mailbox-attachments clearfix">
+##                <li>
+##                    <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+##                    <div class="mailbox-attachment-info">
+##                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
+##                        <span class="mailbox-attachment-size">
+##                          1,245 KB
+##                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+##                        </span>
+##                    </div>
+##                </li>
+##                <li>
+##                    <span class="mailbox-attachment-icon"><i class="fa fa-file-word-o"></i></span>
+##                    <div class="mailbox-attachment-info">
+##                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> App Description.docx</a>
+##                        <span class="mailbox-attachment-size">
+##                          1,245 KB
+##                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+##                        </span>
+##                    </div>
+##                </li>
+##
+##            </ul>
         </div><!-- /.box-footer -->
         <div class="box-footer">
             <div class="pull-right">
 ##                <button class="btn btn-default"><i class="fa fa-reply"></i> Reply</button>
-                <%if (myTaskFlag == 1) {%>
-
-                <%} else {%>
+                <%if (myTaskFlag != 1) {%>
                     <button class="btn btn-default" onclick="join_task()"><i class="fa fa-share"></i> Join</button>
                 <%}%>
             </div>
-            <button class="btn btn-default"><i class="fa fa-trash-o"></i> Delete</button>
-            <button class="btn btn-default"><i class="fa fa-print"></i> Print</button>
         </div><!-- /.box-footer -->
     </div><!-- /. box -->
 </script>
@@ -313,7 +325,7 @@
 
     $(function(){
         // 模拟点击事件
-        $(".task-menu-list .task-list").eq(0).trigger("click");
+        click_task_list_0() ;
     });
 
     /**关闭弹框方法*/
@@ -338,12 +350,23 @@
 
     /**点击任务列表*/
     $(".task-menu-list .task-list").click(function() {
-
         var search_type = $(this).attr("search_type") ;
+        request_page (search_type , 1) ;
+
+    }) ;
+
+    /**点击分页页码*/
+    function tab_pageNum (pageNum) {
+        var search_type = $(".task-menu-list .active").attr("search_type") ;
+        request_page (search_type , pageNum) ;
+
+    }
+
+    function request_page (search_type , pageNum) {
         $.ajax({
             type : "post",
             url : "task?action=queryTaskList",
-            data : {search_type : search_type } ,
+            data : {search_type : search_type , pageNum :  pageNum} ,
             dataType : "json",
             success:function(data){
                 if (data.code == 1) {
@@ -355,8 +378,7 @@
                 init_task_list () ;
             }
         });
-
-    }) ;
+    }
 
     /**新建任务*/
     $("#btn_new_task").click(function() {
@@ -380,7 +402,8 @@
                 begin_time : begin_time , end_time : end_time , level : level} ,
             dataType : "json",
             success:function(data){
-                alert(data.msg) ;
+                click_task_list_0() ;
+                queryCountByTaskMenu() ;
             }
         });
 
@@ -442,7 +465,8 @@
             data : {taskId : taskId } ,
             dataType : "json",
             success:function(data){
-                alert(data.code) ;
+                readTask(taskId) ;
+                queryCountByTaskMenu () ;
             }
         });
     }
@@ -458,9 +482,34 @@
             success:function(data){
                if (data.code == 1) {
                    readTask(taskId) ;
+                   queryCountByTaskMenu () ;
                }
             }
         });
+    }
+
+    /**
+     * 刷新每个菜单中的数量
+     */
+    function queryCountByTaskMenu () {
+        $.ajax({
+            type : "post",
+            url : "task?action=queryCountByTaskMenu",
+            data : {} ,
+            dataType : "json",
+            success:function(data){
+                if (data.code == 1) {
+                    $("#all-task-list-count").html(data.data.allCount) ;
+                    $("#working-task-count").html(data.data.workingTaskCount) ;
+                    $("#my-finish-task-count").html(data.data.myFinishTaskCount) ;
+                    $("#need-check-task-count").html(data.data.needCheckTaskCount) ;
+                }
+            }
+        });
+    }
+
+    function click_task_list_0() {
+        $(".task-menu-list .task-list").eq(0).trigger("click");
     }
 
 </script>
