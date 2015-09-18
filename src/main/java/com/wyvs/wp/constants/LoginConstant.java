@@ -14,5 +14,8 @@ public class LoginConstant {
     /**登陆用户的菜单列表*/
     public static final String LOGIN_USER_INFO = CLASS_NAME + "login_user_info" ;
 
+    /**登陆用户的角色信息*/
+    public static final String LOGIN_ROLE_INFO = CLASS_NAME + "login_role_info" ;
+
 
 }

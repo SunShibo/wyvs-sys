@@ -18,6 +18,12 @@ public interface PermissionDao {
      * @param ids
      * @return
      */
-    public List<PermissionDo> selectPermissionByIdArray(String[] ids) ;
+    public List<PermissionDo> selectPermissionByIdArray(String[] ids)  ;
+
+    /**
+     * 查找全部的权限信息
+     * @return
+     */
+    public List<PermissionDo> selectAllPermission() ;
  	 
 }

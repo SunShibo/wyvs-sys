@@ -5,8 +5,10 @@ import java.util.List;
 import com.wyvs.wp.constants.LoginConstant;
 import com.wyvs.wp.entity.MemberDo;
 import com.wyvs.wp.entity.PermissionDo;
+import com.wyvs.wp.entity.RoleDo;
 import com.wyvs.wp.service.MemberService;
 import com.wyvs.wp.service.RoleService;
+import com.wyvs.wp.util.MD5Util;
 import com.wyvs.wp.web.controller.base.BaseCotroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,10 +46,15 @@ public class LoginController extends AbstractController {
 		}
 
 		MemberDo memberInfo = memberService.login(member);
-		if (memberInfo == null) { // 判断是否找到账户和密码是否正确
+		if (memberInfo == null) { // 判断是否存在账户
             ModelAndView mav = new ModelAndView("login.jsp") ;
             mav.addObject("information" , "Can't find the matched account") ;
             return mav ;
+		}
+
+		if (!memberInfo.getPassword().equals(
+				MD5Util.digest(member.getPassword()))) {
+
 		}
 
 		if (memberInfo.getEnabledState() == MemberDo.ENABLEDSTATE_DISABLED) {
@@ -61,13 +68,10 @@ public class LoginController extends AbstractController {
 			mav.addObject("information" , "该账号未激活，请访问注册邮箱中的激活链接!") ;
 			return mav ;
 		}
-
-		// 查找菜单
-		List<PermissionDo> menuList = roleService
-				.gerMenuListByRoleId(memberInfo.getId());
-
+		//查找角色信息
+		RoleDo role  = roleService.getRoleDoById(memberInfo.getId());
 		// 菜单列表
-		super.putSession(request ,LoginConstant.USER_MENU_LIST, menuList);
+		super.putSession(request ,LoginConstant.LOGIN_ROLE_INFO , role);
 		// 登陆用户信息
 		super.putSession(request ,LoginConstant.LOGIN_USER_INFO, memberInfo);
 

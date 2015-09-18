@@ -127,7 +127,7 @@ public class TaskController extends AbstractController {
 			, @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum
 			, @RequestParam(value = "pageSize", defaultValue = "30") Integer pageSize
 			, @RequestParam(value = "search_type", defaultValue = "All") String search_type
-			,String search){
+			, String search){
 
 		//获取分页
 		QueryObject query = new QueryObject() ;

@@ -5,10 +5,16 @@
         <!--<scope>application</scope>-->
         <!--<class>com.taobao.security.util.SecurityUtil</class>-->
     <!--</tool>-->
+    <!--<tool>-->
+        <!--<key>csrfToken</key>-->
+        <!--<scope>request</scope>-->
+        <!--<class>com.taobao.security.token.spring.CsrfTokenForOther</class>-->
+    <!--</tool>-->
+
     <tool>
-        <key>csrfToken</key>
-        <scope>request</scope>
-        <class>com.taobao.security.token.spring.CsrfTokenForOther</class>
+        <key>date</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.DateTool</class>
     </tool>
 
 </toolbox>

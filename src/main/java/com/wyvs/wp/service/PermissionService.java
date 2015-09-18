@@ -2,6 +2,7 @@ package com.wyvs.wp.service;
 
 import com.wyvs.wp.dao.PermissionDao;
 import com.wyvs.wp.entity.PermissionDo;
+import com.wyvs.wp.util.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import java.util.List;
 @Transactional
 public class PermissionService {
 
+	public static final String PERMISSION_MENU_TYPE = "menu" ;
+	public static final String PERMISSION_ALL_TYPE = "All" ;
 	@Autowired
 	private PermissionDao permissionDao;
 
@@ -33,16 +36,21 @@ public class PermissionService {
 
 	/**
 	 * 通过id数组查找权限集合
-	 * @param ids
+	 * @param permissionIds
 	 * @return
 	 */
-	public List<PermissionDo> queryPermissionByIdArray(String[] ids){
+	public List<PermissionDo> queryPermissionByIds(String permissionIds ){
 
 		//参数校验
-		if (ids == null || ids.length == 0) {
+		if ( StringUtils.isEmpty(permissionIds) ) {
 			return new ArrayList<PermissionDo>() ;
 		}
-
+		//最高管理员返回所有权限信息
+		if (permissionIds.equals("ALL")) {
+			return permissionDao.selectAllPermission() ;
+		}
+		String[] ids = permissionIds.split(",") ;
+		//通过id查找数据
 		return permissionDao.selectPermissionByIdArray(ids) ;
 	}
 

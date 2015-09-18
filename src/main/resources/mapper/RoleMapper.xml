@@ -19,11 +19,17 @@
 
     <!--</insert>-->
 
-    <!--<select id="selectRoleById" resultType="RoleDO"-->
-            <!--parameterType="int">-->
+    <select id="selectById" resultType="RoleDO" >
+        select
+        id,name,level,description,creator,create_time,permission_ids
+        from pms_role where id = #{roleId}
+    </select>
 
-        <!--select * from pms_role_info where id = #{id}-->
-    <!--</select>-->
+    <select id="selectRoleList" resultType="RoleDO" >
+        select
+        id,name,level,description,creator,create_time,permission_ids
+        from pms_role
+    </select>
 
 
 </mapper>
