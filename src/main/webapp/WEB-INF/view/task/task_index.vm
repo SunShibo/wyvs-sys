@@ -77,6 +77,35 @@
     </div><!-- /.modal -->
 </div>
 
+<div class="example-modal">
+    <div class="modal chose-user-modal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 20%;">
+                <div class="modal-header">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">选择用户</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box">
+##                        <div class="box-header with-border">
+##                            <h3 class="box-title">Bordered Table</h3>
+##                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <table class="table table-bordered">
+                                <tbody>
+
+                                </tbody></table>
+                        </div><!-- /.box-body -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
 <!-- 渲染模板js -->
 <script src="/static/js/template/template-native.js" type="text/javascript"></script>
 
@@ -110,13 +139,16 @@
                 </div>
             </div>
             <div class="form-group">
-                <input class="form-control" placeholder="参与者" id="" style="width:230px; float: left;margin-right: 11px;">
-                <ul class="f-list">
-                    <li><strong>孙诗博</strong><i>x</i></li>
-                    <li><strong>金琦斌</strong><i>x</i></li>
-                </ul>
+                <input class="form-control" placeholder="参与者" id="ipt-join-user" style="width:230px; float: left;margin-right: 11px;">
+                <button type="button"  onclick="checkUser()" class="btn btn-primary"> Check</button>
                 <br/>
             </div>
+
+            <div class="form-group">
+                <ul class="f-list" style="padding-left: 0px" id="join_user">
+                </ul>
+            </div>
+
             <div class="form-group">
                     <textarea id="compose-textarea" class="form-control" style="height: 300px">
                       <h1><u>Heading Of Message</u></h1>
@@ -155,7 +187,7 @@
             <h3 class="box-title">Task List</h3>
             <div class="box-tools pull-right">
                 <div class="has-feedback">
-                    <input type="text" class="form-control input-sm" placeholder="Search Mail" id="ipt_search">
+                    <input type="text" class="form-control input-sm" placeholder="Search" id="ipt_search">
                     <span class="glyphicon glyphicon-search form-control-feedback " onclick="tap_search()"></span>
                 </div>
             </div><!-- /.box-tools -->
@@ -284,29 +316,6 @@
                 <%}%>
             </ul>
             <br/>
-##            <ul class="mailbox-attachments clearfix">
-##                <li>
-##                    <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
-##                    <div class="mailbox-attachment-info">
-##                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
-##                        <span class="mailbox-attachment-size">
-##                          1,245 KB
-##                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-##                        </span>
-##                    </div>
-##                </li>
-##                <li>
-##                    <span class="mailbox-attachment-icon"><i class="fa fa-file-word-o"></i></span>
-##                    <div class="mailbox-attachment-info">
-##                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> App Description.docx</a>
-##                        <span class="mailbox-attachment-size">
-##                          1,245 KB
-##                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-##                        </span>
-##                    </div>
-##                </li>
-##
-##            </ul>
         </div><!-- /.box-footer -->
         <div class="box-footer">
             <div class="pull-right">
@@ -383,11 +392,67 @@
 
     }) ;
 
+    /**校验用户*/
+    function checkUser() {
+        var user_info = $("#ipt-join-user").val() ;
+        if (user_info == "") {
+            return ;
+        }
+        $.ajax({
+            type : "post",
+            url : "member?action=findMember",
+            data : {search : user_info} ,
+            dataType : "json",
+            success:function(data){
+                if (data.code == 1) {
+                    var list = data.data.memberList ;
+                    if (list.length == 1) {
+                        var obj = list[0] ;
+                        var name = obj.name ;
+                        var id = obj.id ;
+                        showNameCard(id , name ) ;
+                        $("#ipt-join-user").val("") ;
+                    } else if (list.length > 1)  {
+                        //应该弹框，展示列表
+                        var html = "<tr><th style='width: 10px'>#</th><th>e-mail</th><th>name</th><th></th></tr>" ;
+                        $.each( list, function(index, obj){
+                              html = html +
+                            "<tr>" +
+                            "<td>"+obj.id+"</td>" +
+                            "<td>"+obj.email+"</td>" +
+                            "<td>"+obj.name+"/"+obj.englishName+"("+obj.department+"-"+obj.title +")</td>" +
+                            "<td><button class='btn btn-block btn-info btn-xs' style='width: 55px;' onclick='choseUser("+obj.id + ",\""+ obj.name +"\")'>Chose</button></td>" +
+                            "</tr>"
+                        });
+                        $(".chose-user-modal tbody").html("") ; //清空操作
+                        $(".chose-user-modal tbody").html(html) ; //赋值操作
+                        $(".chose-user-modal").show() ;
+                    } else {
+                        //暂时没什么好处理的
+                    }
+                }else {
+                    alert("请求失败!") ;
+                }
+            }
+        });
+    }
+
+    /**选择用户*/
+    function choseUser (id , name) {
+        showNameCard(id , name ) ;
+        $("#ipt-join-user").val("") ;
+        $(".chose-user-modal").hide() ;
+    }
+
+    /**显示名片卡*/
+    function showNameCard(id , name ) {
+        $("#join_user").append(" <li item-id='"+id+ "'><strong>" +name+ "</strong><i>x</i></li>") ;
+    }
+
     /**点击分页页码*/
     function tab_pageNum (pageNum) {
         var search_type = $(".task-menu-list .active").attr("search_type") ;
         request_page (search_type , pageNum) ;
-
     }
 
     function request_page (search_type , pageNum) {
@@ -398,7 +463,7 @@
             url : "task?action=queryTaskList",
             data : {search_type : search_type , pageNum :  pageNum , search : search} ,
             dataType : "json",
-            success:function(data){
+            success:function(data) {
                 if (data.code == 1) {
                     var html = template('template_task_list', data.data );
                     $("#template_container").html(html) ;
@@ -424,19 +489,27 @@
         var begin_time = $("#begin_time").val() ;
         var end_time = $("#end_time").val() ;
         var level = $(".task-level").html();
+        var userIdArray = new Array() ;
+        $("#join_user li").each(function() {
+            userIdArray.push($(this).attr("item-id")) ;
+        }) ;
+
+        if (subject == "") {
+            $(".infor-modal .modal-body").html("我不知道是什么主题哦！把主题填下吧。") ;
+            return false ;
+        }
 
         $.ajax({
             type : "post",
             url : "task?action=addTask",
             data : {subject : subject , content : content ,
-                begin_time : begin_time , end_time : end_time , level : level} ,
+                begin_time : begin_time , end_time : end_time , level : level , memberIds : userIdArray.join(",")} ,
             dataType : "json",
             success:function(data){
                 click_task_list_0() ;
                 queryCountByTaskMenu() ;
             }
         });
-
     }
 
     function init_new_task () {
@@ -459,7 +532,6 @@
 
         /**读取任务*/
         $(".task_subject").click(function () {
-
             var taskId = $(this).parents("tr").attr("item-task-id") ;
             readTask(taskId) ;
         }) ;

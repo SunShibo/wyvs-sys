@@ -20,4 +20,14 @@
         FROM pms_task_user WHERE task_id = #{taskId}
     </select>
 
+    <insert id="insertTaskUserByArray" >
+        insert into pms_task_user (
+          task_id,member_id,member_name,create_time
+        ) values
+        <foreach collection="taskUsers" item="item" index="index"  separator=",">
+            ( #{item.taskId}, #{item.memberId},#{item.memberName},NOW())
+        </foreach>
+        ;
+    </insert>
+
 </mapper>

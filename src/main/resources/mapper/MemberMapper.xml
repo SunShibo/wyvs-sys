@@ -12,9 +12,11 @@
     </select>
 
     <select id="selectMemberBySearch" resultType="com.wyvs.wp.entity.MemberDo">
-        SELECT id  , english_name , email
+        SELECT id  , english_name , email , name
         FROM pms_member_info
-        WHERE (email = #{search} OR id = #{search} ) AND state = 1
+        WHERE (email LIKE "%"#{search}"%" OR id = #{search} OR name LIKE "%"#{search}"%"
+         OR english_name LIKE "%"#{search}"%")
+         AND state = 1
     </select>
 
     <select id="selectMemberList" resultType="com.wyvs.wp.entity.MemberDo">
@@ -80,6 +82,22 @@
         id = #{id}
         WHERE id = #{id}
     </update>
+
+    <select id="selectMemberListByIds" resultType="com.wyvs.wp.entity.MemberDo">
+        SELECT
+        id, english_name, email, name, gender, enabled_state, state , title
+        FROM
+        pms_member_info
+        WHERE
+        (
+        <foreach collection="ids" item="id" index="index"  separator="or">
+            id = #{id}
+        </foreach>
+        )AND state = 1 AND del_flag = 0
+    </select>
+
+
+
 
 
 </mapper>

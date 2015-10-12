@@ -83,6 +83,7 @@ public class MemberController extends AbstractController {
 		JSONArray ja = new JSONArray() ;
 		for (MemberDo m :  list) {
 			JSONObject json = new JSONObject() ;
+			json.put("id" ,m.getId()) ;
 			json.put("englishName" , StringUtils.clearNull(m.getEnglishName())) ;
 			json.put("employeeId" , StringUtils.clearNull(m.getEmployeeId())) ;
 			json.put("name" , StringUtils.clearNull(m.getName())) ;

@@ -159,4 +159,12 @@ public class MemberService {
 		return memberInfoDao.insert(memberDo) ;
 	}
 
+	/**
+	 * 通过数组获取会员集合
+	 * @param memberIds
+	 * @return
+	 */
+	public List<MemberDo> getMemberListByIds (String[] memberIds) {
+		return memberInfoDao.selectMemberListByIds(memberIds) ;
+	}
 }

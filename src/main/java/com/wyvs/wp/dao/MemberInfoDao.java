@@ -1,5 +1,6 @@
 package com.wyvs.wp.dao;
 import com.wyvs.wp.entity.MemberDo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -80,5 +81,13 @@ public interface MemberInfoDao {
 	 * @return
 	 */
 	 public List<MemberDo> selectMemberBySearch(String search) ;
- 	 
+
+	/**
+	 *	通过id集合查找会员
+	 * @param ids
+	 * @return
+	 */
+	 public List<MemberDo> selectMemberListByIds(@Param("ids") String[] ids) ;
+
+
 }

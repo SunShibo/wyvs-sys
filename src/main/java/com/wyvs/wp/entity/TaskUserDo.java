@@ -12,7 +12,6 @@ public class TaskUserDo implements Serializable {
 	private String memberName ;
 	private Date createTime ;
 
-
 	public Integer getId() {
 		return id;
 	}

@@ -112,6 +112,12 @@ public class TaskController extends AbstractController {
 		taskDo.setCreateUser(loginUser.getId() );
 		//插入数据
 		int rownum = taskService.addTask(taskDo) ;
+		//插入参加任务的工作人员
+		if (!StringUtils.isEmpty(taskDo.getMemberIds())) {
+			String[] userIds = taskDo.getMemberIds().split(",") ;
+			//插入参与任务的工作人员
+			taskUserService.insertUserForTaskByMemberId(userIds  , taskDo.getId()) ;
+		}
 		JSONObject json = JsonUtils.encapsulationJSON(rownum > 0 ? 1 : 0 , "" ,"") ;
 		super.safeJsonPrint(response , json.toString());
 	}
@@ -225,6 +231,22 @@ public class TaskController extends AbstractController {
 		int rownum = taskService.updateByObj(task) ;
 		JSONObject result = JsonUtils.encapsulationJSON(rownum > 0 ? 1 : 0 , "" ,""	) ;
 		super.safeJsonPrint(response , result.toString());
+	}
+
+
+
+	@RequestMapping( params = "action=queryDataForPieChart")
+	public void queryDataForPieChart(HttpServletRequest request
+			, HttpServletResponse response 	) {
+
+		MemberDo loginUser = super.getLoginUser(request) ;
+//		taskDao.selectTaskNumByUserAndStatus(loginUser.getId() , TaskDo.s)
+
+
+
+
+//		JSONObject result = JsonUtils.encapsulationJSON(rownum > 0 ? 1 : 0 , "" ,""	) ;
+//		super.safeJsonPrint(response , result.toString());
 	}
 
 

@@ -1,6 +1,7 @@
 package com.wyvs.wp.dao;
 
 import com.wyvs.wp.entity.TaskDo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -36,5 +37,13 @@ public interface TaskDao {
       * @return
       */
      public int updateTask(TaskDo taskDo) ;
+
+     /**
+      * 通过会员id查找指定状态的任务数量
+      * @param memberId
+      * @param status
+      * @return
+      */
+     public int selectTaskNumByUserAndStatus (@Param("memberId") int memberId , @Param("status") String status) ;
  	 
 }

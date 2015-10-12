@@ -88,5 +88,24 @@
         WHERE id = #{id}
     </update>
 
+    <select id="selectTaskNumByUserAndStatus" resultType="int">
+        SELECT
+	      count(tmp.id)
+        FROM
+        (
+            SELECT
+                pt.id
+            FROM
+                pms_task pt
+            LEFT JOIN pms_task_user ptu ON ptu.task_id = pt.id
+            WHERE
+                ptu.member_id = #{memberId}
+            AND pt. STATUS = #{status}
+            GROUP BY
+                pt.id
+        ) tmp
+
+    </select>
+
 
 </mapper>
