@@ -17,10 +17,10 @@
             <div class="col-md-4">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Bordered Table</h3>
+                        <h3 class="box-title">Role List</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="role_list_table">
                             <tbody><tr>
                                 <th style="width: 10px">#</th>
                                 <th>Name</th>
@@ -41,41 +41,33 @@
                 </div><!-- /.box -->
 
             </div><!-- /.col -->
-            <div class="col-md-8">
+            <div class="col-md-8" id="permission-list">
+                <div class="box box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Permission List</h3>
 
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">开通权限</h3>
-                        <div class="box-tools">
-                            <ul class="">
-
-                            </ul>
-                        </div>
                     </div><!-- /.box-header -->
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div >
-                                <ul>
-                                    <li>获取会员列表</li>
-                                    <li>获取会员列表</li>
-                                    <li>获取会员列表</li>
-                                    <li>获取会员列表</li>
-                                    <li>获取会员列表</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-2"></div>
-                        <div class="col-md-5">
-                            <div >
-                                <ul>
-                                    <li>获取会员列表</li>
-                                    <li>获取会员列表</li>
-                                    <li>获取会员列表</li>
-                                    <li>获取会员列表</li>
-                                    <li>获取会员列表</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="box-body">
+                        <button class="btn btn-block btn-default btn-xs"
+                                style="float: left;width: 60px;display:block;" id="new-btn" item-id="1">+ New</button>
+                        <br/>
+                        #foreach($!permission in $!permissionList)
+                            #if($!permission.level==1)
+                                <div style="height: 67px;padding-top: 13px;">
+                                    <b>$!{permission.name}&nbsp;&nbsp;<a href="#" class="btn-addPermission" item-id="$!{permission.id}">[添加]</a></b>
+                                    <br/>
+                                    #foreach($!p in $!permissionList)
+                                        #if($!p.parentId==$!permission.id)
+                                            <input type="checkbox" id="permission-$!{p.id}" item-id="$!{p.id}"> $!{p.name}
+                                        #end
+                                    #end
+                                </div>
+                            #else
+                            #end
+                        #end
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+
                     </div>
                 </div><!-- /.box -->
             </div><!-- /.col -->
@@ -104,523 +96,107 @@
     </div><!-- /.modal -->
 </div>
 
+<!-- 添加权限 -->
+<div class="example-modal">
+    <div class="modal add-modal" >
+        <div class="modal-dialog">
+            <div class="modal-content" style="margin-top: 20%;">
+                <form id="form-add-permission">
+
+                <div class="modal-header">
+                    <button class="close" type="button"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Add Perminssion</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input class="form-control" type="text" name="name" placeholder="permission name">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>URL</label>
+                                <input class="form-control" type="text" name="url" placeholder="permission's url">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label style="display: block">Is Menu</label>
+                                <input  type="radio" name="isMenu" value="1"/>Yes
+                                <input  type="radio" name="isMenu" value="0" style="margin-left: 10px"/>No
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>unique flag</label>
+                                <input class="form-control" type="text" name="uniqueFlag" placeholder="permission's unique flag">
+                            </div><!-- /.form-group -->
+                        </div><!-- /.col -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default pull-left close-btn" type="button" >Close</button>
+                    <button class="btn btn-primary btn-save" type="button">Save</button>
+                </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
 <!-- 渲染模板js -->
 <script src="/static/js/template/template-native.js" type="text/javascript"></script>
 
-<!-- 新建任务 -->
-<script id="template_new_task" type="text/html">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">New Task</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-##            <div class="form-group">
-##                <input class="form-control" placeholder="To:" id="">
-##            </div>
-            <div class="form-group">
-                <input class="form-control" placeholder="Subject:" id="input_subject">
-            </div>
-            <div class="form-group">
-                <input class="form-control" placeholder="开始时间" id="begin_time" style="width:230px; float: left;margin-right: 11px;">
-                <input class="form-control" placeholder="结束时间" id="end_time" style="width:230px;float: left;margin-right: 11px;">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default task-level">Middle</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" id="ul_level">
-                        <li data-value="High"><a href="#">High</a></li>
-                        <li data-value="Middle"><a href="#">Middle</a></li>
-                        <li data-value="Low"><a href="#">Low</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="form-group">
-                <input class="form-control" placeholder="参与者" id="" style="width:230px; float: left;margin-right: 11px;">
-                <ul class="f-list">
-                    <li><strong>孙诗博</strong><i>x</i></li>
-                    <li><strong>金琦斌</strong><i>x</i></li>
-                </ul>
-                <br/>
-            </div>
-            <div class="form-group">
-                    <textarea id="compose-textarea" class="form-control" style="height: 300px">
-                      <h1><u>Heading Of Message</u></h1>
-                      <h4>Subheading</h4>
-                      <p>请输入一些描述......</p>
-                      <ul>
-                          <li>List item one</li>
-                          <li>List item two</li>
-                          <li>List item three</li>
-                          <li>List item four</li>
-                      </ul>
-                      <p>Thank you,</p>
-                      <p>John Doe</p>
-                    </textarea>
-            </div>
-            <div class="form-group">
-##                <div class="btn btn-default btn-file">
-##                    <i class="fa fa-paperclip"></i> Attachment
-##                    <input type="file" name="attachment">
-##                </div>
-##                <p class="help-block">Max. 32MB</p>
-            </div>
-        </div><!-- /.box-body -->
-        <div class="box-footer">
-            <div class="pull-right">
-                <button type="submit" id="btn-submit-task" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Submit</button>
-            </div>
-            <button class="btn btn-default"><i class="fa fa-times"></i> Discard</button>
-        </div><!-- /.box-footer -->
-    </div><!-- /. box -->
-</script>
-<!-- 任务列表模板 -->
-<script id="template_task_list" type="text/html">
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Task List</h3>
-            <div class="box-tools pull-right">
-                <div class="has-feedback">
-                    <input type="text" class="form-control input-sm" placeholder="Search Mail" id="ipt_search">
-                    <span class="glyphicon glyphicon-search form-control-feedback " onclick="tap_search()"></span>
-                </div>
-            </div><!-- /.box-tools -->
-        </div><!-- /.box-header -->
-        <div class="box-body no-padding">
-
-            <div class="table-responsive mailbox-messages">
-                <table class="table table-hover table-striped">
-                    <tbody>
-                    <%for(i = 0; i < datas.length; i ++) {%>
-                        <tr  item-task-id="<%=datas[i].id%>" >
-                            <td class="mailbox-star" style="padding-left: 20px;">
-                                <% memberIds = datas[i].memberIds.split(",") %>
-                                <% myTaskFlag = 0 %>
-                                <% for(x = 0; x < memberIds.length; x ++) {%>
-                                    <%if (memberIds[x] == loginUserId ) {%>
-                                        <% myTaskFlag = 1 %>
-                                    <%}%>
-                                <%}%>
-
-                                <%if (myTaskFlag == 1) {%>
-                                    <i class="fa fa-star text-yellow"></i>
-                                <%} else {%>
-                                    <i class="fa fa-star-o text-yellow"></i>
-                                <%}%>
-                            </td>
-                            <td class="task-id">【<%=datas[i].id%>】</td>
-                            <td class="task-level"><%=datas[i].level%></td>
-                            <td class=""><b class="task_subject" style="cursor:pointer"><%=datas[i].subject%></b> - Trying to find a solution to this problem...</td>
-                            <td class=""><%=datas[i].status%></td>
-                            <td class=""><%=datas[i].createTime%></td>
-                        </tr>
-                    <%}%>
-                    </tbody>
-                </table><!-- /.table -->
-            </div><!-- /.mail-box-messages -->
-        </div><!-- /.box-body -->
-        <div class="box-footer no-padding">
-            <div class="mailbox-controls">
-                <div class="pull-right">
-                    Showing <%=minPageNum%> to <%=maxPageNum%> of <%=totalPage%> entries
-                    <div class="btn-group">
-                        <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                            <ul class="pagination"  style="margin-top: 0px;">
-                                <li><a href="javascript:;" onclick="tab_pageNum('<%=prePage%>')">&lt;</a></li>
-                                <%for(i = minPageNum; i <=maxPageNum ; i ++) {%>
-                                    <%if (pageNum == i) {%>
-                                        <li><a href="javascript:;" onclick="tab_pageNum('<%=i%>')" style="background:#ccc" id="pageselectclass"><%=i%></a></li>
-                                    <%} else {%>
-                                        <li><a href="javascript:;" onclick="tab_pageNum('<%=i%>')"><%=i%></a></li>
-                                    <%}%>
-                                <%}%>
-                                <li><a href="javascript:;" onclick="tab_pageNum('<%=nextPage}>')">&gt;</a></li>
-                            </ul>
-                        </div>
-
-                    </div><!-- /.btn-group -->
-                </div><!-- /.pull-right -->
-            </div>
-        </div>
-    </div>
-
-</script>
-<!-- 读任务模板 -->
-<script id="template_read_task" type="text/html">
-    <% myTaskFlag = 0 %>
-    <% for(x = 0; x < taskUsers.length; x ++) {%>
-        <%if (taskUsers[x].memberId == loginUserId ) {%>
-            <% myTaskFlag = 1 %>
-        <%}%>
-    <%}%>
-
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Read Task</h3>
-            <div class="box-tools pull-right">
-                <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="Previous"><i class="fa fa-chevron-left"></i></a>
-                <a href="#" class="btn btn-box-tool" data-toggle="tooltip" title="Next"><i class="fa fa-chevron-right"></i></a>
-            </div>
-        </div><!-- /.box-header -->
-        <div class="box-body no-padding">
-            <div class="mailbox-read-info">
-                <input type="hidden" id="hid_task_id" value="<%=id%>"/>
-                <%if (myTaskFlag == 1) {%>
-                <div style="float: left">
-                <%} else {%>
-                <div style="">
-                <%}%>
-                    <h3>【<%=id%>】——Subject <%=subject%> (<%=level%>)</h3>
-                    <h5>Planning Horizon: <%=beginTime%> To <%=endTime%> <span class="mailbox-read-time pull-right"><%=createTime%></span></h5>
-                </div>
-                <div>
-                    <%if (myTaskFlag == 1) {%>
-                        <div class="btn-group" style="left: 80px;top: 5px;">
-                            <button type="button" class="btn btn-default"><%=status%></button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu task-status-ul"  role="menu">
-                                <%if (status == 'Close') {%>
-
-                                <%} else if(status == 'Finish') {%>
-                                    <%if (createUser == loginUserId) {%>
-                                        <li status-value="Close" onclick="updateStatus('Close')"><a href="#">Close</a></li>
-                                        <li status-value="Reopen" onclick="updateStatus('Reopen')"><a href="#">Reopen</a></li>
-                                    <%}%>
-                                <%} else {%>
-                                    <li status-value="Open" onclick="updateStatus('Open')"><a href="#">Open</a></li>
-                                    <li status-value="Wait" onclick="updateStatus('Wait')"><a href="#">Wait</a></li>
-                                    <li status-value="Finish" onclick="updateStatus('Finish')"><a href="#">Finish</a></li>
-                                <%}%>
-                            </ul>
-                        </div>
-                    <%}%>
-                </div>
-            </div><!-- /.mailbox-read-info -->
-            <div class="mailbox-read-message">
-
-            </div><!-- /.mailbox-read-message -->
-        </div><!-- /.box-body -->
-        <div class="box-footer">
-            <ul class="f-list" style=" padding-left: 0px;">
-                <% for(x = 0; x < taskUsers.length; x ++) {%>
-                    <li><strong><%=taskUsers[x].memberName%></strong><i>x</i></li>
-                <%}%>
-            </ul>
-            <br/>
-##            <ul class="mailbox-attachments clearfix">
-##                <li>
-##                    <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
-##                    <div class="mailbox-attachment-info">
-##                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> Sep2014-report.pdf</a>
-##                        <span class="mailbox-attachment-size">
-##                          1,245 KB
-##                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-##                        </span>
-##                    </div>
-##                </li>
-##                <li>
-##                    <span class="mailbox-attachment-icon"><i class="fa fa-file-word-o"></i></span>
-##                    <div class="mailbox-attachment-info">
-##                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> App Description.docx</a>
-##                        <span class="mailbox-attachment-size">
-##                          1,245 KB
-##                          <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
-##                        </span>
-##                    </div>
-##                </li>
-##
-##            </ul>
-        </div><!-- /.box-footer -->
-        <div class="box-footer">
-            <div class="pull-right">
-##                <button class="btn btn-default"><i class="fa fa-reply"></i> Reply</button>
-                <%if (myTaskFlag != 1) {%>
-                    <button class="btn btn-default" onclick="join_task()"><i class="fa fa-share"></i> Join</button>
-                <%}%>
-            </div>
-        </div><!-- /.box-footer -->
-    </div><!-- /. box -->
-</script>
-
-<!-- 任务报告 -->
-<script id="template_task_report" type="text/html">
-    <div class="box box-success">
-        <div class="box-header with-border">
-            <h3 class="box-title">Task Report</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            <div id="donut-chart"></div>
-
-        </div><!-- /.box-body -->
-        <div class="box-footer">
-
-        </div><!-- /.box-footer -->
-    </div><!-- /. box -->
-
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <h3 class="box-title">Task Report</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            <div id="line-chart"></div>
-
-        </div><!-- /.box-body -->
-        <div class="box-footer">
-
-        </div><!-- /.box-footer -->
-    </div><!-- /. box -->
-</script>
 
 <!-- Page Script -->
 <script>
 
-    $(function(){
-        // 模拟点击事件
-        click_task_list_0() ;
-    });
-
-    /**关闭弹框方法*/
-    $(".close-btn , .close ").click(function(){
-        close_remind_modal() ;
+    var parentId = 0 ;
+    $("#role_list_table td").click(function (){
+        $("#role_list_table .chose-item-blue").removeClass("chose-item-blue") ;
+        $(this).parent("tr").addClass("chose-item-blue") ;
+//        queryPermission ($(this).parent("tr").attr("item-id")) ;
     }) ;
 
-    $(".fa-star, .fa-star-o").click(function(){
-        if( $(this).hasClass("fa-star")) {
-            $(this).removeClass("fa-star") ;
-            $(this).addClass("fa-star-o") ;
-        }else {
-            $(this).removeClass("fa-star-o") ;
-            $(this).addClass("fa-star") ;
-        }
-    });
-
-    $(".task-menu-list li").click(function(){
-        $(".task-menu-list li").removeClass("active") ;
-        $(this).addClass("active") ;
-    });
-
-    /**点击任务列表*/
-    $(".task-menu-list .task-list").click(function() {
-        var search_type = $(this).attr("search_type") ;
-        request_page (search_type , 1) ;
-
-    }) ;
-
-    /**点击分页页码*/
-    function tab_pageNum (pageNum) {
-        var search_type = $(".task-menu-list .active").attr("search_type") ;
-        request_page (search_type , pageNum) ;
+    function queryPermission (roleId) {
 
     }
 
-    function request_page (search_type , pageNum) {
+    $(".close , .close-btn").click(function() {
+        $(".modal").hide() ;
+    }) ;
 
-        var search = $("ipt_search").val() ;
-        $.ajax({
-            type : "post",
-            url : "task?action=queryTaskList",
-            data : {search_type : search_type , pageNum :  pageNum , search : search} ,
-            dataType : "json",
-            success:function(data){
+    $(".btn-addPermission, #new-btn").click(function() {
+        parentId = $(this).attr("item-id") ;
+        $(".add-modal").show() ;
+    }) ;
+
+    $(".btn-save").click(function (){
+
+        jQuery("#form-add-permission").ajaxSubmit({
+            type: 'post',
+            url: "/permission?action=addPermission" ,
+            data:{parentId : parentId} ,
+            dataType:"json",
+            success: function(data){
                 if (data.code == 1) {
-                    var html = template('template_task_list', data.data );
-                    $("#template_container").html(html) ;
+                    alert("创建成功！") ;
                 }else {
-                    alert("请求失败!") ;
+                    alert("创建失败！") ;
                 }
-                init_task_list () ;
             }
         });
-    }
-
-    /**新建任务*/
-    $("#btn_new_task").click(function() {
-        var html = template('template_new_task', {param:""});
-        $("#template_container").html(html) ;
-        init_new_task() ;
     }) ;
 
-    /**提交任务*/
-    function submit_task(){
-        var subject = $("#input_subject").val() ;
-        var content = $("#compose-textarea").val() ;
-        var begin_time = $("#begin_time").val() ;
-        var end_time = $("#end_time").val() ;
-        var level = $(".task-level").html();
 
-        $.ajax({
-            type : "post",
-            url : "task?action=addTask",
-            data : {subject : subject , content : content ,
-                begin_time : begin_time , end_time : end_time , level : level} ,
-            dataType : "json",
-            success:function(data){
-                click_task_list_0() ;
-                queryCountByTaskMenu() ;
-            }
-        });
-
-    }
-
-    function init_new_task () {
-        $("#compose-textarea").wysihtml5();
-        //绑定提交按钮事件
-        $("#btn-submit-task").click(submit_task) ;
-        $("#ul_level li").click(function(){
-            var val = $(this).attr("data-value") ;
-            $(".task-level").html(val) ;
-        }) ;
-        //Date range picker
-        $('#begin_time,#end_time').datepicker({
-            format: 'yyyy-mm-dd',
-            language: 'cn'
-        });
-    }
-
-    /**初始化任务列表*/
-    function init_task_list () {
-
-        /**读取任务*/
-        $(".task_subject").click(function () {
-
-            var taskId = $(this).parents("tr").attr("item-task-id") ;
-            readTask(taskId) ;
-        }) ;
-    }
-
-    /**读取任务*/
-    function readTask(taskId) {
-        $.ajax({
-            type : "post",
-            url : "task?action=queryTaskById",
-            data : {taskId : taskId } ,
-            dataType : "json",
-            success:function(data){
-                if(data.code == 1 ) {
-                    var html = template('template_read_task', data.data);
-                    $("#template_container").html(html) ;
-                    $(".mailbox-read-message").html(data.data.content) ;
-                }
-            }
-        });
-    }
-
-    /**关闭通知提示框*/
-    function close_remind_modal(){
-        $('.modal').hide() ;
-    }
-
-    function join_task() {
-        var taskId = $("#hid_task_id").val() ;
-        $.ajax({
-            type : "post",
-            url : "task?action=joinTask",
-            data : {taskId : taskId } ,
-            dataType : "json",
-            success:function(data){
-                readTask(taskId) ;
-                queryCountByTaskMenu () ;
-            }
-        });
-    }
-
-    /**修改任务状态 */
-    function updateStatus ( status) {
-        var taskId = $("#hid_task_id").val() ;
-        $.ajax({
-            type : "post",
-            url : "task?action=updateStatus",
-            data : {taskId : taskId , status : status} ,
-            dataType : "json",
-            success:function(data){
-               if (data.code == 1) {
-                   readTask(taskId) ;
-                   queryCountByTaskMenu () ;
-               }
-            }
-        });
-    }
-
-    /**
-     * 刷新每个菜单中的数量
-     */
-    function queryCountByTaskMenu () {
-        $.ajax({
-            type : "post",
-            url : "task?action=queryCountByTaskMenu",
-            data : {} ,
-            dataType : "json",
-            success:function(data){
-                if (data.code == 1) {
-                    $("#all-task-list-count").html(data.data.allCount) ;
-                    $("#working-task-count").html(data.data.workingTaskCount) ;
-                    $("#my-finish-task-count").html(data.data.myFinishTaskCount) ;
-                    $("#need-check-task-count").html(data.data.needCheckTaskCount) ;
-                }
-            }
-        });
-    }
-
-    /**点击搜索按钮*/
-    function tap_search(){
-        alert() ;
-        var search_type = $(".task-menu-list .active").attr("search_type") ;
-        request_page (search_type , 1) ;
-    }
-
-    $(".task-report").click(function() {
-        var html = template('template_task_report', {test:'test'});
-        $("#template_container").html(html) ;
-        line_chart() ;
-        donut_chart () ;
-    }) ;
-
-    function click_task_list_0() {
-        $(".task-menu-list .task-list").eq(0).trigger("click");
-    }
-
-    function line_chart() {
-        // LINE CHART
-        var line = new Morris.Line({
-            element: 'line-chart',
-            resize: true,
-            data: [
-                {y: '2011 Q1', item1: 2666},
-                {y: '2011 Q2', item1: 2778},
-                {y: '2011 Q3', item1: 4912},
-                {y: '2011 Q4', item1: 3767},
-                {y: '2012 Q1', item1: 6810},
-                {y: '2012 Q2', item1: 5670},
-                {y: '2012 Q3', item1: 4820},
-                {y: '2012 Q4', item1: 15073},
-                {y: '2013 Q1', item1: 10687},
-                {y: '2013 Q2', item1: 8432}
-            ],
-            xkey: 'y',
-            ykeys: ['item1'],
-            labels: ['Item 1'],
-            lineColors: ['#3c8dbc'],
-            hideHover: 'auto'
-        });
-    }
-
-    function donut_chart () {
-        //DONUT CHART
-        var donut = new Morris.Donut({
-            element: 'donut-chart',
-            resize: true,
-            colors: ["#3c8dbc", "#f56954", "#00a65a"],
-            data: [
-                {label: "Download Sales", value: 12},
-                {label: "In-Store Sales", value: 30},
-                {label: "Mail-Order Sales", value: 20}
-            ],
-            hideHover: 'auto'
-        });
-    }
 
 </script>

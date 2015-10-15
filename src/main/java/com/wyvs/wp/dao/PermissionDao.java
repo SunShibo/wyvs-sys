@@ -1,6 +1,7 @@
 package com.wyvs.wp.dao;
 
 import com.wyvs.wp.entity.PermissionDo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,7 +19,14 @@ public interface PermissionDao {
      * @param ids
      * @return
      */
-    public List<PermissionDo> selectPermissionByIdArray(String[] ids)  ;
+    public List<PermissionDo> selectPermissionByIdArray(@Param("ids")String[] ids)  ;
+
+    /**
+     * 通过id数组查找权限结合
+     * @param id
+     * @return
+     */
+    public PermissionDo selectPermissionById(@Param("id")int  id)  ;
 
     /**
      * 查找全部的权限信息

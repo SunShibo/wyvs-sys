@@ -1,8 +1,9 @@
 package com.wyvs.wp.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
-	/**
+/**
 	 * 权限DO
 	 */
 public class PermissionDo implements Serializable {
@@ -29,6 +30,12 @@ public class PermissionDo implements Serializable {
 
 		/**菜单状态*/
 		private Integer isMenu ;
+
+		/**创建时间*/
+		private Date createTime ;
+
+		/**唯一标识*/
+		private String uniqueFlag ;
 
 		/**空参构造*/
 		public PermissionDo() {
@@ -91,7 +98,19 @@ public class PermissionDo implements Serializable {
 			this.isMenu = isMenu;
 		}
 
-		@Override
+		public Date getCreateTime() {
+			return createTime;
+		}
+
+		public void setCreateTime(Date createTime) {
+			this.createTime = createTime;
+		}
+
+		public void setUniqueFlag(String uniqueFlag) {
+			this.uniqueFlag = uniqueFlag;
+		}
+
+	@Override
 		public String toString() {
 			return "PermissionDo{" +
 					"id=" + id +

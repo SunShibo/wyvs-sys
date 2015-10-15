@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-09-18 18:44:31
+Date: 2015-10-15 19:09:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -91,7 +91,7 @@ CREATE TABLE `pms_member_info` (
 -- Records of pms_member_info
 -- ----------------------------
 INSERT INTO `pms_member_info` VALUES ('1003', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1', '1', '金琪斌', 'Qibin', '1', '2014-02-28', null, 'XX大学', '英语', '中国', '天津', '美国1', '波士顿1', '18601117545', '123456789', '395831708@qq.com', '395831708@qq.com', '../wyvs/member/1003/headPortrait/1420972207651.jpg', '2014-02-28 00:00:00', '2014-02-28 00:00:00', '2014-02-28 00:00:00', null, '0', '1', '测试数据', '', '美国XX街道', null, '纪检委');
-INSERT INTO `pms_member_info` VALUES ('1004', null, null, null, '孙诗博', 'shibo', '1', null, null, '', '', '', '', '', '', '', null, '', '', '../wyvs/member/1004/headPortrait/1420969512711.png', null, null, null, null, '0', null, '', '', '', null, null);
+INSERT INTO `pms_member_info` VALUES ('1004', null, null, '1', '孙诗博', 'shibo', '1', null, null, '', '', '', '', '', '', '', null, '', '', '../wyvs/member/1004/headPortrait/1420969512711.png', null, null, null, null, '0', '1', '', '', '', 'B8', '高级开发工程师');
 INSERT INTO `pms_member_info` VALUES ('1005', null, null, '1', '孙诗博', 'SUN SHI BO', '1', null, null, '', '', '', '', '', '', '18601117545', '', '11111@qq.com', '00000@skype.com', null, '2015-08-14 17:38:04', null, null, '2015-08-14 17:38:04', '0', '1', '测试数据', null, null, 'P3', 'CTO(首席技术官)');
 
 -- ----------------------------
@@ -127,16 +127,23 @@ DROP TABLE IF EXISTS `pms_permission`;
 CREATE TABLE `pms_permission` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(70) DEFAULT NULL,
+  `level` int(3) DEFAULT NULL,
   `is_menu` varchar(5) DEFAULT NULL,
   `parent_id` int(9) DEFAULT NULL,
   `url` varchar(200) DEFAULT NULL,
   `unique_flag` varchar(200) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_permission
 -- ----------------------------
+INSERT INTO `pms_permission` VALUES ('1', 'ROOT', '0', '0', '0', null, 'ROOT', '2015-10-15 17:43:39');
+INSERT INTO `pms_permission` VALUES ('7', 'Member', '1', '0', '1', 'xxxxx', 'xxxxx', '2015-10-15 19:08:46');
+INSERT INTO `pms_permission` VALUES ('8', 'Task', '1', '0', '1', 'xxxxx', 'xxxxx', '2015-10-15 19:08:57');
+INSERT INTO `pms_permission` VALUES ('9', 'Member List', '2', '0', '7', 'xxx', 'xxx', '2015-10-15 19:09:10');
+INSERT INTO `pms_permission` VALUES ('10', 'Task List', '2', '0', '8', 'xxxx', 'xxx', '2015-10-15 19:09:21');
 
 -- ----------------------------
 -- Table structure for `pms_role`
@@ -204,7 +211,7 @@ CREATE TABLE `pms_task` (
   `level` varchar(50) DEFAULT NULL COMMENT '任务级别',
   `finish_time` datetime DEFAULT NULL COMMENT '最总完成时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12522 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12533 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_task
@@ -229,6 +236,17 @@ INSERT INTO `pms_task` VALUES ('12518', '修篮球场', '2015-09-16 18:49:12', '
 INSERT INTO `pms_task` VALUES ('12519', '买修篮球场需要的材料', '2015-09-16 18:49:58', '2015-09-23 00:00:00', null, '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Middle', null);
 INSERT INTO `pms_task` VALUES ('12520', '召集人员', '2015-09-16 18:51:31', '2015-09-10 00:00:00', null, '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Middle', null);
 INSERT INTO `pms_task` VALUES ('12521', '去赶集买菜', '2015-09-16 18:51:59', '2015-09-09 00:00:00', '2015-09-30 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'Close', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12522', '明日打LOL', '2015-10-12 15:02:45', '2015-10-01 00:00:00', '2015-10-28 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Low', null);
+INSERT INTO `pms_task` VALUES ('12523', '明天5点会议', '2015-10-12 15:55:19', '2015-10-06 00:00:00', '2015-10-28 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12524', '下午四点开会', '2015-10-12 15:57:18', '2015-10-01 00:00:00', '2015-10-02 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12525', '测试任务', '2015-10-12 15:59:46', '2015-10-02 00:00:00', '2015-10-08 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12526', '测试任务', '2015-10-12 16:00:33', '2015-10-02 00:00:00', '2015-10-08 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12527', '测试任务', '2015-10-12 16:04:01', '2015-10-02 00:00:00', '2015-10-08 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12528', '测试任务', '2015-10-12 16:07:09', '2015-10-02 00:00:00', '2015-10-15 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'Close', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12529', '测试任务', '2015-10-12 16:12:23', '2015-10-01 00:00:00', '2015-10-02 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'Close', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12530', '测试任务', '2015-10-12 16:13:14', '2015-10-01 00:00:00', '2015-10-16 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'Close', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12531', '测试任务5', '2015-10-12 16:18:36', '2015-10-01 00:00:00', '2015-10-02 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'Close', 'Middle', null);
+INSERT INTO `pms_task` VALUES ('12532', '去市里买篮球', '2015-10-12 16:41:52', '2015-10-01 00:00:00', '2015-10-02 00:00:00', '<h1><u>Heading Of Message</u></h1>\n                      <h4>Subheading</h4>\n                      <p>请输入一些描述......</p>\n                      <ul>\n                          <li>List item one</li>\n                          <li>List item two</li>\n                          <li>List item three</li>\n                          <li>List item four</li>\n                      </ul>\n                      <p>Thank you,</p>\n                      <p>John Doe</p>', '1003', 'New', 'Middle', null);
 
 -- ----------------------------
 -- Table structure for `pms_task_user`
@@ -241,7 +259,7 @@ CREATE TABLE `pms_task_user` (
   `member_name` varchar(50) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_task_user
@@ -255,3 +273,11 @@ INSERT INTO `pms_task_user` VALUES ('6', '12508', '1003', '金琪斌', '2015-09-
 INSERT INTO `pms_task_user` VALUES ('7', '10003', '1003', '金琪斌', '2015-09-16 16:12:38');
 INSERT INTO `pms_task_user` VALUES ('8', '12510', '1003', '金琪斌', '2015-09-16 16:15:31');
 INSERT INTO `pms_task_user` VALUES ('9', '12521', '1003', '金琪斌', '2015-09-17 10:45:24');
+INSERT INTO `pms_task_user` VALUES ('10', '12529', '1003', '金琪斌', '2015-10-12 16:12:23');
+INSERT INTO `pms_task_user` VALUES ('11', '12529', '1005', '孙诗博', '2015-10-12 16:12:23');
+INSERT INTO `pms_task_user` VALUES ('12', '12530', '1003', '金琪斌', '2015-10-12 16:14:15');
+INSERT INTO `pms_task_user` VALUES ('13', '12530', '1005', '孙诗博', '2015-10-12 16:14:15');
+INSERT INTO `pms_task_user` VALUES ('14', '12531', '1003', '金琪斌', '2015-10-12 16:18:38');
+INSERT INTO `pms_task_user` VALUES ('15', '12531', '1005', '孙诗博', '2015-10-12 16:18:38');
+INSERT INTO `pms_task_user` VALUES ('16', '12528', '1003', '金琪斌', '2015-10-12 16:28:21');
+INSERT INTO `pms_task_user` VALUES ('17', '12532', '1005', '孙诗博', '2015-10-12 16:41:52');

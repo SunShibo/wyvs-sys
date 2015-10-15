@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyvs.wp.dao.PermissionDao">
+
+
+    <select id="selectAllPermission" resultType="com.wyvs.wp.entity.PermissionDo" >
+        SELECT * FROM pms_permission
+    </select>
+
+
+
+    <insert id="insert" parameterType="com.wyvs.wp.entity.PermissionDo" useGeneratedKeys="true" keyProperty="id">
+        <![CDATA[
+           INSERT INTO pms_permission (
+                 name, is_menu, parent_id,url,unique_flag,create_time,level
+                )
+            VALUES(
+                #{name}, #{isMenu},#{parentId}, #{url},
+                #{uniqueFlag},NOW(),#{level}
+            )
+        ]]>
+    </insert>
+
+    <update id="updateMember" parameterType="com.wyvs.wp.entity.PermissionDo">
+
+    </update>
+
+    <select id="selectPermissionByIdArray" resultType="com.wyvs.wp.entity.PermissionDo">
+        SELECT
+        id, name, is_menu, parent_id,url,unique_flag, level
+        FROM
+        pms_permission
+        WHERE
+            <foreach collection="ids" item="id" index="index"  separator="or">
+              id = #{id}
+            </foreach>
+    </select>
+
+    <select id="selectPermissionById" resultType="com.wyvs.wp.entity.PermissionDo">
+        SELECT
+        id, name, is_menu, parent_id,url,unique_flag , level
+        FROM
+        pms_permission
+        WHERE
+        id = #{id}
+    </select>
+</mapper>

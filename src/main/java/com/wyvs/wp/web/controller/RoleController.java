@@ -1,9 +1,12 @@
 package com.wyvs.wp.web.controller;
 
+import com.wyvs.wp.dao.PermissionDao;
 import com.wyvs.wp.entity.MemberDo;
+import com.wyvs.wp.entity.PermissionDo;
 import com.wyvs.wp.entity.QuitDo;
 import com.wyvs.wp.entity.RoleDo;
 import com.wyvs.wp.service.MemberService;
+import com.wyvs.wp.service.PermissionService;
 import com.wyvs.wp.service.QuitService;
 import com.wyvs.wp.service.RoleService;
 import com.wyvs.wp.util.*;
@@ -32,7 +35,7 @@ public class RoleController extends AbstractController {
 	private RoleService roleService;
 
 	@Autowired
-	private QuitService quitService;
+	private PermissionDao permissionDao ;
 
 
 
@@ -43,12 +46,20 @@ public class RoleController extends AbstractController {
 	 * @return
 	 */
 	@RequestMapping( params = "action=queryRoleList")
-	public ModelAndView logout (HttpServletRequest request
+	public ModelAndView queryRoleList (HttpServletRequest request
 			, HttpServletResponse response ) {
-		List<RoleDo> roleList = roleService.getRoleList() ;
-		ModelAndView mav = new ModelAndView("role/role_list") ;
-		mav.addObject("roleList" , roleList) ;
-		return mav;
+		try {
+			List<RoleDo> roleList = roleService.getRoleList() ;
+			List<PermissionDo> permissionList =  permissionDao.selectAllPermission () ;
+
+			ModelAndView mav = new ModelAndView("role/role_list") ;
+			mav.addObject("roleList" , roleList) ;
+			mav.addObject("permissionList" , permissionList) ;
+			return mav;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null ;
 	}
 
 }
