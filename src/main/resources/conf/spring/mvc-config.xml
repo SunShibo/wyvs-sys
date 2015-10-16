@@ -91,16 +91,16 @@
     </bean>
 
     <!-- 全局异常处理 -->
-    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="defaultErrorView">
-            <value>500.html</value>
-        </property>
-        <property name="defaultStatusCode">
-            <value>500</value>
-        </property>
-        <property name="warnLogCategory">
-            <value>org.springframework.web.servlet.handler.SimpleMappingExceptionResolver</value>
-        </property>
-    </bean>
+    <!--<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+        <!--<property name="defaultErrorView">-->
+            <!--<value>500.html</value>-->
+        <!--</property>-->
+        <!--<property name="defaultStatusCode">-->
+            <!--<value>500</value>-->
+        <!--</property>-->
+        <!--<property name="warnLogCategory">-->
+            <!--<value>org.springframework.web.servlet.handler.SimpleMappingExceptionResolver</value>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 </beans>

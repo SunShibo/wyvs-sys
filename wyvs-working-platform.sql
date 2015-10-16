@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-10-15 19:09:53
+Date: 2015-10-16 19:08:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -164,8 +164,8 @@ CREATE TABLE `pms_role` (
 -- Records of pms_role
 -- ----------------------------
 INSERT INTO `pms_role` VALUES ('1', 'Administrator', '1', '系统最高管理员', null, '2015-09-18 14:30:33', 'ALL');
-INSERT INTO `pms_role` VALUES ('2', '部长角色', null, '各部门部长角色', null, '2015-09-18 17:13:34', null);
-INSERT INTO `pms_role` VALUES ('3', '副部长角色', null, '各部门副部长角色', null, '2015-09-22 17:13:28', null);
+INSERT INTO `pms_role` VALUES ('2', '部长角色', null, '各部门部长角色', null, '2015-09-18 17:13:34', '9');
+INSERT INTO `pms_role` VALUES ('3', '副部长角色', null, '各部门副部长角色', null, '2015-09-22 17:13:28', '10');
 
 -- ----------------------------
 -- Table structure for `pms_schedule_info`

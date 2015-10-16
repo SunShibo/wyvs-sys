@@ -31,5 +31,15 @@
         from pms_role
     </select>
 
+    <update id="update" parameterType="com.wyvs.wp.entity.RoleDo">
+
+        UPDATE pms_role SET
+        <if test="permissionIds != null">
+            permission_ids = #{permissionIds} ,
+        </if>
+        id = #{id}
+        WHERE id = #{id}
+    </update>
+
 
 </mapper>

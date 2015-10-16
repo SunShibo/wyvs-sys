@@ -58,7 +58,7 @@
                                     <br/>
                                     #foreach($!p in $!permissionList)
                                         #if($!p.parentId==$!permission.id)
-                                            <input type="checkbox" id="permission-$!{p.id}" item-id="$!{p.id}"> $!{p.name}
+                                            <input type="checkbox" id="permission-$!{p.id}" item-id="$!{p.id}" name="per-checkbox"> $!{p.name}
                                         #end
                                     #end
                                 </div>
@@ -67,7 +67,7 @@
                         #end
                     </div><!-- /.box-body -->
                     <div class="box-footer clearfix">
-
+                        <button class="btn btn-primary btn-save-permission" type="button">Save</button>
                     </div>
                 </div><!-- /.box -->
             </div><!-- /.col -->
@@ -164,11 +164,33 @@
     $("#role_list_table td").click(function (){
         $("#role_list_table .chose-item-blue").removeClass("chose-item-blue") ;
         $(this).parent("tr").addClass("chose-item-blue") ;
-//        queryPermission ($(this).parent("tr").attr("item-id")) ;
+        queryPermission ($(this).parent("tr").attr("item-id")) ;
     }) ;
 
     function queryPermission (roleId) {
-
+        $("[name = 'per-checkbox']:checkbox").attr("checked", false);
+        $.ajax({
+            type : "post",
+            url : " permission?action=queryPermissionByRoleId",
+            data : {roleId : roleId} ,
+            dataType : "json",
+            success:function(data) {
+                if (data.code == 1) {
+                    var perIds = data.data.permissionIds ;
+                    if (perIds ==  "ALL") {
+                        $("[name = 'per-checkbox']:checkbox").each(function(){
+                            $(this).prop("checked",true);
+                        });
+                    }else {
+                        $.each(perIds.split(","), function(i, value) {
+                            $("#permission-" + value).prop("checked",true) ;
+                        });
+                    }
+                }else {
+                    alert("请求失败!") ;
+                }
+            }
+        });
     }
 
     $(".close , .close-btn").click(function() {
@@ -192,6 +214,29 @@
                     alert("创建成功！") ;
                 }else {
                     alert("创建失败！") ;
+                }
+            }
+        });
+    }) ;
+
+    $(".btn-save-permission").click(function() {
+        var permissionArray = new Array () ;
+        $("[name = 'per-checkbox']:checkbox").each(function(){
+            if($(this).prop("checked") == true){
+                permissionArray.push($(this).attr("item-id"));
+            }
+        }) ;
+
+        $.ajax({
+            type : "post",
+            url : " permission?action=modifyPermissionForRole",
+            data : {roleId : $(".chose-item-blue").attr("item-id") , permissionIds : permissionArray.join(",")} ,
+            dataType : "json",
+            success:function(data) {
+                if (data.code == 1) {
+                    alert("保存成功!") ;
+                }else {
+                    alert("请求失败!") ;
                 }
             }
         });

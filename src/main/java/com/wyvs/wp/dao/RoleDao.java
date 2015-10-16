@@ -18,5 +18,12 @@ public interface RoleDao {
      * @return
      */
     public List<RoleDo> selectRoleList () ;
+
+    /**
+     * 修改角色信息
+     * @param roleDo
+     * @return
+     */
+    public int update(RoleDo roleDo) ;
  	 
 }
