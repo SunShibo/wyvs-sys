@@ -69,7 +69,7 @@ public class LoginController extends AbstractController {
 			return mav ;
 		}
 		//查找角色信息
-		RoleDo role  = roleService.getRoleDoById(memberInfo.getId());
+		RoleDo role  = roleService.getRoleDoById(memberInfo.getRoleId());
 		// 菜单列表
 		super.putSession(request ,LoginConstant.LOGIN_ROLE_INFO , role);
 		// 登陆用户信息

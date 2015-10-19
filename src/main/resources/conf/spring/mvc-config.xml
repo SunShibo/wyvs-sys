@@ -33,17 +33,19 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
-            <mvc:mapping path="/index" />
-            <mvc:mapping path="/dm/**" />
-            <mvc:mapping path="/job/**" />
-            <mvc:mapping path="/org/**" />
-            <mvc:mapping path="/staff/**" />
-            <mvc:mapping path="/mutual/**" />
-            <mvc:mapping path="/capability/**" />
-            <mvc:mapping path="/res/**" />
-            <mvc:mapping path="/role/**" />
-            <mvc:mapping path="/wallpaper/**" />
-            <mvc:mapping path="/saver/**" />
+            <!--<mvc:mapping path="/index" />-->
+            <!--<mvc:mapping path="/dm/**" />-->
+            <!--<mvc:mapping path="/job/**" />-->
+            <!--<mvc:mapping path="/org/**" />-->
+            <!--<mvc:mapping path="/staff/**" />-->
+            <!--<mvc:mapping path="/mutual/**" />-->
+            <!--<mvc:mapping path="/capability/**" />-->
+            <!--<mvc:mapping path="/res/**" />-->
+            <!--<mvc:mapping path="/role/**" />-->
+            <!--<mvc:mapping path="/wallpaper/**" />-->
+            <!--<mvc:mapping path="/saver/**" />-->
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/loginpage/**"/>
             <bean class="com.wyvs.wp.web.support.interceptor.AuthInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
