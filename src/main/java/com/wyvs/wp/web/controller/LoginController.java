@@ -37,7 +37,7 @@ public class LoginController extends AbstractController {
             , HttpServletResponse response , MemberDo member){
 
         //校验参数
-		if (member == null || member.getEmail() == null
+ 		if (member == null || member.getEmail() == null
                 || member.getPassword() == null ) {
 
             ModelAndView mav = new ModelAndView("login.jsp") ;

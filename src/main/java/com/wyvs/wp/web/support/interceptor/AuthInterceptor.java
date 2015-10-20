@@ -3,11 +3,18 @@ package com.wyvs.wp.web.support.interceptor;
 
 import com.google.common.collect.Sets;
 import com.wyvs.wp.constants.LoginConstant;
+import com.wyvs.wp.constants.SysConstants;
+import com.wyvs.wp.dao.PermissionDao;
 import com.wyvs.wp.entity.MemberDo;
+import com.wyvs.wp.entity.PermissionDo;
 import com.wyvs.wp.entity.RoleDo;
+import com.wyvs.wp.service.PermissionService;
+import com.wyvs.wp.service.SystemService;
 import com.wyvs.wp.util.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,19 +29,13 @@ import java.util.Set;
 * @date 2015/1/12
 */
 public class AuthInterceptor extends HandlerInterceptorAdapter {
-//    private final Logger log = LoggerFactory.getLogger(CommonInterceptor.class);
-    public static final String LAST_PAGE = "com.alibaba.lastPage";
-//    不需要过滤的URL
+
+    @Autowired
+    private SystemService systemService ;
+
+    // 不需要过滤的URL
     public static final Set<String> unCheckList = Sets.newHashSet("/login?action=login") ;
-    /*
-     * 利用正则映射到需要拦截的路径
 
-    private String mappingURL;
-
-    public void setMappingURL(String mappingURL) {
-               this.mappingURL = mappingURL;
-    }
-  */
     /**
      * 在业务处理器处理请求之前被调用
      * 如果返回false
@@ -49,27 +50,47 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
-
         String invokeMethod = this.getInvokeMethod(request) ;
         String requestUrl = this.getUrl(request) ;
         System.out.println("url:" + requestUrl);
         System.out.println("invokeMethod:" + invokeMethod);
 
-//      不过滤名单
+        //不过滤名单
         if (unCheckList.contains(invokeMethod)) {
             return true;
         }
 
-//      检查登录用户是否为空
+        //检查登录用户是否为空
         MemberDo loginUser = (MemberDo)request.getSession().getAttribute(LoginConstant.LOGIN_USER_INFO);
-//      获取登录用户的角色对象，里面有所属的权限集合
+        //获取登录用户的角色对象，里面有所属的权限集合
         RoleDo loginUserRole = (RoleDo)request.getSession().getAttribute(LoginConstant.LOGIN_ROLE_INFO);
         if(loginUser == null || loginUserRole == null ) {
             System.out.println("登录用户为空！>>>>>>>>>>>>");
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return false;
         }
-
+        //获取所有权限
+        Map<String , Object> permissionMap = (Map<String , Object>)
+                RequestContextUtils.getWebApplicationContext(request)
+                        .getServletContext().getAttribute(SysConstants.ALL_PERMISSION);
+        if (permissionMap == null ) {
+            //如果丢失缓存就重新加载
+            permissionMap = systemService.uploadPermissionMapToContext() ;
+        }
+        //查找是否是需要过滤的URL
+        if (permissionMap.get(invokeMethod) != null ) {
+            RoleDo role  =  (RoleDo) request.getSession()
+                    .getAttribute(LoginConstant.LOGIN_ROLE_INFO);
+            for (PermissionDo per : role.getPermissionList()) {
+                if (!StringUtils.isEmpty(per.getUrl()) && per.getUrl().equals(invokeMethod)) {
+                    return true ;
+                }
+            }
+            System.out.println("无权限访问,url:" + invokeMethod + ",user:" + loginUser.getName());
+            request.getRequestDispatcher("system?action=prompt&title=Access Denied&" +
+                    "content=You don't have permission to access this URL, please contact with your system administrator.").forward(request, response);
+            return false;
+        }
         return true;
     }
 
@@ -131,11 +152,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
      */
     public String getInvokeMethod (HttpServletRequest request) {
         StringBuffer url = new StringBuffer(request.getRequestURI()) ;
-        String[] method = (String[] )request.getParameterMap().get("action") ;
-        if (!StringUtils.isEmpty(method[0])) {
-            url.append("?action=" + method[0]) ;
+        if (request.getParameterMap().get("action") != null ) {
+            String[] method = (String[] )request.getParameterMap().get("action") ;
+            if (!StringUtils.isEmpty(method[0])) {
+                url.append("?action=" + method[0]) ;
+            }
         }
         return url.toString() ;
     }
+
 
 }

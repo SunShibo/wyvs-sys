@@ -45,7 +45,8 @@
             <!--<mvc:mapping path="/wallpaper/**" />-->
             <!--<mvc:mapping path="/saver/**" />-->
             <mvc:mapping path="/**" />
-            <mvc:exclude-mapping path="/loginpage/**"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/system/**"/>
             <bean class="com.wyvs.wp.web.support.interceptor.AuthInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

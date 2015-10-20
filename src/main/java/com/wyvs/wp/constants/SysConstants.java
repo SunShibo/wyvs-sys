@@ -7,6 +7,9 @@ package com.wyvs.wp.constants;
  */
 public interface SysConstants {
 
+    /**所有权限*/
+    public static final String ALL_PERMISSION = "all_permission";
+
     /**
      * tair命名空间
      */

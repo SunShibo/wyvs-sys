@@ -52,5 +52,9 @@
         <property name="version" value="1.0.0" />
     </bean>-->
 
+    <bean id="systemServer" class="com.wyvs.wp.service.SystemService"
+          init-method="startServerInit">
+    </bean>
+
 
 </beans>

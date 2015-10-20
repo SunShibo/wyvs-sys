@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-10-16 19:08:34
+Date: 2015-10-20 19:13:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -91,8 +91,8 @@ CREATE TABLE `pms_member_info` (
 -- Records of pms_member_info
 -- ----------------------------
 INSERT INTO `pms_member_info` VALUES ('1003', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1', '1', '金琪斌', 'Qibin', '1', '2014-02-28', null, 'XX大学', '英语', '中国', '天津', '美国1', '波士顿1', '18601117545', '123456789', '395831708@qq.com', '395831708@qq.com', '../wyvs/member/1003/headPortrait/1420972207651.jpg', '2014-02-28 00:00:00', '2014-02-28 00:00:00', '2014-02-28 00:00:00', null, '0', '1', '测试数据', '', '美国XX街道', null, '纪检委');
-INSERT INTO `pms_member_info` VALUES ('1004', null, null, '1', '孙诗博', 'shibo', '1', null, null, '', '', '', '', '', '', '', null, '', '', '../wyvs/member/1004/headPortrait/1420969512711.png', null, null, null, null, '0', '1', '', '', '', 'B8', '高级开发工程师');
-INSERT INTO `pms_member_info` VALUES ('1005', null, null, '1', '孙诗博', 'SUN SHI BO', '1', null, null, '', '', '', '', '', '', '18601117545', '', '11111@qq.com', '00000@skype.com', null, '2015-08-14 17:38:04', null, null, '2015-08-14 17:38:04', '0', '1', '测试数据', null, null, 'P3', 'CTO(首席技术官)');
+INSERT INTO `pms_member_info` VALUES ('1004', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2', '1', '孙诗博', 'shibo', '1', null, null, 'XX大学', '', '', '', '', '', '', null, '123456@qq.com', '', '../wyvs/member/1004/headPortrait/1420969512711.png', null, null, null, null, '0', '1', '', '', '', 'B8', '高级开发工程师');
+INSERT INTO `pms_member_info` VALUES ('1005', null, '3', '1', '孙诗博', 'SUN SHI BO', '1', null, null, '', '', '', '', '', '', '18601117545', '', '11111@qq.com', '00000@skype.com', null, '2015-08-14 17:38:04', null, null, '2015-08-14 17:38:04', '0', '1', '测试数据', null, null, 'P3', 'CTO(首席技术官)');
 
 -- ----------------------------
 -- Table structure for `pms_member_quit`
@@ -142,8 +142,8 @@ CREATE TABLE `pms_permission` (
 INSERT INTO `pms_permission` VALUES ('1', 'ROOT', '0', '0', '0', null, 'ROOT', '2015-10-15 17:43:39');
 INSERT INTO `pms_permission` VALUES ('7', 'Member', '1', '0', '1', 'xxxxx', 'xxxxx', '2015-10-15 19:08:46');
 INSERT INTO `pms_permission` VALUES ('8', 'Task', '1', '0', '1', 'xxxxx', 'xxxxx', '2015-10-15 19:08:57');
-INSERT INTO `pms_permission` VALUES ('9', 'Member List', '2', '0', '7', 'xxx', 'xxx', '2015-10-15 19:09:10');
-INSERT INTO `pms_permission` VALUES ('10', 'Task List', '2', '0', '8', 'xxxx', 'xxx', '2015-10-15 19:09:21');
+INSERT INTO `pms_permission` VALUES ('9', 'Member', '2', '1', '7', '/member?action=memberList', 'xxx', '2015-10-15 19:09:10');
+INSERT INTO `pms_permission` VALUES ('10', 'Mission', '2', '1', '8', '/task?action=task_index', 'xxx', '2015-10-15 19:09:21');
 
 -- ----------------------------
 -- Table structure for `pms_role`
@@ -163,7 +163,7 @@ CREATE TABLE `pms_role` (
 -- ----------------------------
 -- Records of pms_role
 -- ----------------------------
-INSERT INTO `pms_role` VALUES ('1', 'Administrator', '1', '系统最高管理员', null, '2015-09-18 14:30:33', 'ALL');
+INSERT INTO `pms_role` VALUES ('1', 'Administrator', '1', '系统最高管理员', null, '2015-09-18 14:30:33', '9,10');
 INSERT INTO `pms_role` VALUES ('2', '部长角色', null, '各部门部长角色', null, '2015-09-18 17:13:34', '9');
 INSERT INTO `pms_role` VALUES ('3', '副部长角色', null, '各部门副部长角色', null, '2015-09-22 17:13:28', '10');
 
