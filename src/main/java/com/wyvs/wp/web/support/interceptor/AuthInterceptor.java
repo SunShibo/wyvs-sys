@@ -66,7 +66,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         RoleDo loginUserRole = (RoleDo)request.getSession().getAttribute(LoginConstant.LOGIN_ROLE_INFO);
         if(loginUser == null || loginUserRole == null ) {
             System.out.println("登录用户为空！>>>>>>>>>>>>");
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
             return false;
         }
         //获取所有权限
@@ -88,7 +88,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             }
             System.out.println("无权限访问,url:" + invokeMethod + ",user:" + loginUser.getName());
             request.getRequestDispatcher("system?action=prompt&title=Access Denied&" +
-                    "content=You don't have permission to access this URL, please contact with your system administrator.").forward(request, response);
+                    "content=You don't have permission to access this URL, please contact with your system administrator.")
+                    .forward(request, response);
             return false;
         }
         return true;

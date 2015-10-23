@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-10-20 19:13:35
+Date: 2015-10-23 18:57:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -121,6 +121,24 @@ CREATE TABLE `pms_member_quit` (
 INSERT INTO `pms_member_quit` VALUES ('1', '1005', '孙诗博/SUN SHI BO', 'SUN SHI BO', null, 'P3', '2015-08-27 17:41:39', '2015-08-26', '2015-08-14', 'test', '1003', '金琪斌', 'new');
 
 -- ----------------------------
+-- Table structure for `pms_member_timeline`
+-- ----------------------------
+DROP TABLE IF EXISTS `pms_member_timeline`;
+CREATE TABLE `pms_member_timeline` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) DEFAULT NULL,
+  `content` varchar(500) DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `member_id` int(9) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pms_member_timeline
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `pms_permission`
 -- ----------------------------
 DROP TABLE IF EXISTS `pms_permission`;
@@ -134,7 +152,7 @@ CREATE TABLE `pms_permission` (
   `unique_flag` varchar(200) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pms_permission
@@ -144,6 +162,8 @@ INSERT INTO `pms_permission` VALUES ('7', 'Member', '1', '0', '1', 'xxxxx', 'xxx
 INSERT INTO `pms_permission` VALUES ('8', 'Task', '1', '0', '1', 'xxxxx', 'xxxxx', '2015-10-15 19:08:57');
 INSERT INTO `pms_permission` VALUES ('9', 'Member', '2', '1', '7', '/member?action=memberList', 'xxx', '2015-10-15 19:09:10');
 INSERT INTO `pms_permission` VALUES ('10', 'Mission', '2', '1', '8', '/task?action=task_index', 'xxx', '2015-10-15 19:09:21');
+INSERT INTO `pms_permission` VALUES ('11', 'add', '2', '0', '7', '/member?action=newMemberPage', 'NEW-MEMBER-PAGE', '2015-10-21 10:31:50');
+INSERT INTO `pms_permission` VALUES ('13', 'add-submit', '2', '0', '7', '/member?action=newMember', 'NEW-MEMBER', '2015-10-21 11:52:54');
 
 -- ----------------------------
 -- Table structure for `pms_role`
@@ -163,7 +183,7 @@ CREATE TABLE `pms_role` (
 -- ----------------------------
 -- Records of pms_role
 -- ----------------------------
-INSERT INTO `pms_role` VALUES ('1', 'Administrator', '1', '系统最高管理员', null, '2015-09-18 14:30:33', '9,10');
+INSERT INTO `pms_role` VALUES ('1', 'Administrator', '1', '系统最高管理员', null, '2015-09-18 14:30:33', 'ALL');
 INSERT INTO `pms_role` VALUES ('2', '部长角色', null, '各部门部长角色', null, '2015-09-18 17:13:34', '9');
 INSERT INTO `pms_role` VALUES ('3', '副部长角色', null, '各部门副部长角色', null, '2015-09-22 17:13:28', '10');
 

@@ -325,5 +325,18 @@ public class MemberController extends AbstractController {
 
 	}
 
+	/***
+	 * 跳转MyZone页面
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping( params = "action=getMyZonePage")
+	public ModelAndView getMyZonePage (HttpServletRequest request
+			, HttpServletResponse response ){
+		MemberDo loginUser = super.getLoginUser(request) ;
+		ModelAndView mav = new ModelAndView ("member/my_zone");
+		return mav ;
+	}
+
 
 }

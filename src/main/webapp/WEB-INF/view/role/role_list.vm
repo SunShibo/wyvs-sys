@@ -58,7 +58,9 @@
                                     <br/>
                                     #foreach($!p in $!permissionList)
                                         #if($!p.parentId==$!permission.id)
+                                            <span style="margin-right: 20px">
                                             <input type="checkbox" id="permission-$!{p.id}" item-id="$!{p.id}" name="per-checkbox"> $!{p.name}
+                                            </span>
                                         #end
                                     #end
                                 </div>
@@ -167,6 +169,7 @@
         queryPermission ($(this).parent("tr").attr("item-id")) ;
     }) ;
 
+    /**查询权限*/
     function queryPermission (roleId) {
         $("[name = 'per-checkbox']:checkbox").attr("checked", false);
         $.ajax({
@@ -192,18 +195,19 @@
             }
         });
     }
-
+    /**关闭模态框*/
     $(".close , .close-btn").click(function() {
         $(".modal").hide() ;
     }) ;
 
+    /**添加权限*/
     $(".btn-addPermission, #new-btn").click(function() {
         parentId = $(this).attr("item-id") ;
         $(".add-modal").show() ;
     }) ;
 
-    $(".btn-save").click(function (){
-
+    /**提交添加权限*/
+    $(".btn-save").click(function () {
         jQuery("#form-add-permission").ajaxSubmit({
             type: 'post',
             url: "/permission?action=addPermission" ,
@@ -211,7 +215,8 @@
             dataType:"json",
             success: function(data){
                 if (data.code == 1) {
-                    alert("创建成功！") ;
+                    $(".modal").hide() ;
+                    window.location.href="role?action=queryRoleList" ;
                 }else {
                     alert("创建失败！") ;
                 }

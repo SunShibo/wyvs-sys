@@ -5,6 +5,7 @@ import com.wyvs.wp.dao.RoleDao;
 import com.wyvs.wp.entity.PermissionDo;
 import com.wyvs.wp.entity.RoleDo;
 import com.wyvs.wp.service.RoleService;
+import com.wyvs.wp.service.SystemService;
 import com.wyvs.wp.util.JsonUtils;
 import com.wyvs.wp.util.StringUtils;
 import net.sf.json.JSONObject;
@@ -30,6 +31,9 @@ public class PermissionController extends AbstractController {
 
 	@Autowired
 	private RoleDao roleDao ;
+
+	@Autowired
+	private SystemService systemService ;
 
 	/**
 	 * 添加权限
@@ -61,6 +65,7 @@ public class PermissionController extends AbstractController {
 		int rowNum = permissionDao.insert(permissionDo) ;
 		JSONObject json = JsonUtils.encapsulationJSON( rowNum > 0 ? 1 : 0, "", "") ;
 		super.safeJsonPrint(response , json.toString());
+		systemService.uploadPermissionMapToContext() ;
 	}
 
 	/**

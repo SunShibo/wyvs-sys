@@ -92,7 +92,7 @@ public class LoginController extends AbstractController {
 		super.removeSession(request ,LoginConstant.LOGIN_USER_INFO );
 		super.removeSession(request ,LoginConstant.USER_MENU_LIST );
 
-		ModelAndView mav = new ModelAndView("login.jsp") ;
+		ModelAndView mav = new ModelAndView("WEB-INF/login.jsp") ;
 		return mav;
 	}
 
