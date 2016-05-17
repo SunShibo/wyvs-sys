@@ -1,22 +1,19 @@
 package com.wyvs.wp.web.controller;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import com.wyvs.wp.constants.LoginConstant;
-import com.wyvs.wp.entity.MemberDo;
-import com.wyvs.wp.entity.PermissionDo;
-import com.wyvs.wp.entity.RoleDo;
-import com.wyvs.wp.service.MemberService;
-import com.wyvs.wp.service.RoleService;
-import com.wyvs.wp.util.MD5Util;
-import com.wyvs.wp.web.controller.base.BaseCotroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.wyvs.wp.constants.LoginConstant;
+import com.wyvs.wp.entity.MemberDo;
+import com.wyvs.wp.entity.RoleDo;
+import com.wyvs.wp.service.MemberService;
+import com.wyvs.wp.service.RoleService;
+import com.wyvs.wp.util.MD5Util;
 
 /**
  * 登陆Controller
